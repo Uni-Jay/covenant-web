@@ -14,7 +14,7 @@ const About = () => {
           >
             <h1 className="text-5xl md:text-6xl font-bold mb-4">About Us</h1>
             <p className="text-xl italic text-gold-300">
-              "Light of the World" - John 8:12
+              "Household of the living God" - 1 Timothy 3:15
             </p>
           </motion.div>
         </div>
@@ -26,10 +26,10 @@ const About = () => {
           <div className="max-w-4xl mx-auto">
             <h2 className="section-title text-center">Our Story</h2>
             <p className="text-gray-700 text-lg leading-relaxed mb-6">
-              Word of Covenant Church was founded with a divine vision to be a beacon of hope and light in our community. Located at 140, Obafemi Awolowo Road, Radio Bus stop, Ikorodu, Lagos Nigeria, our church has been a spiritual home for countless families seeking to grow in their faith and relationship with God.
+              Household Of Covenant And Faith Apostolic Ministry was founded with a divine vision to be a beacon of hope and light in our community. Located at 140, Obafemi Awolowo Road, Radio Bus stop, Ikorodu, Lagos Nigeria, our church has been a spiritual home for countless families seeking to grow in their faith and relationship with God.
             </p>
             <p className="text-gray-700 text-lg leading-relaxed mb-6">
-              Our name comes from the profound understanding that God's Word is His covenant with us - unchanging, faithful, and full of promises. As Jesus declared in John 8:12, "I am the light of the world. Whoever follows me will never walk in darkness, but will have the light of life." This verse guides our mission and vision.
+              Our name comes from the profound understanding that God's Word is His covenant with us - unchanging, faithful, and full of promises. As stated in 1 Timothy 3:15, we are the "household of the living God, the pillar and foundation of the truth." This scripture guides our mission and vision.
             </p>
           </div>
         </div>
@@ -117,7 +117,7 @@ const About = () => {
               <FaQuoteLeft className="text-5xl text-primary-600 mb-6" />
               <h2 className="text-3xl font-bold mb-6">Pastor's Message</h2>
               <p className="text-gray-700 text-lg leading-relaxed mb-6">
-                Welcome to Word of Covenant Church! It is my joy and privilege to shepherd this wonderful congregation. Our church is more than just a building - it's a family where you belong, a place where you can grow in your faith, and a community where you can make a difference.
+                Welcome to Household Of Covenant And Faith Apostolic Ministry! It is my joy and privilege to shepherd this wonderful congregation. Our church is more than just a building - it's a family where you belong, a place where you can grow in your faith, and a community where you can make a difference.
               </p>
               <p className="text-gray-700 text-lg leading-relaxed mb-6">
                 As we walk together in faith, I invite you to experience God's transforming love and discover the purpose He has for your life. Whether you're seeking answers, looking for hope, or wanting to deepen your relationship with Christ, you'll find a home here.

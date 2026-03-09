@@ -50,7 +50,7 @@ const Donate = () => {
                 </div>
                 <div>
                   <p className="text-sm text-gray-600 mb-1">Account Name</p>
-                  <p className="text-2xl font-bold text-gray-900">Word of Covenant Church</p>
+                  <p className="text-2xl font-bold text-gray-900">Household Of Covenant And Faith Apostolic Ministry</p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-600 mb-1">Account Number</p>

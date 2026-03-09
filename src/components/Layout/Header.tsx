@@ -41,15 +41,15 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3 group">
             <img 
-              src="/image/Word of Covenant Logo.jpg" 
-              alt="Word of Covenant Church Logo" 
-              className="w-14 h-14 md:w-16 md:h-16 object-contain transition-transform group-hover:scale-110"
+              src="/image/New_Logo.png" 
+              alt="Household Of Covenant And Faith Apostolic Ministry Logo" 
+              className="w-28 h-28 md:w-40 md:h-40 object-contain transition-transform group-hover:scale-110"
             />
             <div>
               <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-blue-700 to-red-700 bg-clip-text text-transparent">
-                Word of Covenant Church
+                Household Of Covenant And Faith Apostolic Ministry
               </h1>
-              <p className="text-xs text-gray-600 italic">Light of the World (John 8:12)</p>
+              <p className="text-xs text-gray-600 italic">Household of the Living God (1 Tim 3:15)</p>
             </div>
           </Link>
 

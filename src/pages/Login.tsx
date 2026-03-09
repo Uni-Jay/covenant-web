@@ -32,8 +32,8 @@ const Login = () => {
       >
         <div className="text-center mb-8">
           <img 
-            src="/image/Word of Covenant Logo.jpg" 
-            alt="Word of Covenant Church Logo" 
+            src="/image/New_Logo.png" 
+            alt="Household Of Covenant And Faith Apostolic Ministry Logo" 
             className="w-20 h-20 mx-auto mb-4 object-contain"
           />
           <h1 className="text-3xl font-bold mb-2">Admin Login</h1>

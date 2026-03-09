@@ -20,16 +20,16 @@ const Footer = () => {
           <div>
             <div className="flex items-center space-x-3 mb-4">
               <img 
-                src="/image/Word of Covenant Logo.jpg" 
-                alt="Word of Covenant Church Logo" 
-                className="w-12 h-12 object-contain"
+                src="/image/New_Logo.png" 
+                alt="Household Of Covenant And Faith Apostolic Ministry Logo" 
+                className="w-28 h-28 md:w-42 md:h-42 object-contain"
               />
               <div>
                 <h3 className="text-white text-lg font-bold bg-gradient-to-r from-blue-400 to-red-400 bg-clip-text text-transparent">
-                  Word of Covenant Church
+                  Household Of Covenant And Faith Apostolic Ministry
                 </h3>
                 <p className="text-xs italic text-blue-300">
-                  "Light of the World" - John 8:12
+                  "Household of the living God" - 1 Timothy 3:15
                 </p>
               </div>
             </div>
@@ -199,7 +199,7 @@ const Footer = () => {
         <div className="container-custom py-6">
           <div className="flex flex-col md:flex-row justify-between items-center text-sm">
             <p>
-              &copy; {new Date().getFullYear()} Word of Covenant Church. All
+              &copy; {new Date().getFullYear()} Household Of Covenant And Faith Apostolic Ministry. All
               rights reserved.
             </p>
             <p className="mt-2 md:mt-0 flex items-center">

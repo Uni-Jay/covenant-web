@@ -15,12 +15,12 @@ const Home = () => {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-5xl md:text-7xl font-bold mb-6">
-              Welcome to Word of Covenant Church
+              Welcome to Household Of Covenant And Faith Apostolic Ministry
             </h1>
             <p className="text-2xl md:text-3xl mb-4 italic text-gold-300">
-              "I am the light of the world. Whoever follows me will never walk in darkness, but will have the light of life."
+              "Household of the living God"
             </p>
-            <p className="text-xl mb-8">- John 8:12</p>
+            <p className="text-xl mb-8">- 1 Timothy 3:15</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/live" className="btn-primary inline-flex items-center space-x-2">
                 <FaPlay />
@@ -51,7 +51,7 @@ const Home = () => {
                 A place where faith comes alive
               </p>
               <p className="text-gray-700 mb-6">
-                At Word of Covenant Church, we are a community of believers dedicated to spreading the love of Christ and serving our community. Located at 140, Obafemi Awolowo Road, Radio Bus stop, Ikorodu, Lagos Nigeria, we welcome you to join our family.
+                At Household Of Covenant And Faith Apostolic Ministry, we are a community of believers dedicated to spreading the love of Christ and serving our community. Located at 140, Obafemi Awolowo Road, Radio Bus stop, Ikorodu, Lagos Nigeria, we welcome you to join our family.
               </p>
               <p className="text-gray-700 mb-6">
                 Whether you're seeking spiritual growth, fellowship, or a place to call home, we invite you to experience God's presence with us.

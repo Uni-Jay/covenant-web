@@ -51,7 +51,7 @@ const AdminLayout = () => {
           {sidebarOpen ? (
             <div className="flex items-center space-x-2">
               <img 
-                src="/image/Word of Covenant Logo.jpg" 
+                src="/image/New_Logo.png" 
                 alt="Word of Covenant Logo" 
                 className="w-10 h-10 object-contain"
               />
@@ -59,7 +59,7 @@ const AdminLayout = () => {
             </div>
           ) : (
             <img 
-              src="/image/Word of Covenant Logo.jpg" 
+              src="/image/New_Logo.png" 
               alt="Word of Covenant Logo" 
               className="w-10 h-10 object-contain mx-auto"
             />
@@ -120,7 +120,7 @@ const AdminLayout = () => {
         <header className="bg-white shadow-sm p-4">
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-bold">
-              Word of Covenant Church - Admin
+              Household Of Covenant And Faith Apostolic Ministry - Admin
             </h1>
             <Link
               to="/"

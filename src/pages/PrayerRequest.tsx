@@ -187,7 +187,7 @@ const PrayerRequest = () => {
                 <FaHeart className="text-4xl text-primary-600 mb-4" />
                 <h3 className="text-2xl font-bold mb-4">We're Here for You</h3>
                 <p className="text-gray-700 leading-relaxed mb-4">
-                  At Word of Covenant Church, we believe in the power of prayer. Our dedicated prayer team commits to praying for every request submitted.
+                  At Household Of Covenant And Faith Apostolic Ministry, we believe in the power of prayer. Our dedicated prayer team commits to praying for every request submitted.
                 </p>
                 <p className="text-gray-700 leading-relaxed">
                   "The prayer of a righteous person is powerful and effective." - James 5:16
