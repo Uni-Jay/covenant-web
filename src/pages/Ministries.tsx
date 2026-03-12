@@ -89,6 +89,14 @@ const Ministries = () => {
     },
     {
       id: 6,
+      name: 'Drama Ministry',
+      description: 'Bringing biblical stories and messages to life through creative theatrical performances and skits.',
+      leader: 'Bro. David Adebayo',
+      imageUrl: 'https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?w=400',
+      schedule: 'Wednesday 5:00 PM',
+    },
+    {
+      id: 7,
       name: 'Media Department',
       description: 'Broadcasting the Gospel through technology. Responsible for live streaming, recordings, and digital content.',
       leader: 'Bro. James Okafor',
@@ -96,7 +104,7 @@ const Ministries = () => {
       schedule: 'All Services',
     },
     {
-      id: 7,
+      id: 8,
       name: 'Ushering',
       description: 'Welcoming and serving with excellence, making everyone feel at home.',
       leader: 'Sis. Blessing Adeyemi',
@@ -104,7 +112,7 @@ const Ministries = () => {
       schedule: 'All Services',
     },
     {
-      id: 8,
+      id: 9,
       name: 'Evangelism',
       description: 'Reaching the lost with the Gospel of Jesus Christ through outreach and soul winning.',
       leader: 'Pastor Daniel Okeke',
@@ -113,7 +121,12 @@ const Ministries = () => {
     },
   ];
 
-  const displayMinistries = ministries.length > 0 ? ministries : defaultMinistries;
+  // Remove duplicates based on ministry name and use ministries from API if available
+  const allMinistries = ministries.length > 0 ? ministries : defaultMinistries;
+  const uniqueMinistries = Array.from(
+    new Map(allMinistries.map((m: any) => [m.name.toLowerCase(), m])).values()
+  );
+  const displayMinistries = uniqueMinistries;
 
   return (
     <div className="min-h-screen bg-gray-50">

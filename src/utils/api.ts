@@ -81,7 +81,7 @@ export const blogAPI = {
 
 // Prayer Requests APIs
 export const prayerRequestsAPI = {
-  getAll: () => api.get('/prayer-requests'),
+  getAll: () => api.get('/prayer-requests/all'),
   create: (data: any) => api.post('/prayer-requests', data),
   updateStatus: (id: number, status: string) => 
     api.patch(`/prayer-requests/${id}`, { status }),
@@ -90,13 +90,27 @@ export const prayerRequestsAPI = {
 
 // Donations APIs
 export const donationsAPI = {
-  getAll: () => api.get('/donations'),
+  getAll: () => api.get('/donations/all'),
   create: (data: any) => api.post('/donations', data),
 };
 
 // Ministries APIs
 export const ministriesAPI = {
   getAll: () => api.get('/ministries'),
+};
+
+// Dashboard APIs
+export const dashboardAPI = {
+  getStats: () => api.get('/dashboard/stats'),
+  getEvents: () => api.get('/dashboard/events'),
+  getAttendance: () => api.get('/dashboard/attendance'),
+  getGiving: () => api.get('/dashboard/giving'),
+  getDepartments: () => api.get('/dashboard/departments'),
+};
+
+// Members/Users APIs
+export const membersAPI = {
+  getAll: () => api.get('/auth/users'),
 };
 
 export default api;

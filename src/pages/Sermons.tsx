@@ -6,6 +6,8 @@ import { motion } from 'framer-motion';
 import ReactPlayer from 'react-player';
 import { toast } from 'react-toastify';
 
+const SERVER_URL = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000';
+
 const Sermons = () => {
   const [sermons, setSermons] = useState<Sermon[]>([]);
   const [loading, setLoading] = useState(true);
@@ -22,8 +24,11 @@ const Sermons = () => {
   const fetchSermons = async () => {
     try {
       const response = await sermonsAPI.getAll();
+      console.log('Fetched sermons:', response.data);
+      console.log('Total sermons count:', response.data?.length || 0);
       setSermons(response.data);
     } catch (error) {
+      console.error('Error fetching sermons:', error);
       toast.error('Failed to load sermons');
     } finally {
       setLoading(false);
@@ -65,22 +70,37 @@ const Sermons = () => {
               />
             </div>
 
-            {/* Category Filter */}
-            <div className="flex gap-2 overflow-x-auto">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`px-4 py-2 rounded-lg font-medium whitespace-nowrap transition-colors ${
-                    selectedCategory === category
-                      ? 'bg-primary-600 text-white'
-                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                  }`}
-                >
-                  {category.charAt(0).toUpperCase() + category.slice(1)}
-                </button>
-              ))}
+            {/* Category Filter and Refresh Button */}
+            <div className="flex gap-2 items-center">
+              <button
+                onClick={fetchSermons}
+                className="px-4 py-2 bg-secondary-600 text-white rounded-lg font-medium hover:bg-secondary-700 transition-colors flex items-center gap-2"
+                title="Refresh sermons list"
+              >
+                <span>🔄</span>
+                <span className="hidden sm:inline">Refresh</span>
+              </button>
+              <div className="flex gap-2 overflow-x-auto">
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`px-4 py-2 rounded-lg font-medium whitespace-nowrap transition-colors ${
+                      selectedCategory === category
+                        ? 'bg-primary-600 text-white'
+                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                    }`}
+                  >
+                    {category.charAt(0).toUpperCase() + category.slice(1)}
+                  </button>
+                ))}
+              </div>
             </div>
+          </div>
+          
+          {/* Sermon count */}
+          <div className="mt-4 text-sm text-gray-600">
+            Showing {filteredSermons.length} of {sermons.length} sermon{sermons.length !== 1 ? 's' : ''}
           </div>
         </div>
       </section>
@@ -109,7 +129,7 @@ const Sermons = () => {
                 >
                   <div className="relative">
                     <img
-                      src={sermon.thumbnailUrl ? `http://localhost:5000${sermon.thumbnailUrl}` : 'https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=400'}
+                      src={sermon.thumbnailUrl ? `${SERVER_URL}${sermon.thumbnailUrl}` : 'https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=400'}
                       alt={sermon.title}
                       className="w-full h-48 object-cover"
                     />
@@ -165,7 +185,7 @@ const Sermons = () => {
               {selectedSermon.videoUrl && (
                 <div className="mb-6">
                   <ReactPlayer
-                    url={selectedSermon.videoUrl}
+                    url={`${SERVER_URL}${selectedSermon.videoUrl}`}
                     width="100%"
                     height="400px"
                     controls
@@ -188,7 +208,7 @@ const Sermons = () => {
               <div className="flex gap-4">
                 {selectedSermon.audioUrl && (
                   <a
-                    href={selectedSermon.audioUrl}
+                    href={`${SERVER_URL}${selectedSermon.audioUrl}`}
                     download
                     className="btn-primary flex items-center space-x-2"
                   >
@@ -198,7 +218,7 @@ const Sermons = () => {
                 )}
                 {selectedSermon.pdfUrl && (
                   <a
-                    href={selectedSermon.pdfUrl}
+                    href={`${SERVER_URL}${selectedSermon.pdfUrl}`}
                     download
                     className="btn-secondary flex items-center space-x-2"
                   >

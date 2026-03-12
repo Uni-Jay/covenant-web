@@ -114,7 +114,7 @@ const AdminBlog = () => {
                         setCurrentPost(post);
                         setShowModal(true);
                       }}
-                      className="text-blue-600 hover:text-blue-800"
+                      className="text-primary-600 hover:text-primary-800"
                     >
                       <FaEdit />
                     </button>

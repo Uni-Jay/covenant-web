@@ -3,7 +3,7 @@ export interface User {
   email: string;
   firstName: string;
   lastName: string;
-  role: 'admin' | 'member';
+  role: 'admin' | 'member' | 'super_admin';
   department?: string;
 }
 
@@ -75,7 +75,7 @@ export interface PrayerRequest {
   phone?: string;
   request: string;
   category: string;
-  status: 'pending' | 'prayed' | 'answered';
+  status: 'pending' | 'prayed' | 'answered' | 'open' | 'ongoing';
   createdAt: string;
 }
 

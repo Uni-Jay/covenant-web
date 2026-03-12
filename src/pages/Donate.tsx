@@ -95,7 +95,7 @@ const Donate = () => {
               </div>
             </div>
             
-            <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 text-center">
+            <div className="bg-primary-50 border border-primary-200 rounded-xl p-6 text-center">
               <p className="text-sm text-gray-700 mb-4">After making your transfer, please send confirmation with your name and purpose to:</p>
               <div className="space-y-2">
                 <div className="flex items-center justify-center space-x-2">

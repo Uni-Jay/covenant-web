@@ -17,8 +17,11 @@ const AdminSermons = () => {
   const fetchSermons = async () => {
     try {
       const response = await sermonsAPI.getAll();
+      console.log('Admin: Fetched sermons:', response.data);
+      console.log('Admin: Total sermons count:', response.data?.length || 0);
       setSermons(response.data);
     } catch (error) {
+      console.error('Admin: Error fetching sermons:', error);
       toast.error('Failed to load sermons');
     }
   };
@@ -109,7 +112,7 @@ const AdminSermons = () => {
                         setCurrentSermon(sermon);
                         setShowModal(true);
                       }}
-                      className="text-blue-600 hover:text-blue-800"
+                      className="text-primary-600 hover:text-primary-800"
                     >
                       <FaEdit />
                     </button>

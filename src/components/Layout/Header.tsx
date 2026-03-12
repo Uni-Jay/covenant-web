@@ -43,10 +43,10 @@ const Header = () => {
             <img 
               src="/image/New_Logo.png" 
               alt="Household Of Covenant And Faith Apostolic Ministry Logo" 
-              className="w-28 h-28 md:w-40 md:h-40 object-contain transition-transform group-hover:scale-110"
+              className="w-28 h-28 md:w-42 md:h-42 object-contain transition-transform group-hover:scale-110"
             />
             <div>
-              <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-blue-700 to-red-700 bg-clip-text text-transparent">
+              <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-primary-700 to-accent-700 bg-clip-text text-transparent w-full">
                 Household Of Covenant And Faith Apostolic Ministry
               </h1>
               <p className="text-xs text-gray-600 italic">Household of the Living God (1 Tim 3:15)</p>
@@ -61,29 +61,29 @@ const Header = () => {
                 to={link.path}
                 className={`font-semibold transition-all duration-300 relative ${
                   isActive(link.path)
-                    ? 'text-blue-700'
-                    : 'text-gray-700 hover:text-blue-600'
+                    ? 'text-primary-700'
+                    : 'text-gray-700 hover:text-primary-600'
                 } after:absolute after:bottom-0 after:left-0 after:h-0.5 after:transition-all ${
                   isActive(link.path) 
-                    ? 'after:w-full after:bg-blue-700' 
-                    : 'after:w-0 hover:after:w-full hover:after:bg-blue-600'
+                    ? 'after:w-full after:bg-primary-700' 
+                    : 'after:w-0 hover:after:w-full hover:after:bg-primary-600'
                 }`}
               >
                 {link.name}
               </Link>
             ))}
             
-            {user && user.role === 'admin' && (
+            {user && (user.role === 'admin' || user.role === 'super_admin') && (
             <div className="flex items-center space-x-4">
               <Link
                 to="/admin"
-                className="px-4 py-2 bg-gradient-to-r from-blue-600 to-red-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-red-700 transition-all shadow-md hover:shadow-lg"
+                className="px-4 py-2 bg-gradient-to-r from-primary-600 to-secondary-600 text-white rounded-lg font-semibold hover:from-primary-700 hover:to-secondary-700 transition-all shadow-md hover:shadow-lg"
               >
                 Admin Dashboard
               </Link>
               <button
                 onClick={logout}
-                className="flex items-center space-x-2 px-4 py-2 border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-white rounded-lg font-semibold transition-all"
+                className="flex items-center space-x-2 px-4 py-2 border-2 border-accent-600 text-accent-600 hover:bg-accent-600 hover:text-white rounded-lg font-semibold transition-all"
               >
                 <FaSignOutAlt />
                 <span>Logout</span>
@@ -103,7 +103,7 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <nav className="lg:hidden mt-4 pb-4 border-t-2 border-blue-200 pt-4 bg-gradient-to-b from-white to-blue-50 rounded-lg px-4">
+          <nav className="lg:hidden mt-4 pb-4 border-t-2 border-primary-200 pt-4 bg-gradient-to-b from-white to-primary-50 rounded-lg px-4">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
@@ -111,8 +111,8 @@ const Header = () => {
                 onClick={() => setIsOpen(false)}
                 className={`block py-3 font-semibold rounded-lg px-3 my-1 transition-all ${
                   isActive(link.path)
-                    ? 'bg-blue-600 text-white'
-                    : 'text-gray-700 hover:bg-blue-100 hover:text-blue-700'
+                    ? 'bg-primary-600 text-white'
+                    : 'text-gray-700 hover:bg-primary-100 hover:text-primary-700'
                 }`}
               >
                 {link.name}
@@ -120,11 +120,11 @@ const Header = () => {
             ))}
             {user ? (
               <>
-                {user.role === 'admin' && (
+                {(user.role === 'admin' || user.role === 'super_admin') && (
                   <Link
                     to="/admin"
                     onClick={() => setIsOpen(false)}
-                    className="block py-3 my-2 font-semibold bg-gradient-to-r from-blue-600 to-red-600 text-white rounded-lg text-center"
+                    className="block py-3 my-2 font-semibold bg-gradient-to-r from-primary-600 to-secondary-600 text-white rounded-lg text-center"
                   >
                     Admin Dashboard
                   </Link>
@@ -134,7 +134,7 @@ const Header = () => {
                     logout();
                     setIsOpen(false);
                   }}
-                  className="block py-3 my-2 font-semibold border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-white rounded-lg w-full text-center transition-all"
+                  className="block py-3 my-2 font-semibold border-2 border-accent-600 text-accent-600 hover:bg-accent-600 hover:text-white rounded-lg w-full text-center transition-all"
                 >
                   Logout
                 </button>
@@ -143,7 +143,7 @@ const Header = () => {
               <Link
                 to="/login"
                 onClick={() => setIsOpen(false)}
-                className="block py-3 my-2 font-semibold bg-blue-600 text-white rounded-lg text-center hover:bg-blue-700 transition-all"
+                className="block py-3 my-2 font-semibold bg-primary-600 text-white rounded-lg text-center hover:bg-primary-700 transition-all"
               >
                 Login
               </Link>

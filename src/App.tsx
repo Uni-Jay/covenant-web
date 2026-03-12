@@ -13,6 +13,8 @@ import Ministries from './pages/Ministries'
 import BibleStudy from './pages/BibleStudy'
 import LiveStream from './pages/LiveStream'
 import Login from './pages/Login'
+import ForgotPassword from './pages/ForgotPassword'
+import ResetPassword from './pages/ResetPassword'
 // import Register from './pages/Register'
 import AdminLayout from './components/Admin/AdminLayout'
 import AdminDashboard from './pages/Admin/Dashboard'
@@ -46,6 +48,9 @@ function App() {
 
       {/* Admin Login Route */}
       <Route path="/admin/login" element={<Login />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
 
       {/* Admin Routes - Protected */}
       <Route
