@@ -43,7 +43,7 @@ const Header = () => {
             <img 
               src="/image/New_Logo.png" 
               alt="Household Of Covenant And Faith Apostolic Ministry Logo" 
-              className="w-28 h-28 md:w-42 md:h-42 object-contain transition-transform group-hover:scale-110"
+              className="w-28 h-28 md:w-42 md:h-30 object-contain transition-transform group-hover:scale-110"
             />
             <div>
               <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-primary-700 to-accent-700 bg-clip-text text-transparent w-full">
