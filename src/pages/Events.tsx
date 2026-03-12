@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { eventsAPI } from '../utils/api';
+import { eventsAPI, getAssetUrl } from '../utils/api';
 import { Event } from '../types';
 import { FaCalendar, FaClock, FaMapMarkerAlt } from 'react-icons/fa';
 import { motion } from 'framer-motion';
@@ -109,7 +109,7 @@ const Events = () => {
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredEvents.map((event, index) => {
-                const imageUrl = event.imageUrl ? `http://localhost:5000${event.imageUrl}` : 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=400';
+                const imageUrl = event.imageUrl ? getAssetUrl(event.imageUrl) : 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=400';
                 return (
                 <motion.div
                   key={event.id}

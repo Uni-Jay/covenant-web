@@ -199,7 +199,7 @@ const Ministries = () => {
           <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
             God has equipped you with unique gifts and talents. Use them to serve in one of our ministries and make an eternal impact!
           </p>
-          <a href="mailto:info@wordofcovenant.org" className="btn-primary">
+          <a href="mailto:info@hocfam.org" className="btn-primary">
             Get Involved Today
           </a>
         </div>

@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react';
-import { sermonsAPI } from '../utils/api';
+import { getAssetUrl, sermonsAPI } from '../utils/api';
 import { Sermon } from '../types';
 import { FaPlay, FaHeadphones, FaFilePdf, FaEye, FaSearch } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import ReactPlayer from 'react-player';
 import { toast } from 'react-toastify';
-
-const SERVER_URL = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000';
 
 const Sermons = () => {
   const [sermons, setSermons] = useState<Sermon[]>([]);
@@ -129,7 +127,7 @@ const Sermons = () => {
                 >
                   <div className="relative">
                     <img
-                      src={sermon.thumbnailUrl ? `${SERVER_URL}${sermon.thumbnailUrl}` : 'https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=400'}
+                      src={sermon.thumbnailUrl ? getAssetUrl(sermon.thumbnailUrl) : 'https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=400'}
                       alt={sermon.title}
                       className="w-full h-48 object-cover"
                     />
@@ -185,7 +183,7 @@ const Sermons = () => {
               {selectedSermon.videoUrl && (
                 <div className="mb-6">
                   <ReactPlayer
-                    url={`${SERVER_URL}${selectedSermon.videoUrl}`}
+                    url={getAssetUrl(selectedSermon.videoUrl)}
                     width="100%"
                     height="400px"
                     controls
@@ -208,7 +206,7 @@ const Sermons = () => {
               <div className="flex gap-4">
                 {selectedSermon.audioUrl && (
                   <a
-                    href={`${SERVER_URL}${selectedSermon.audioUrl}`}
+                    href={getAssetUrl(selectedSermon.audioUrl)}
                     download
                     className="btn-primary flex items-center space-x-2"
                   >
@@ -218,7 +216,7 @@ const Sermons = () => {
                 )}
                 {selectedSermon.pdfUrl && (
                   <a
-                    href={`${SERVER_URL}${selectedSermon.pdfUrl}`}
+                    href={getAssetUrl(selectedSermon.pdfUrl)}
                     download
                     className="btn-secondary flex items-center space-x-2"
                   >

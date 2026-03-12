@@ -3,6 +3,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { FaLock, FaCheckCircle, FaExclamationTriangle } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import axios from 'axios';
+import { API_URL } from '../utils/api';
 
 const ResetPassword = () => {
   const [searchParams] = useSearchParams();
@@ -17,7 +18,6 @@ const ResetPassword = () => {
   const navigate = useNavigate();
   
   const token = searchParams.get('token');
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
   useEffect(() => {
     const verifyToken = async () => {

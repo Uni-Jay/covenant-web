@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { galleryAPI } from '../../utils/api';
+import { galleryAPI, getAssetUrl } from '../../utils/api';
 import { GalleryItem } from '../../types';
 import { FaPlus, FaTrash } from 'react-icons/fa';
 import { toast } from 'react-toastify';
@@ -112,7 +112,7 @@ const AdminGallery = () => {
         {filteredImages.map((image) => (
           <div key={image.id} className="bg-white rounded-xl shadow-md overflow-hidden">
             <img 
-              src={`http://localhost:5000${image.imageUrl}`} 
+              src={getAssetUrl(image.imageUrl)} 
               alt={image.title}
               className="w-full h-48 object-cover"
             />

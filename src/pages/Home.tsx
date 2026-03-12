@@ -218,7 +218,7 @@ const Home = () => {
                 </p>
                 <p className="flex items-start space-x-3">
                   <span className="font-bold">Email:</span>
-                  <span>info@wordofcovenant.org</span>
+                  <span>info@hocfam.org</span>
                 </p>
               </div>
               <Link to="/contact" className="btn-primary mt-6 inline-block">

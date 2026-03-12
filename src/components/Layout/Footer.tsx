@@ -176,10 +176,10 @@ const Footer = () => {
               <li className="flex items-center space-x-3 hover:bg-primary-900/30 p-2 rounded transition-colors">
                 <FaEnvelope className="text-secondary-500 flex-shrink-0" />
                 <a
-                  href="mailto:info@wordofcovenant.org"
+                  href="mailto:info@hocfam.org"
                   className="hover:text-secondary-300"
                 >
-                  info@wordofcovenant.org
+                  info@hocfam.org
                 </a>
               </li>
             </ul>

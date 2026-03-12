@@ -100,7 +100,7 @@ const Login = () => {
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   required
                   className="w-full pl-12 pr-4 py-4 bg-white/10 backdrop-blur-md border border-white/30 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-secondary-400 focus:border-transparent transition-all relative"
-                  placeholder="admin@wordofcovenant.org"
+                  placeholder="admin@hocfam.org"
                 />
               </div>
             </motion.div>

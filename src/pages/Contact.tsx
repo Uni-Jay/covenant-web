@@ -61,8 +61,8 @@ const Contact = () => {
               {
                 icon: FaEnvelope,
                 title: 'Email',
-                content: 'info@wordofcovenant.org',
-                link: 'mailto:info@wordofcovenant.org',
+                content: 'info@hocfam.org',
+                link: 'mailto:info@hocfam.org',
               },
             ].map((item, index) => (
               <motion.div
@@ -182,8 +182,8 @@ const Contact = () => {
                 </p>
                 <div className="flex space-x-4">
                   {[
-                    { icon: FaFacebook, link: 'https://facebook.com', color: 'hover:text-blue-600' },
-                    { icon: FaTwitter, link: 'https://twitter.com', color: 'hover:text-blue-400' },
+                    { icon: FaFacebook, link: "https://www.facebook.com/share/1J3U5WtaQH/", color: 'hover:text-blue-600' },
+                    { icon: FaTwitter, link: "https://x.com/HMinistry85962", color: 'hover:text-blue-400' },
                     { icon: FaInstagram, link: 'https://instagram.com', color: 'hover:text-pink-600' },
                     { icon: FaYoutube, link: 'https://youtube.com', color: 'hover:text-red-600' },
                   ].map((social, index) => (

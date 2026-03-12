@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FaEnvelope, FaChurch, FaCheckCircle } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import axios from 'axios';
+import { API_URL } from '../utils/api';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -16,7 +17,6 @@ const ForgotPassword = () => {
     setError('');
 
     try {
-      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
       await axios.post(`${API_URL}/auth/forgot-password`, { email });
       setSubmitted(true);
     } catch (err: any) {

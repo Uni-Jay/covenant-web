@@ -100,7 +100,7 @@ const Donate = () => {
               <div className="space-y-2">
                 <div className="flex items-center justify-center space-x-2">
                   <FaEnvelope className="text-primary-600" />
-                  <a href="mailto:info@wordofcovenant.org" className="text-primary-600 hover:underline">info@wordofcovenant.org</a>
+                  <a href="mailto:info@hocfam.org" className="text-primary-600 hover:underline">info@hocfam.org</a>
                 </div>
                 <div className="flex items-center justify-center space-x-2">
                   <FaPhone className="text-primary-600" />

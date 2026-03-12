@@ -1,6 +1,27 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const configuredApiUrl = import.meta.env.VITE_API_URL?.trim();
+const fallbackApiUrl = import.meta.env.DEV
+  ? 'http://localhost:5000/api'
+  : typeof window !== 'undefined'
+    ? `${window.location.origin}/api`
+    : '/api';
+
+export const API_URL = (configuredApiUrl || fallbackApiUrl).replace(/\/$/, '');
+export const SERVER_URL = API_URL.endsWith('/api') ? API_URL.slice(0, -4) : API_URL;
+
+export function getAssetUrl(assetPath?: string | null) {
+  if (!assetPath) {
+    return '';
+  }
+
+  if (/^https?:\/\//i.test(assetPath)) {
+    return assetPath;
+  }
+
+  const normalizedPath = assetPath.startsWith('/') ? assetPath : `/${assetPath}`;
+  return `${SERVER_URL}${normalizedPath}`;
+}
 
 const api = axios.create({
   baseURL: API_URL,

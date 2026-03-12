@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { blogAPI } from '../utils/api';
+import { blogAPI, getAssetUrl } from '../utils/api';
 import { BlogPost } from '../types';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
@@ -57,7 +57,7 @@ const Blog = () => {
                 >
                   <div className="overflow-hidden">
                     <img
-                      src={post.imageUrl ? `http://localhost:5000${post.imageUrl}` : 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400'}
+                      src={post.imageUrl ? getAssetUrl(post.imageUrl) : 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400'}
                       alt={post.title}
                       className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
                     />
