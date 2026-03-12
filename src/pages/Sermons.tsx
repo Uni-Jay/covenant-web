@@ -207,7 +207,7 @@ const Sermons = () => {
                 {selectedSermon.audioUrl && (
                   <a
                     href={getAssetUrl(selectedSermon.audioUrl)}
-                    download
+                      download={`${selectedSermon.title} - ${selectedSermon.preacher}${selectedSermon.audioUrl.substring(selectedSermon.audioUrl.lastIndexOf('.'))}`}
                     className="btn-primary flex items-center space-x-2"
                   >
                     <FaHeadphones />
@@ -217,7 +217,7 @@ const Sermons = () => {
                 {selectedSermon.pdfUrl && (
                   <a
                     href={getAssetUrl(selectedSermon.pdfUrl)}
-                    download
+                      download={`${selectedSermon.title} - ${selectedSermon.preacher}.pdf`}
                     className="btn-secondary flex items-center space-x-2"
                   >
                     <FaFilePdf />
