@@ -13,14 +13,14 @@ const Donate = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-gold-600 to-gold-800 text-white py-20">
+      <section className="bg-gradient-to-r from-gold-600 to-gold-800 text-white py-14 md:py-20">
         <div className="container-custom text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
           >
             <FaHeart className="text-6xl mx-auto mb-6" />
-            <h1 className="text-5xl font-bold mb-4">Give to God's Work</h1>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Give to God's Work</h1>
             <p className="text-xl max-w-2xl mx-auto">
               Your generosity enables us to spread the Gospel, serve our community, and make a lasting impact for God's Kingdom.
             </p>

@@ -43,9 +43,9 @@ const Sermons = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-20">
+      <section className="page-hero">
         <div className="container-custom text-center">
-          <h1 className="text-5xl font-bold mb-4">Sermons</h1>
+          <h1 className="page-hero-title">Sermons</h1>
           <p className="text-xl">
             Listen to inspiring messages that transform lives
           </p>
@@ -53,7 +53,7 @@ const Sermons = () => {
       </section>
 
       {/* Filters */}
-      <section className="py-8 bg-white shadow-md sticky top-20 z-40">
+      <section className="py-6 md:py-8 bg-white shadow-md sticky top-16 md:top-20 z-40">
         <div className="container-custom">
           <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
             {/* Search */}
@@ -111,7 +111,7 @@ const Sermons = () => {
               <div className="spinner"></div>
             </div>
           ) : filteredSermons.length === 0 ? (
-            <div className="text-center py-20">
+            <div className="text-center py-14 md:py-20">
               <p className="text-gray-600 text-xl">No sermons found</p>
             </div>
           ) : (

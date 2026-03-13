@@ -27,9 +27,9 @@ const Blog = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-20">
+      <section className="page-hero">
         <div className="container-custom text-center">
-          <h1 className="text-5xl font-bold mb-4">Blog & News</h1>
+          <h1 className="page-hero-title">Blog & News</h1>
           <p className="text-xl">Stay updated with the latest from our church</p>
         </div>
       </section>
@@ -42,7 +42,7 @@ const Blog = () => {
               <div className="spinner"></div>
             </div>
           ) : posts.length === 0 ? (
-            <div className="text-center py-20">
+            <div className="text-center py-14 md:py-20">
               <p className="text-gray-600 text-xl">No blog posts yet</p>
             </div>
           ) : (

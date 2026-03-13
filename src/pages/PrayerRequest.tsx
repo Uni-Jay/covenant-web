@@ -57,14 +57,14 @@ const PrayerRequest = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-20">
+      <section className="page-hero">
         <div className="container-custom text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
           >
             <FaPray className="text-6xl mx-auto mb-6" />
-            <h1 className="text-5xl font-bold mb-4">Prayer Request</h1>
+            <h1 className="page-hero-title">Prayer Request</h1>
             <p className="text-xl max-w-2xl mx-auto">
               We believe in the power of prayer. Share your prayer needs with us, and our prayer team will intercede on your behalf.
             </p>

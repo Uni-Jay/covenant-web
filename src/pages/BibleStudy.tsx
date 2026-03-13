@@ -84,10 +84,10 @@ const BibleStudy = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-20">
+      <section className="page-hero">
         <div className="container-custom text-center">
           <FaBook className="text-6xl mx-auto mb-6" />
-          <h1 className="text-5xl font-bold mb-4">Bible Study</h1>
+          <h1 className="page-hero-title">Bible Study</h1>
           <p className="text-xl">Grow deeper in your knowledge of God's Word</p>
         </div>
       </section>

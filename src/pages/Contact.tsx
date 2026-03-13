@@ -40,9 +40,9 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-20">
+      <section className="page-hero">
         <div className="container-custom text-center">
-          <h1 className="text-5xl font-bold mb-4">Contact Us</h1>
+          <h1 className="page-hero-title">Contact Us</h1>
           <p className="text-xl">We'd love to hear from you!</p>
         </div>
       </section>

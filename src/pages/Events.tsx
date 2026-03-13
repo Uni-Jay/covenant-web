@@ -71,9 +71,9 @@ const Events = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-20">
+      <section className="page-hero">
         <div className="container-custom text-center">
-          <h1 className="text-5xl font-bold mb-4">Events</h1>
+          <h1 className="page-hero-title">Events</h1>
           <p className="text-xl">Join us for inspiring gatherings and fellowship</p>
         </div>
       </section>
@@ -107,7 +107,7 @@ const Events = () => {
               <div className="spinner"></div>
             </div>
           ) : filteredEvents.length === 0 ? (
-            <div className="text-center py-20">
+            <div className="text-center py-14 md:py-20">
               <p className="text-gray-600 text-xl">No events found</p>
             </div>
           ) : (

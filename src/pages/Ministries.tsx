@@ -61,9 +61,9 @@ const Ministries = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-20">
+      <section className="page-hero">
         <div className="container-custom text-center">
-          <h1 className="text-5xl font-bold mb-4">Our Ministries</h1>
+          <h1 className="page-hero-title">Our Ministries</h1>
           <p className="text-xl">Find your place to serve and grow</p>
         </div>
       </section>
@@ -76,7 +76,7 @@ const Ministries = () => {
               <div className="spinner"></div>
             </div>
           ) : displayMinistries.length === 0 ? (
-            <div className="text-center py-20 text-gray-600 text-xl">No ministries available right now.</div>
+            <div className="text-center py-14 md:py-20 text-gray-600 text-xl">No ministries available right now.</div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {displayMinistries.map((ministry, index) => (
@@ -124,7 +124,7 @@ const Ministries = () => {
       </section>
 
       {/* Call to Action */}
-      <section className="py-20 bg-primary-50">
+      <section className="section-padding bg-primary-50">
         <div className="container-custom text-center">
           <FaUsers className="text-6xl text-primary-600 mx-auto mb-6" />
           <h2 className="text-4xl font-bold mb-4">Find Your Ministry</h2>

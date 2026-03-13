@@ -35,7 +35,7 @@ const LiveStream = () => {
         <div className="container-custom">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-4xl md:text-5xl font-bold mb-2">Live Stream</h1>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2">Live Stream</h1>
               <p className="text-xl">Join us for live worship and the Word</p>
             </div>
             {isLive && (
