@@ -123,10 +123,31 @@ export const ministriesAPI = {
 };
 
 export const contentAPI = {
-  getBibleStudy: () => api.get('/content/bible-study'),
+  getBibleStudy: (fresh = false) => api.get('/content/bible-study', {
+    params: fresh ? { t: Date.now() } : undefined,
+    headers: fresh
+      ? {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          Pragma: 'no-cache',
+          Expires: '0',
+        }
+      : undefined,
+  }),
   joinBibleStudyWeek: (data: any) => api.post('/content/bible-study/join-week', data),
   enrollBibleStudy: (data: any) => api.post('/content/bible-study/enroll', data),
   getLiveStream: () => api.get('/content/livestream'),
+  getAdminBibleStudy: () => api.get('/content/admin/bible-study'),
+  updateWeeklyBibleStudy: (data: any) => api.put('/content/admin/bible-study/weekly', data),
+  createBibleStudySeries: (data: any) => api.post('/content/admin/bible-study/series', data),
+  updateBibleStudySeries: (id: number, data: any) => api.put(`/content/admin/bible-study/series/${id}`, data),
+  deleteBibleStudySeries: (id: number) => api.delete(`/content/admin/bible-study/series/${id}`),
+  createBibleStudyResource: (data: FormData) => api.post('/content/admin/bible-study/resources', data, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  }),
+  updateBibleStudyResource: (id: number, data: FormData) => api.put(`/content/admin/bible-study/resources/${id}`, data, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  }),
+  deleteBibleStudyResource: (id: number) => api.delete(`/content/admin/bible-study/resources/${id}`),
 };
 
 // Dashboard APIs

@@ -98,3 +98,31 @@ export interface Ministry {
   imageUrl: string;
   schedule: string;
 }
+
+export interface BibleStudyWeekly {
+  id?: number;
+  title: string;
+  scripture: string;
+  time: string;
+  location: string;
+}
+
+export interface BibleStudySeries {
+  id: number;
+  title: string;
+  description?: string;
+  duration?: string;
+  level?: string;
+  sortOrder?: number;
+  isActive?: boolean;
+}
+
+export interface BibleStudyResource {
+  id: number;
+  title: string;
+  type?: string;
+  size?: string;
+  url: string;
+  sortOrder?: number;
+  isActive?: boolean;
+}

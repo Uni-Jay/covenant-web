@@ -1,8 +1,28 @@
 import { Link } from 'react-router-dom';
 import { FaPlay, FaCalendar, FaPray, FaHeart, FaBook } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { contentAPI } from '../utils/api';
 
 const Home = () => {
+  const [bibleStudyTime, setBibleStudyTime] = useState('Thursday 6:00 PM - 7:00 PM');
+
+  useEffect(() => {
+    const fetchBibleStudyTime = async () => {
+      try {
+        const response = await contentAPI.getBibleStudy(true);
+        const serverTime = response.data?.weeklyStudy?.time;
+        if (serverTime) {
+          setBibleStudyTime(serverTime);
+        }
+      } catch (error) {
+        // Keep default schedule if API is unavailable.
+      }
+    };
+
+    fetchBibleStudyTime();
+  }, []);
+
   return (
     <div>
       {/* Hero Section */}
@@ -86,7 +106,7 @@ const Home = () => {
               { day: 'Sunday School', time: '8:00 AM - 9:00 AM', icon: FaBook },
               { day: 'Sunday Service', time: '9:00 AM - 11:00 AM', icon: FaBook },
               { day: 'Prayer Hour', time: 'Tuesday 6:00 PM - 7:00 PM', icon: FaPray },
-              { day: 'Bible Study', time: 'Thursday 6:00 PM - 7:00 PM', icon: FaBook },
+              { day: 'Bible Study', time: bibleStudyTime, icon: FaBook },
               { day: 'Monthly Vigil', time: 'Last Friday 11:00 PM - 4:00 AM', icon: FaPray },
             ].map((service, index) => (
               <motion.div

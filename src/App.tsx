@@ -20,6 +20,7 @@ import AdminLayout from './components/Admin/AdminLayout'
 import AdminDashboard from './pages/Admin/Dashboard'
 import AdminSermons from './pages/Admin/Sermons'
 import AdminEvents from './pages/Admin/Events'
+import AdminBibleStudy from './pages/Admin/BibleStudy'
 import AdminGallery from './pages/Admin/Gallery'
 import AdminBlog from './pages/Admin/Blog'
 import AdminMembers from './pages/Admin/Members'
@@ -64,6 +65,7 @@ function App() {
         <Route index element={<AdminDashboard />} />
         <Route path="sermons" element={<AdminSermons />} />
         <Route path="events" element={<AdminEvents />} />
+        <Route path="bible-study" element={<AdminBibleStudy />} />
         <Route path="gallery" element={<AdminGallery />} />
         <Route path="blog" element={<AdminBlog />} />
         <Route path="members" element={<AdminMembers />} />

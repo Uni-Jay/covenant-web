@@ -23,7 +23,7 @@ const Contact = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await api.post('/contact', { ...formData, category: 'info' });
+      const response = await api.post('/contact', { ...formData, category: 'info' }, { timeout: 20000 });
       if (response.data?.emailDelivered === false) {
         toast.warning(response.data?.warning || 'Message was saved, but email delivery could not be confirmed.');
       } else {

@@ -24,6 +24,7 @@ const AdminLayout = () => {
     { path: '/admin', icon: FaTachometerAlt, label: 'Dashboard', exact: true },
     { path: '/admin/sermons', icon: FaBook, label: 'Sermons' },
     { path: '/admin/events', icon: FaCalendar, label: 'Events' },
+    { path: '/admin/bible-study', icon: FaBook, label: 'Bible Study' },
     { path: '/admin/gallery', icon: FaImages, label: 'Gallery' },
     { path: '/admin/blog', icon: FaBlog, label: 'Blog' },
     { path: '/admin/members', icon: FaUsers, label: 'Members' },

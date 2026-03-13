@@ -2,17 +2,17 @@ import { FaBook, FaDownload, FaCalendar, FaTimes } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { contentAPI } from '../utils/api';
-
+import { contentAPI, getAssetUrl } from '../utils/api';
+import { BibleStudyResource, BibleStudySeries, BibleStudyWeekly } from '../types';
 
 const BibleStudy = () => {
   const [loading, setLoading] = useState(true);
-  const [weeklyStudy, setWeeklyStudy] = useState<any>(null);
-  const [studies, setStudies] = useState<any[]>([]);
-  const [resources, setResources] = useState<any[]>([]);
+  const [weeklyStudy, setWeeklyStudy] = useState<BibleStudyWeekly | null>(null);
+  const [studies, setStudies] = useState<BibleStudySeries[]>([]);
+  const [resources, setResources] = useState<BibleStudyResource[]>([]);
   const [showEnrollModal, setShowEnrollModal] = useState(false);
   const [showJoinWeekModal, setShowJoinWeekModal] = useState(false);
-  const [selectedStudy, setSelectedStudy] = useState<any>(null);
+  const [selectedStudy, setSelectedStudy] = useState<BibleStudySeries | null>(null);
   const [enrollData, setEnrollData] = useState({
     name: '',
     email: '',
@@ -28,7 +28,7 @@ const BibleStudy = () => {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const response = await contentAPI.getBibleStudy();
+        const response = await contentAPI.getBibleStudy(true);
         setWeeklyStudy(response.data.weeklyStudy);
         setStudies(response.data.studies || []);
         setResources(response.data.resources || []);
@@ -58,7 +58,7 @@ const BibleStudy = () => {
     }
   };
 
-  const handleEnroll = (study: any) => {
+  const handleEnroll = (study: BibleStudySeries) => {
     setSelectedStudy(study);
     setEnrollData({ ...enrollData, studyTitle: study.title });
     setShowEnrollModal(true);
@@ -76,8 +76,8 @@ const BibleStudy = () => {
     }
   };
 
-  const handleDownload = (resource: any) => {
-    window.open(resource.url, '_blank', 'noopener,noreferrer');
+  const handleDownload = (resource: BibleStudyResource) => {
+    window.open(getAssetUrl(resource.url), '_blank', 'noopener,noreferrer');
     toast.success(`Opening ${resource.title}...`);
   };
 
@@ -113,20 +113,21 @@ const BibleStudy = () => {
                     <div className="space-y-2">
                       <div className="flex items-center space-x-3">
                         <FaCalendar className="text-primary-600" />
-                        <span className="font-semibold">{weeklyStudy?.time}</span>
+                        <span className="font-semibold">{weeklyStudy?.time || 'To be announced'}</span>
                       </div>
-                      <p className="text-gray-600 ml-8">Location: {weeklyStudy?.location}</p>
+                      <p className="text-gray-600 ml-8">Location: {weeklyStudy?.location || 'To be announced'}</p>
                       <p className="text-gray-600 ml-8">Also available via Zoom</p>
                     </div>
                   </div>
                   <div className="bg-white p-6 rounded-xl shadow-md">
                     <h3 className="text-xl font-bold mb-3">This Week's Topic</h3>
                     <p className="text-2xl font-bold text-primary-600 mb-2">
-                      "{weeklyStudy?.title}"
+                      "{weeklyStudy?.title || 'Coming soon'}"
                     </p>
-                    <p className="text-gray-600 mb-4">{weeklyStudy?.scripture}</p>
+                    <p className="text-gray-600 mb-4">{weeklyStudy?.scripture || 'Scripture reference will be shared by admin.'}</p>
                     <button 
                       onClick={handleJoinWeek}
+                      disabled={!weeklyStudy}
                       className="btn-primary"
                     >
                       Join This Week
@@ -175,6 +176,11 @@ const BibleStudy = () => {
                     </button>
                   </motion.div>
                 ))}
+                {!studies.length && (
+                  <div className="md:col-span-3 text-center text-gray-500 py-8">
+                    No Bible Study series has been uploaded by admin yet.
+                  </div>
+                )}
               </div>
 
               {/* Resources */}
@@ -203,6 +209,11 @@ const BibleStudy = () => {
                       </button>
                     </div>
                   ))}
+                  {!resources.length && (
+                    <div className="md:col-span-2 text-center text-gray-500 py-6">
+                      No study resources have been uploaded by admin yet.
+                    </div>
+                  )}
                 </div>
               </div>
             </>
@@ -302,7 +313,7 @@ const BibleStudy = () => {
             <div className="flex justify-between items-start mb-4">
               <div>
                 <h2 className="text-2xl font-bold">Join This Week's Study</h2>
-                <h3 className="text-lg text-primary-600 mt-1">Walking in the Light</h3>
+                <h3 className="text-lg text-primary-600 mt-1">{weeklyStudy?.title || 'Bible Study'}</h3>
               </div>
               <button
                 onClick={() => setShowJoinWeekModal(false)}
