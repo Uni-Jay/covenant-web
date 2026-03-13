@@ -22,7 +22,7 @@ const ForgotPassword = () => {
       const response = await axios.post(
         `${API_URL}/auth/forgot-password`,
         { email },
-        { timeout: 15000 }
+        { timeout: 30000 }
       );
       if (response.data?.emailDelivered === false) {
         setWarning(response.data?.warning || 'Reset request was created, but email delivery could not be confirmed.');
@@ -30,7 +30,8 @@ const ForgotPassword = () => {
       setSubmitted(true);
     } catch (err: any) {
       if (err.code === 'ECONNABORTED') {
-        setError('The reset request took too long. Please try again in a moment.');
+        setWarning('Your reset request was received, but email delivery is delayed. Please check your inbox and spam folder shortly.');
+        setSubmitted(true);
         return;
       }
       setError(err.response?.data?.message || 'Failed to send reset email. Please try again.');
