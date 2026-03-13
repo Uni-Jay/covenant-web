@@ -13,6 +13,7 @@ const ResetPassword = () => {
   const [verifying, setVerifying] = useState(true);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
+  const [warning, setWarning] = useState('');
   const [tokenValid, setTokenValid] = useState(false);
   const [email, setEmail] = useState('');
   const navigate = useNavigate();
@@ -60,12 +61,16 @@ const ResetPassword = () => {
 
     setLoading(true);
     setError('');
+    setWarning('');
 
     try {
-      await axios.post(`${API_URL}/auth/reset-password`, {
+      const response = await axios.post(`${API_URL}/auth/reset-password`, {
         token,
         newPassword: password,
       });
+      if (response.data?.emailDelivered === false) {
+        setWarning(response.data?.warning || 'Password was reset, but confirmation email delivery could not be confirmed.');
+      }
       setSuccess(true);
       setTimeout(() => navigate('/login'), 3000);
     } catch (err: any) {
@@ -154,6 +159,11 @@ const ResetPassword = () => {
                   A confirmation email has been sent to <strong className="text-white">{email}</strong>
                 </p>
               </div>
+              {warning && (
+                <div className="bg-yellow-500/10 border border-yellow-400/30 rounded-xl p-4 mb-6">
+                  <p className="text-yellow-200 text-sm">{warning}</p>
+                </div>
+              )}
               <p className="text-white/60 text-sm">
                 Redirecting to sign in page...
               </p>

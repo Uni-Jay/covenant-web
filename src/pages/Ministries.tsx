@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ministriesAPI } from '../utils/api';
+import { getAssetUrl, ministriesAPI } from '../utils/api';
 import { Ministry } from '../types';
 import { FaUsers, FaClock, FaUser, FaTimes } from 'react-icons/fa';
 import { motion } from 'framer-motion';
@@ -25,9 +25,18 @@ const Ministries = () => {
 
   const handleJoinSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success(`Successfully submitted request to join ${selectedMinistry?.name}! We'll contact you soon.`);
-    setShowJoinModal(false);
-    setJoinData({ name: '', email: '', phone: '', ministryName: '' });
+    try {
+      const response = await ministriesAPI.join(selectedMinistry.id, joinData);
+      if (response.data?.emailDelivered === false) {
+        toast.warning('Join request saved, but email delivery could not be confirmed.');
+      } else {
+        toast.success(`Successfully submitted request to join ${selectedMinistry?.name}! We'll contact you soon.`);
+      }
+      setShowJoinModal(false);
+      setJoinData({ name: '', email: '', phone: '', ministryName: '' });
+    } catch (error) {
+      toast.error('Failed to submit ministry join request');
+    }
   };
 
   useEffect(() => {
@@ -45,88 +54,9 @@ const Ministries = () => {
     }
   };
 
-  // Default ministries if none from API
-  const defaultMinistries = [
-    {
-      id: 1,
-      name: 'Children Ministry',
-      description: 'Nurturing young hearts to know and love Jesus. Age-appropriate lessons, activities, and fun!',
-      leader: 'Sister Grace Ade',
-      imageUrl: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400',
-      schedule: 'Sunday 9:00 AM',
-    },
-    {
-      id: 2,
-      name: 'Youth Ministry',
-      description: 'Empowering young people to live boldly for Christ in today\'s world.',
-      leader: 'Pastor David Okon',
-      imageUrl: 'https://images.unsplash.com/photo-1529070538774-1843cb3265df?w=400',
-      schedule: 'Saturday 4:00 PM',
-    },
-    {
-      id: 3,
-      name: 'Women Ministry',
-      description: 'Building godly women of faith, purpose, and strength.',
-      leader: 'Sis. Sarah Johnson',
-      imageUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400',
-      schedule: 'First Saturday 10:00 AM',
-    },
-    {
-      id: 4,
-      name: 'Men Ministry',
-      description: 'Equipping men to be spiritual leaders in their homes and communities.',
-      leader: 'Elder Michael Brown',
-      imageUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400',
-      schedule: 'Second Saturday 2:00 PM',
-    },
-    {
-      id: 5,
-      name: 'Choir & Music',
-      description: 'Using our voices and instruments to worship God and inspire others.',
-      leader: 'Minister Emmanuel Nwankwo',
-      imageUrl: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=400',
-      schedule: 'Thursday 6:00 PM (Rehearsal)',
-    },
-    {
-      id: 6,
-      name: 'Drama Ministry',
-      description: 'Bringing biblical stories and messages to life through creative theatrical performances and skits.',
-      leader: 'Bro. David Adebayo',
-      imageUrl: 'https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?w=400',
-      schedule: 'Wednesday 5:00 PM',
-    },
-    {
-      id: 7,
-      name: 'Media Department',
-      description: 'Broadcasting the Gospel through technology. Responsible for live streaming, recordings, and digital content.',
-      leader: 'Bro. James Okafor',
-      imageUrl: 'https://images.unsplash.com/photo-1492724724894-7464c27d0ceb?w=400',
-      schedule: 'All Services',
-    },
-    {
-      id: 8,
-      name: 'Ushering',
-      description: 'Welcoming and serving with excellence, making everyone feel at home.',
-      leader: 'Sis. Blessing Adeyemi',
-      imageUrl: 'https://images.unsplash.com/photo-1529070538774-1843cb3265df?w=400',
-      schedule: 'All Services',
-    },
-    {
-      id: 9,
-      name: 'Evangelism',
-      description: 'Reaching the lost with the Gospel of Jesus Christ through outreach and soul winning.',
-      leader: 'Pastor Daniel Okeke',
-      imageUrl: 'https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=400',
-      schedule: 'Saturday 3:00 PM',
-    },
-  ];
-
-  // Remove duplicates based on ministry name and use ministries from API if available
-  const allMinistries = ministries.length > 0 ? ministries : defaultMinistries;
-  const uniqueMinistries = Array.from(
-    new Map(allMinistries.map((m: any) => [m.name.toLowerCase(), m])).values()
+  const displayMinistries = Array.from(
+    new Map(ministries.map((m: any) => [m.name.toLowerCase(), m])).values()
   );
-  const displayMinistries = uniqueMinistries;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -145,6 +75,8 @@ const Ministries = () => {
             <div className="flex justify-center items-center h-64">
               <div className="spinner"></div>
             </div>
+          ) : displayMinistries.length === 0 ? (
+            <div className="text-center py-20 text-gray-600 text-xl">No ministries available right now.</div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {displayMinistries.map((ministry, index) => (
@@ -157,7 +89,7 @@ const Ministries = () => {
                 >
                   <div className="overflow-hidden">
                     <img
-                      src={ministry.imageUrl}
+                      src={ministry.imageUrl ? getAssetUrl(ministry.imageUrl) : 'https://images.unsplash.com/photo-1529070538774-1843cb3265df?w=400'}
                       alt={ministry.name}
                       className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
                     />

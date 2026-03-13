@@ -68,6 +68,7 @@ export const sermonsAPI = {
 export const eventsAPI = {
   getAll: () => api.get('/events'),
   getById: (id: number) => api.get(`/events/${id}`),
+  register: (id: number, data: any) => api.post(`/events/${id}/register`, data),
   create: (data: FormData) => api.post('/events', data, {
     headers: { 'Content-Type': 'multipart/form-data' },
   }),
@@ -118,6 +119,14 @@ export const donationsAPI = {
 // Ministries APIs
 export const ministriesAPI = {
   getAll: () => api.get('/ministries'),
+  join: (id: number, data: any) => api.post(`/ministries/${id}/join`, data),
+};
+
+export const contentAPI = {
+  getBibleStudy: () => api.get('/content/bible-study'),
+  joinBibleStudyWeek: (data: any) => api.post('/content/bible-study/join-week', data),
+  enrollBibleStudy: (data: any) => api.post('/content/bible-study/enroll', data),
+  getLiveStream: () => api.get('/content/livestream'),
 };
 
 // Dashboard APIs

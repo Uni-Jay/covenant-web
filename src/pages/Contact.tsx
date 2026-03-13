@@ -9,6 +9,7 @@ const Contact = () => {
     name: '',
     email: '',
     phone: '',
+    category: 'info',
     subject: '',
     message: '',
   });
@@ -22,9 +23,13 @@ const Contact = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await api.post('/contact', formData);
-      toast.success('Message sent successfully! We\'ll get back to you soon.');
-      setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+      const response = await api.post('/contact', { ...formData, category: 'info' });
+      if (response.data?.emailDelivered === false) {
+        toast.warning(response.data?.warning || 'Message was saved, but email delivery could not be confirmed.');
+      } else {
+        toast.success('Message sent successfully! We\'ll get back to you soon.');
+      }
+      setFormData({ name: '', email: '', phone: '', category: 'info', subject: '', message: '' });
     } catch (error) {
       toast.error('Failed to send message. Please try again.');
     } finally {

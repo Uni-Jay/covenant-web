@@ -10,14 +10,19 @@ const ForgotPassword = () => {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
+  const [warning, setWarning] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError('');
+    setWarning('');
 
     try {
-      await axios.post(`${API_URL}/auth/forgot-password`, { email });
+      const response = await axios.post(`${API_URL}/auth/forgot-password`, { email });
+      if (response.data?.emailDelivered === false) {
+        setWarning(response.data?.warning || 'Reset request was created, but email delivery could not be confirmed.');
+      }
       setSubmitted(true);
     } catch (err: any) {
       setError(err.response?.data?.message || 'Failed to send reset email. Please try again.');
@@ -74,6 +79,12 @@ const ForgotPassword = () => {
               </p>
               <p className="text-secondary-300 font-semibold mt-2">{email}</p>
             </div>
+
+            {warning && (
+              <div className="bg-yellow-500/10 border border-yellow-400/30 rounded-xl p-4 mb-6">
+                <p className="text-yellow-200 text-sm text-center">{warning}</p>
+              </div>
+            )}
 
             {/* Instructions */}
             <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 mb-6">

@@ -1,10 +1,15 @@
 import { FaBook, FaDownload, FaCalendar, FaTimes } from 'react-icons/fa';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { contentAPI } from '../utils/api';
 
 
 const BibleStudy = () => {
+  const [loading, setLoading] = useState(true);
+  const [weeklyStudy, setWeeklyStudy] = useState<any>(null);
+  const [studies, setStudies] = useState<any[]>([]);
+  const [resources, setResources] = useState<any[]>([]);
   const [showEnrollModal, setShowEnrollModal] = useState(false);
   const [showJoinWeekModal, setShowJoinWeekModal] = useState(false);
   const [selectedStudy, setSelectedStudy] = useState<any>(null);
@@ -20,15 +25,37 @@ const BibleStudy = () => {
     phone: ''
   });
 
+  useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const response = await contentAPI.getBibleStudy();
+        setWeeklyStudy(response.data.weeklyStudy);
+        setStudies(response.data.studies || []);
+        setResources(response.data.resources || []);
+      } catch (error) {
+        toast.error('Failed to load Bible Study content');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchContent();
+  }, []);
+
   const handleJoinWeek = () => {
     setShowJoinWeekModal(true);
   };
 
   const handleJoinWeekSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Successfully registered for this week's Bible Study! We'll send you the Zoom link.");
-    setShowJoinWeekModal(false);
-    setJoinWeekData({ name: '', email: '', phone: '' });
+    try {
+      await contentAPI.joinBibleStudyWeek(joinWeekData);
+      toast.success("Successfully registered for this week's Bible Study! We'll send you the Zoom link.");
+      setShowJoinWeekModal(false);
+      setJoinWeekData({ name: '', email: '', phone: '' });
+    } catch (error) {
+      toast.error('Failed to submit Bible Study registration');
+    }
   };
 
   const handleEnroll = (study: any) => {
@@ -39,42 +66,20 @@ const BibleStudy = () => {
 
   const handleEnrollSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success(`Successfully enrolled in ${selectedStudy?.title}! We'll contact you soon.`);
-    setShowEnrollModal(false);
-    setEnrollData({ name: '', email: '', phone: '', studyTitle: '' });
+    try {
+      await contentAPI.enrollBibleStudy(enrollData);
+      toast.success(`Successfully enrolled in ${selectedStudy?.title}! We'll contact you soon.`);
+      setShowEnrollModal(false);
+      setEnrollData({ name: '', email: '', phone: '', studyTitle: '' });
+    } catch (error) {
+      toast.error('Failed to submit Bible Study enrollment');
+    }
   };
 
-  const handleDownload = (filename: string) => {
-    // Create a dummy PDF download
-    const link = document.createElement('a');
-    link.href = 'data:application/pdf;base64,JVBERi0xLjQKJeLjz9MKMSAwIG9iago8PC9UeXBlL1BhZ2VzL0NvdW50IDEvS2lkc1sxIDAgUl0+PgplbmRvYmoKMSAwIG9iago8PC9UeXBlL1BhZ2UvUGFyZW50IDAgMCBSL01lZGlhQm94WzAgMCA2MTIgNzkyXS9Db250ZW50cyAyIDAgUj4+CmVuZG9iagoyIDAgb2JqCjw8L0ZpbHRlci9GbGF0ZURlY29kZS9MZW5ndGggNDQ+PnN0cmVhbQp4nCvkMlAwULCx0XfOL80rUTDU985MKY62BACFlAZGCmVuZHN0cmVhbQplbmRvYmoKeHJlZgowIDMKMDAwMDAwMDAwMCA2NTUzNSBmDQowMDAwMDAwMDEwIDAwMDAwIG4NCjAwMDAwMDAwNzkgMDAwMDAgbg0KdHJhaWxlcgo8PC9TaXplIDMvUm9vdCAwIDAgUj4+CnN0YXJ0eHJlZgoxODcKJSVFT0YK';
-    link.download = `${filename}.pdf`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    toast.success(`Downloading ${filename}...`);
+  const handleDownload = (resource: any) => {
+    window.open(resource.url, '_blank', 'noopener,noreferrer');
+    toast.success(`Opening ${resource.title}...`);
   };
-
-  const studies = [
-    {
-      title: 'Book of Romans',
-      description: 'A comprehensive study of Paul\'s letter to the Romans, exploring themes of salvation, grace, and righteousness.',
-      duration: '12 weeks',
-      level: 'Intermediate',
-    },
-    {
-      title: 'Foundations of Faith',
-      description: 'Perfect for new believers. Learn the basics of Christian faith and practice.',
-      duration: '8 weeks',
-      level: 'Beginner',
-    },
-    {
-      title: 'Prophetic Books',
-      description: 'Dive deep into the major and minor prophets, understanding God\'s messages to His people.',
-      duration: '16 weeks',
-      level: 'Advanced',
-    },
-  ];
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -90,117 +95,118 @@ const BibleStudy = () => {
       {/* Bible Study Schedule */}
       <section className="py-12">
         <div className="container-custom">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="card p-8 mb-12 bg-primary-50"
-          >
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div>
-                <h2 className="text-3xl font-bold mb-4">Weekly Bible Study</h2>
-                <p className="text-gray-700 text-lg mb-4">
-                  Join us every Wednesday as we study God's Word together, ask questions, and grow in faith.
-                </p>
-                <div className="space-y-2">
-                  <div className="flex items-center space-x-3">
-                    <FaCalendar className="text-primary-600" />
-                    <span className="font-semibold">Wednesday, 6:00 PM</span>
-                  </div>
-                  <p className="text-gray-600 ml-8">Location: Main Auditorium</p>
-                  <p className="text-gray-600 ml-8">Also available via Zoom</p>
-                </div>
-              </div>
-              <div className="bg-white p-6 rounded-xl shadow-md">
-                <h3 className="text-xl font-bold mb-3">This Week's Topic</h3>
-                <p className="text-2xl font-bold text-primary-600 mb-2">
-                  "Walking in the Light"
-                </p>
-                <p className="text-gray-600 mb-4">1 John 1:5-10</p>
-                <button 
-                  onClick={handleJoinWeek}
-                  className="btn-primary"
-                >
-                  Join This Week
-                </button>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Current Studies */}
-          <h2 className="section-title text-center mb-12">Current Study Series</h2>
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
-            {studies.map((study, index) => (
+          {loading ? (
+            <div className="flex justify-center items-center h-64"><div className="spinner"></div></div>
+          ) : (
+            <>
               <motion.div
-                key={index}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="card p-6"
+                className="card p-8 mb-12 bg-primary-50"
               >
-                <h3 className="text-xl font-bold mb-3">{study.title}</h3>
-                <p className="text-gray-600 mb-4">{study.description}</p>
-                <div className="space-y-2 text-sm">
-                  <p>
-                    <span className="font-semibold">Duration:</span> {study.duration}
-                  </p>
-                  <p>
-                    <span className="font-semibold">Level:</span>{' '}
-                    <span
-                      className={`px-2 py-1 rounded ${
-                        study.level === 'Beginner'
-                          ? 'bg-green-100 text-green-700'
-                          : study.level === 'Intermediate'
-                          ? 'bg-yellow-100 text-yellow-700'
-                          : 'bg-red-100 text-red-700'
-                      }`}
-                    >
-                      {study.level}
-                    </span>
-                  </p>
-                </div>
-                <button 
-                  onClick={() => handleEnroll(study)}
-                  className="w-full mt-4 btn-outline"
-                >
-                  Enroll Now
-                </button>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Resources */}
-          <div className="card p-8">
-            <h2 className="text-3xl font-bold mb-6 text-center">Study Resources</h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              {[
-                { title: 'Study Guide - Book of Romans', size: '2.5 MB', type: 'PDF' },
-                { title: 'Sermon Notes Template', size: '1.2 MB', type: 'PDF' },
-                { title: 'Bible Reading Plan (2026)', size: '850 KB', type: 'PDF' },
-                { title: 'Faith Foundations Workbook', size: '3.1 MB', type: 'PDF' },
-              ].map((resource, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-between bg-gray-50 p-4 rounded-lg"
-                >
-                  <div className="flex items-center space-x-3">
-                    <FaDownload className="text-primary-600 text-2xl" />
-                    <div>
-                      <p className="font-semibold">{resource.title}</p>
-                      <p className="text-sm text-gray-600">
-                        {resource.type} • {resource.size}
-                      </p>
+                <div className="grid md:grid-cols-2 gap-8 items-center">
+                  <div>
+                    <h2 className="text-3xl font-bold mb-4">Weekly Bible Study</h2>
+                    <p className="text-gray-700 text-lg mb-4">
+                      Join us every Wednesday as we study God's Word together, ask questions, and grow in faith.
+                    </p>
+                    <div className="space-y-2">
+                      <div className="flex items-center space-x-3">
+                        <FaCalendar className="text-primary-600" />
+                        <span className="font-semibold">{weeklyStudy?.time}</span>
+                      </div>
+                      <p className="text-gray-600 ml-8">Location: {weeklyStudy?.location}</p>
+                      <p className="text-gray-600 ml-8">Also available via Zoom</p>
                     </div>
                   </div>
-                  <button 
-                    onClick={() => handleDownload(resource.title)}
-                    className="btn-primary py-2"
-                  >
-                    Download
-                  </button>
+                  <div className="bg-white p-6 rounded-xl shadow-md">
+                    <h3 className="text-xl font-bold mb-3">This Week's Topic</h3>
+                    <p className="text-2xl font-bold text-primary-600 mb-2">
+                      "{weeklyStudy?.title}"
+                    </p>
+                    <p className="text-gray-600 mb-4">{weeklyStudy?.scripture}</p>
+                    <button 
+                      onClick={handleJoinWeek}
+                      className="btn-primary"
+                    >
+                      Join This Week
+                    </button>
+                  </div>
                 </div>
-              ))}
-            </div>
-          </div>
+              </motion.div>
+
+              {/* Current Studies */}
+              <h2 className="section-title text-center mb-12">Current Study Series</h2>
+              <div className="grid md:grid-cols-3 gap-8 mb-12">
+                {studies.map((study, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="card p-6"
+                  >
+                    <h3 className="text-xl font-bold mb-3">{study.title}</h3>
+                    <p className="text-gray-600 mb-4">{study.description}</p>
+                    <div className="space-y-2 text-sm">
+                      <p>
+                        <span className="font-semibold">Duration:</span> {study.duration}
+                      </p>
+                      <p>
+                        <span className="font-semibold">Level:</span>{' '}
+                        <span
+                          className={`px-2 py-1 rounded ${
+                            study.level === 'Beginner'
+                              ? 'bg-green-100 text-green-700'
+                              : study.level === 'Intermediate'
+                              ? 'bg-yellow-100 text-yellow-700'
+                              : 'bg-red-100 text-red-700'
+                          }`}
+                        >
+                          {study.level}
+                        </span>
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => handleEnroll(study)}
+                      className="w-full mt-4 btn-outline"
+                    >
+                      Enroll Now
+                    </button>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Resources */}
+              <div className="card p-8">
+                <h2 className="text-3xl font-bold mb-6 text-center">Study Resources</h2>
+                <div className="grid md:grid-cols-2 gap-6">
+                  {resources.map((resource, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center justify-between bg-gray-50 p-4 rounded-lg"
+                    >
+                      <div className="flex items-center space-x-3">
+                        <FaDownload className="text-primary-600 text-2xl" />
+                        <div>
+                          <p className="font-semibold">{resource.title}</p>
+                          <p className="text-sm text-gray-600">
+                            {resource.type} • {resource.size}
+                          </p>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => handleDownload(resource)}
+                        className="btn-primary py-2"
+                      >
+                        Download
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </section>
 
@@ -345,10 +351,10 @@ const BibleStudy = () => {
 
               <div className="bg-gray-50 p-4 rounded-lg">
                 <p className="text-sm text-gray-600 mb-2">Study Details:</p>
-                <p className="text-sm"><strong>Topic:</strong> Walking in the Light</p>
-                <p className="text-sm"><strong>Scripture:</strong> 1 John 1:5-10</p>
-                <p className="text-sm"><strong>Time:</strong> Wednesday, 6:00 PM</p>
-                <p className="text-sm"><strong>Location:</strong> Main Auditorium / Zoom</p>
+                <p className="text-sm"><strong>Topic:</strong> {weeklyStudy?.title}</p>
+                <p className="text-sm"><strong>Scripture:</strong> {weeklyStudy?.scripture}</p>
+                <p className="text-sm"><strong>Time:</strong> {weeklyStudy?.time}</p>
+                <p className="text-sm"><strong>Location:</strong> {weeklyStudy?.location}</p>
               </div>
               
               <div className="flex space-x-4 pt-4">

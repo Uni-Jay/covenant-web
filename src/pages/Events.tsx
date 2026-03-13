@@ -54,8 +54,12 @@ const Events = () => {
   const handleRegistrationSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      // You can add API call here to save registration
-      toast.success(`Successfully registered for ${selectedEvent?.title}!`);
+      const response = await eventsAPI.register(selectedEvent!.id, registrationData);
+      if (response.data?.emailDelivered === false) {
+        toast.warning('Registration was saved, but email delivery could not be confirmed.');
+      } else {
+        toast.success(`Successfully registered for ${selectedEvent?.title}!`);
+      }
       setShowRegistrationModal(false);
       setRegistrationData({ name: '', email: '', phone: '', numberOfSeats: 1 });
       setSelectedEvent(null);

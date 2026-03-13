@@ -33,8 +33,12 @@ const PrayerRequest = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await prayerRequestsAPI.create(formData);
-      toast.success('Your prayer request has been submitted. We will pray for you!');
+      const response = await prayerRequestsAPI.create({ ...formData, source: 'website' });
+      if (response.data?.emailDelivered === false) {
+        toast.warning(response.data?.warning || 'Your prayer request was saved, but email delivery could not be confirmed.');
+      } else {
+        toast.success('Your prayer request has been submitted. We will pray for you!');
+      }
       setFormData({
         name: '',
         email: '',
