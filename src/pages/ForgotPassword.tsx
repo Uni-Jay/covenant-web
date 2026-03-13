@@ -19,12 +19,20 @@ const ForgotPassword = () => {
     setWarning('');
 
     try {
-      const response = await axios.post(`${API_URL}/auth/forgot-password`, { email });
+      const response = await axios.post(
+        `${API_URL}/auth/forgot-password`,
+        { email },
+        { timeout: 15000 }
+      );
       if (response.data?.emailDelivered === false) {
         setWarning(response.data?.warning || 'Reset request was created, but email delivery could not be confirmed.');
       }
       setSubmitted(true);
     } catch (err: any) {
+      if (err.code === 'ECONNABORTED') {
+        setError('The reset request took too long. Please try again in a moment.');
+        return;
+      }
       setError(err.response?.data?.message || 'Failed to send reset email. Please try again.');
     } finally {
       setLoading(false);
