@@ -2,10 +2,13 @@ import { Link } from 'react-router-dom';
 import { FaPlay, FaCalendar, FaPray, FaHeart, FaBook } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { contentAPI } from '../utils/api';
+import { contentAPI, getAssetUrl, sermonsAPI } from '../utils/api';
+import { Sermon } from '../types';
 
 const Home = () => {
   const [bibleStudyTime, setBibleStudyTime] = useState('Thursday 6:00 PM - 7:00 PM');
+  const [latestSermons, setLatestSermons] = useState<Sermon[]>([]);
+  const [sermonsLoading, setSermonsLoading] = useState(true);
 
   useEffect(() => {
     const fetchBibleStudyTime = async () => {
@@ -20,7 +23,24 @@ const Home = () => {
       }
     };
 
+    const fetchLatestSermons = async () => {
+      try {
+        const response = await sermonsAPI.getAll();
+        const sermons = Array.isArray(response.data) ? response.data : [];
+        const latest = sermons
+          .slice()
+          .sort((a: Sermon, b: Sermon) => new Date(b.date).getTime() - new Date(a.date).getTime())
+          .slice(0, 3);
+        setLatestSermons(latest);
+      } catch (error) {
+        setLatestSermons([]);
+      } finally {
+        setSermonsLoading(false);
+      }
+    };
+
     fetchBibleStudyTime();
+    fetchLatestSermons();
   }, []);
 
   return (
@@ -188,30 +208,37 @@ const Home = () => {
               Grow in faith through powerful messages
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[1, 2, 3].map((item) => (
-              <motion.div
-                key={item}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                className="card"
-              >
-                <img
-                  src={`https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=400&q=80`}
-                  alt="Sermon"
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-6">
-                  <p className="text-sm text-primary-600 mb-2">Sunday Service</p>
-                  <h3 className="text-xl font-bold mb-2">Walking in God's Light</h3>
-                  <p className="text-gray-600 mb-4">Pastor John Doe • Jan 14, 2026</p>
-                  <Link to="/sermons" className="text-primary-600 font-semibold hover:underline">
-                    Watch Now →
-                  </Link>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          {sermonsLoading ? (
+            <div className="text-center text-gray-600">Loading sermons...</div>
+          ) : latestSermons.length === 0 ? (
+            <div className="text-center text-gray-600">No sermons available yet.</div>
+          ) : (
+            <div className="grid md:grid-cols-3 gap-8">
+              {latestSermons.map((sermon, index) => (
+                <motion.div
+                  key={sermon.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  className="card"
+                >
+                  <img
+                    src={sermon.thumbnailUrl ? getAssetUrl(sermon.thumbnailUrl) : 'https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=400&q=80'}
+                    alt={sermon.title}
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="p-6">
+                    <p className="text-sm text-primary-600 mb-2">{sermon.category}</p>
+                    <h3 className="text-xl font-bold mb-2">{sermon.title}</h3>
+                    <p className="text-gray-600 mb-4">{sermon.preacher} • {new Date(sermon.date).toLocaleDateString()}</p>
+                    <Link to="/sermons" className="text-primary-600 font-semibold hover:underline">
+                      Watch Now →
+                    </Link>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          )}
           <div className="text-center mt-12">
             <Link to="/sermons" className="btn-primary">
               View All Sermons
