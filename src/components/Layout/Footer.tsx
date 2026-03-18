@@ -57,7 +57,7 @@ const Footer = () => {
                 <FaTwitter size={24} />
               </a>
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/hocfam.ng"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-accent-400 transition-colors transform hover:scale-110"
@@ -66,7 +66,7 @@ const Footer = () => {
                 <FaInstagram size={24} />
               </a>
               <a
-                href="https://youtube.com"
+                href="https://www.youtube.com/@Hocfam"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-accent-500 transition-colors transform hover:scale-110"
