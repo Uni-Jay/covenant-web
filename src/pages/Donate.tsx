@@ -104,7 +104,7 @@ const Donate = () => {
                 </div>
                 <div className="flex items-center justify-center space-x-2">
                   <FaPhone className="text-primary-600" />
-                  <a href="tel:+2348012345678" className="text-primary-600 hover:underline">+234 801 234 5678</a>
+                  <a href="tel:+2348137531119" className="text-primary-600 hover:underline">0813-753-1119</a>
                 </div>
               </div>
             </div>
@@ -126,7 +126,7 @@ const Donate = () => {
               </div>
               <div className="flex items-center space-x-2">
                 <FaPhone />
-                <span>+234 801 234 5678</span>
+                <span>0813-753-1119 | 0805-376-6702 | 0907-605-2317</span>
               </div>
             </div>
           </motion.div>

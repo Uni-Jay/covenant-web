@@ -167,11 +167,19 @@ const Footer = () => {
                   Nigeria
                 </span>
               </li>
-              <li className="flex items-center space-x-3 hover:bg-primary-900/30 p-2 rounded transition-colors">
-                <FaPhone className="text-secondary-500 flex-shrink-0" />
-                <a href="tel:+2348012345678" className="hover:text-secondary-300">
-                  +234 801 234 5678
-                </a>
+              <li className="flex items-start space-x-3 hover:bg-primary-900/30 p-2 rounded transition-colors">
+                <FaPhone className="text-secondary-500 flex-shrink-0 mt-1" />
+                <div className="space-y-1">
+                  <a href="tel:+2348137531119" className="block hover:text-secondary-300">
+                    0813-753-1119
+                  </a>
+                  <a href="tel:+2348053766702" className="block hover:text-secondary-300">
+                    0805-376-6702
+                  </a>
+                  <a href="tel:+2349076052317" className="block hover:text-secondary-300">
+                    0907-605-2317
+                  </a>
+                </div>
               </li>
               <li className="flex items-center space-x-3 hover:bg-primary-900/30 p-2 rounded transition-colors">
                 <FaEnvelope className="text-secondary-500 flex-shrink-0" />

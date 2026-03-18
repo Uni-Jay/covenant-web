@@ -60,8 +60,8 @@ const Contact = () => {
               {
                 icon: FaPhone,
                 title: 'Phone',
-                content: '+234 801 234 5678',
-                link: 'tel:+2348012345678',
+                content: '0813-753-1119 | 0805-376-6702 | 0907-605-2317',
+                link: 'tel:+2348137531119',
               },
               {
                 icon: FaEnvelope,

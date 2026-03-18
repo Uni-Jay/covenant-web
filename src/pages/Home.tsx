@@ -286,7 +286,11 @@ const Home = () => {
                 </p>
                 <p className="flex items-start gap-2 md:gap-3">
                   <span className="font-bold shrink-0">Phone:</span>
-                  <span>+234 801 234 5678</span>
+                  <span className="space-y-1">
+                    <div>0813-753-1119</div>
+                    <div>0805-376-6702</div>
+                    <div>0907-605-2317</div>
+                  </span>
                 </p>
                 <p className="flex items-start gap-2 md:gap-3">
                   <span className="font-bold shrink-0">Email:</span>

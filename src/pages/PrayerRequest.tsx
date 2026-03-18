@@ -224,12 +224,17 @@ const PrayerRequest = () => {
                 <p className="text-gray-700 mb-4">
                   Need urgent prayer? Call our 24/7 prayer hotline:
                 </p>
-                <a
-                  href="tel:+2348012345678"
-                  className="text-2xl font-bold text-primary-600 hover:underline"
-                >
-                  +234 801 234 5678
-                </a>
+                <div className="space-y-2 mt-2">
+                  <a href="tel:+2348137531119" className="block text-2xl font-bold text-primary-600 hover:underline">
+                    0813-753-1119
+                  </a>
+                  <a href="tel:+2348053766702" className="block text-lg font-semibold text-primary-600 hover:underline">
+                    0805-376-6702
+                  </a>
+                  <a href="tel:+2349076052317" className="block text-lg font-semibold text-primary-600 hover:underline">
+                    0907-605-2317
+                  </a>
+                </div>
               </div>
 
               <div className="card p-8">
