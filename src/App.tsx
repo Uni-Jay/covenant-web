@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout/Layout'
+import ScrollToTop from './components/ScrollToTop'
 import Home from './pages/Home'
 import About from './pages/About'
 import Sermons from './pages/Sermons'
@@ -30,7 +31,9 @@ import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
   return (
-    <Routes>
+    <>
+      <ScrollToTop />
+      <Routes>
       {/* Public Routes */}
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
@@ -72,7 +75,8 @@ function App() {
         <Route path="prayer-requests" element={<AdminPrayerRequests />} />
         <Route path="donations" element={<AdminDonations />} />
       </Route>
-    </Routes>
+      </Routes>
+    </>
   )
 }
 

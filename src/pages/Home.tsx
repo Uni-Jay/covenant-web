@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { FaPlay, FaCalendar, FaPray, FaHeart, FaBook } from 'react-icons/fa';
+import { FaPlay, FaCalendar, FaPray, FaHeart, FaBook, FaApple, FaAndroid } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { contentAPI } from '../utils/api';
@@ -54,6 +54,59 @@ const Home = () => {
               </Link>
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Mobile App Download Section */}
+      <section className="py-14 md:py-20 bg-gradient-to-r from-primary-600 to-primary-800 text-white">
+        <div className="container-custom">
+          <div className="text-center mb-12">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="text-3xl md:text-4xl font-bold mb-3 md:mb-4">Get Our Mobile App</h2>
+              <p className="text-lg md:text-xl text-gray-100">
+                Stay connected with church updates, attend services, and give offerings on the go
+              </p>
+            </motion.div>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+            {/* iOS Download */}
+            <motion.a
+              href="https://apps.apple.com/app/household-of-covenant/id123456789"
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center justify-center gap-3 px-6 py-4 md:py-5 bg-white text-primary-700 font-bold rounded-xl hover:bg-gray-100 transition shadow-lg"
+            >
+              <FaApple className="text-2xl md:text-3xl" />
+              <div className="text-left">
+                <p className="text-xs md:text-sm">Download on</p>
+                <p className="text-lg md:text-xl">App Store</p>
+              </div>
+            </motion.a>
+
+            {/* Android Download */}
+            <motion.a
+              href="https://play.google.com/store/apps/details?id=com.hocfam.mobile"
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="inline-flex items-center justify-center gap-3 px-6 py-4 md:py-5 bg-white text-primary-700 font-bold rounded-xl hover:bg-gray-100 transition shadow-lg"
+            >
+              <FaAndroid className="text-2xl md:text-3xl" />
+              <div className="text-left">
+                <p className="text-xs md:text-sm">Get it on</p>
+                <p className="text-lg md:text-xl">Google Play</p>
+              </div>
+            </motion.a>
+          </div>
         </div>
       </section>
 
