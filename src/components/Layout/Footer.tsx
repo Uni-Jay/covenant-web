@@ -66,7 +66,7 @@ const Footer = () => {
                 <FaInstagram size={24} />
               </a>
               <a
-                href="https://www.youtube.com/@Hocfam"
+                href="https://www.youtube.com/channel/UC4NQoNY0b7CcLAogvSZo2Lg"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-accent-500 transition-colors transform hover:scale-110"

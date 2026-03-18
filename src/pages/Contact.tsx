@@ -190,7 +190,7 @@ const Contact = () => {
                     { icon: FaFacebook, link: "https://www.facebook.com/share/1J3U5WtaQH/", color: 'hover:text-blue-600' },
                     { icon: FaTwitter, link: "https://x.com/HMinistry85962", color: 'hover:text-blue-400' },
                     { icon: FaInstagram, link: 'https://www.instagram.com/hocfam.ng', color: 'hover:text-pink-600' },
-                    { icon: FaYoutube, link: 'https://www.youtube.com/@Hocfam', color: 'hover:text-red-600' },
+                    { icon: FaYoutube, link: 'https://www.youtube.com/channel/UC4NQoNY0b7CcLAogvSZo2Lg', color: 'hover:text-red-600' },
                   ].map((social, index) => (
                     <a
                       key={index}
