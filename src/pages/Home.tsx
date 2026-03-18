@@ -75,31 +75,35 @@ const Home = () => {
           <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
             {/* Android Download */}
             <motion.a
-              href="mailto:info@hocfam.org?subject=Request%20Android%20App%20Download"
+              href="https://github.com/Uni-Jay/covenant-mobile/releases/latest"
+              target="_blank"
+              rel="noopener noreferrer"
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center justify-center gap-3 px-6 py-4 md:py-5 bg-white text-primary-700 font-bold rounded-xl hover:bg-gray-100 transition shadow-lg cursor-pointer"
+              className="inline-flex items-center justify-center gap-3 px-6 py-4 md:py-5 bg-white text-primary-700 font-bold rounded-xl hover:bg-gray-100 transition shadow-lg"
             >
               <FaAndroid className="text-2xl md:text-3xl" />
               <div className="text-left">
-                <p className="text-xs md:text-sm">Get APK</p>
+                <p className="text-xs md:text-sm">Download APK</p>
                 <p className="text-lg md:text-xl">Android App</p>
               </div>
             </motion.a>
 
             {/* iOS Download */}
             <motion.a
-              href="mailto:info@hocfam.org?subject=Request%20iOS%20App%20Download"
+              href="https://github.com/Uni-Jay/covenant-mobile/releases/latest"
+              target="_blank"
+              rel="noopener noreferrer"
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="inline-flex items-center justify-center gap-3 px-6 py-4 md:py-5 bg-white text-primary-700 font-bold rounded-xl hover:bg-gray-100 transition shadow-lg cursor-pointer"
+              className="inline-flex items-center justify-center gap-3 px-6 py-4 md:py-5 bg-white text-primary-700 font-bold rounded-xl hover:bg-gray-100 transition shadow-lg"
             >
               <FaApple className="text-2xl md:text-3xl" />
               <div className="text-left">
-                <p className="text-xs md:text-sm">Get iOS App</p>
-                <p className="text-lg md:text-xl">TestFlight Access</p>
+                <p className="text-xs md:text-sm">Download for</p>
+                <p className="text-lg md:text-xl">iOS App</p>
               </div>
             </motion.a>
           </div>
