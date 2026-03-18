@@ -73,9 +73,9 @@ const Home = () => {
             </motion.div>
           </div>
           <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-            {/* iOS Download */}
+            {/* Android Download */}
             <motion.a
-              href="https://apps.apple.com/app/household-of-covenant/id123456789"
+              href="https://play.google.com/store/apps/details?id=com.wordofcovenant.app"
               target="_blank"
               rel="noopener noreferrer"
               initial={{ opacity: 0, x: -20 }}
@@ -83,16 +83,16 @@ const Home = () => {
               transition={{ duration: 0.5 }}
               className="inline-flex items-center justify-center gap-3 px-6 py-4 md:py-5 bg-white text-primary-700 font-bold rounded-xl hover:bg-gray-100 transition shadow-lg"
             >
-              <FaApple className="text-2xl md:text-3xl" />
+              <FaAndroid className="text-2xl md:text-3xl" />
               <div className="text-left">
-                <p className="text-xs md:text-sm">Download on</p>
-                <p className="text-lg md:text-xl">App Store</p>
+                <p className="text-xs md:text-sm">Download APK</p>
+                <p className="text-lg md:text-xl">Android App</p>
               </div>
             </motion.a>
 
-            {/* Android Download */}
+            {/* iOS Download */}
             <motion.a
-              href="https://play.google.com/store/apps/details?id=com.hocfam.mobile"
+              href="https://www.example.com/download/app-release.ipa"
               target="_blank"
               rel="noopener noreferrer"
               initial={{ opacity: 0, x: 20 }}
@@ -100,12 +100,17 @@ const Home = () => {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="inline-flex items-center justify-center gap-3 px-6 py-4 md:py-5 bg-white text-primary-700 font-bold rounded-xl hover:bg-gray-100 transition shadow-lg"
             >
-              <FaAndroid className="text-2xl md:text-3xl" />
+              <FaApple className="text-2xl md:text-3xl" />
               <div className="text-left">
-                <p className="text-xs md:text-sm">Get it on</p>
-                <p className="text-lg md:text-xl">Google Play</p>
+                <p className="text-xs md:text-sm">Download for</p>
+                <p className="text-lg md:text-xl">iOS App</p>
               </div>
             </motion.a>
+          </div>
+          <div className="text-center mt-8">
+            <p className="text-sm md:text-base text-gray-100">
+              Direct downloads available. Contact us for iOS TestFlight access.
+            </p>
           </div>
         </div>
       </section>
