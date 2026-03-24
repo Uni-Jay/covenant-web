@@ -54,7 +54,10 @@
   }
 
   .page-hero {
-    @apply bg-gradient-to-br from-primary-800 via-primary-700 to-accent-700 text-white py-14 md:py-20;
+    @apply relative overflow-hidden bg-gradient-to-br from-primary-900 via-primary-800 to-accent-800 text-white py-16 md:py-24;
+    background-image: radial-gradient(circle at 15% 25%, rgba(200, 139, 34, 0.2), transparent 32%),
+      radial-gradient(circle at 85% 18%, rgba(143, 51, 77, 0.24), transparent 30%),
+      linear-gradient(135deg, #173f6b 0%, #1f4e80 42%, #61253c 100%);
   }
 
   .page-hero-title {
@@ -67,6 +70,22 @@
 
   .surface-glass {
     @apply bg-white/80 backdrop-blur-md border border-white/40 shadow-xl rounded-2xl;
+  }
+
+  .verse-kicker {
+    @apply inline-flex items-center gap-2 rounded-full border border-white/35 bg-white/10 px-4 py-2 text-sm uppercase tracking-[0.18em] font-semibold;
+  }
+
+  .liturgy-rule {
+    @apply h-px w-24 bg-gradient-to-r from-transparent via-gold-400 to-transparent;
+  }
+
+  .editorial-card {
+    @apply rounded-2xl border border-primary-200/70 bg-white p-6 shadow-lg shadow-primary-100/70;
+  }
+
+  .faith-strip {
+    @apply rounded-2xl border border-primary-100 bg-white/95 px-5 py-4 shadow-sm;
   }
 
   .surface-panel {

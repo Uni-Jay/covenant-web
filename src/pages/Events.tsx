@@ -73,6 +73,7 @@ const Events = () => {
       {/* Hero Section */}
       <section className="page-hero">
         <div className="container-custom text-center">
+          <p className="text-xs uppercase tracking-[0.2em] font-bold text-gold-200 mb-3">Fellowship Calendar</p>
           <h1 className="page-hero-title">Events</h1>
           <p className="text-xl">Join us for inspiring gatherings and fellowship</p>
         </div>
@@ -120,7 +121,7 @@ const Events = () => {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="card overflow-hidden border border-primary-100/80"
+                  className="editorial-card overflow-hidden border border-primary-100/80"
                 >
                   <img
                     src={imageUrl}
@@ -131,7 +132,7 @@ const Events = () => {
                     <span className="text-xs bg-primary-100 text-primary-600 px-3 py-1 rounded-full">
                       {event.category}
                     </span>
-                    <h3 className="text-xl font-bold mt-3 mb-3">{event.title}</h3>
+                    <h3 className="text-xl font-bold mt-3 mb-3 leading-tight">{event.title}</h3>
                     <p className="text-gray-600 text-sm mb-4 line-clamp-3">
                       {event.description}
                     </p>

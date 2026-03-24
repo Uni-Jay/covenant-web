@@ -45,6 +45,7 @@ const Sermons = () => {
       {/* Hero Section */}
       <section className="page-hero">
         <div className="container-custom text-center">
+          <p className="text-xs uppercase tracking-[0.2em] font-bold text-gold-200 mb-3">Word Archive</p>
           <h1 className="page-hero-title">Sermons</h1>
           <p className="text-xl">
             Listen to inspiring messages that transform lives
@@ -72,10 +73,10 @@ const Sermons = () => {
             <div className="flex gap-2 items-center">
               <button
                 onClick={fetchSermons}
-                className="px-4 py-2 bg-secondary-600 text-white rounded-lg font-medium hover:bg-secondary-700 transition-colors flex items-center gap-2"
+                className="px-4 py-2 bg-secondary-700 text-white rounded-full font-semibold hover:bg-secondary-800 transition-colors flex items-center gap-2"
                 title="Refresh sermons list"
               >
-                <span>🔄</span>
+                <span>Refresh</span>
                 <span className="hidden sm:inline">Refresh</span>
               </button>
               <div className="flex gap-2 overflow-x-auto pb-1">
@@ -122,7 +123,7 @@ const Sermons = () => {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="card cursor-pointer border border-primary-100/80"
+                  className="editorial-card cursor-pointer border border-primary-100/80"
                   onClick={() => setSelectedSermon(sermon)}
                 >
                   <div className="relative">
@@ -169,7 +170,7 @@ const Sermons = () => {
       {/* Sermon Modal */}
       {selectedSermon && (
         <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="bg-white rounded-2xl border border-primary-100 max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
             <div className="sticky top-0 bg-white border-b p-4 flex justify-between items-center">
               <h2 className="text-2xl font-bold">{selectedSermon.title}</h2>
               <button

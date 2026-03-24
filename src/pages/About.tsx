@@ -12,6 +12,7 @@ const About = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
+            <div className="verse-kicker mb-5">Our Foundation</div>
             <h1 className="page-hero-title md:text-6xl">About Us</h1>
             <p className="text-xl italic text-gold-300">
               "Household of the living God" - 1 Timothy 3:15
@@ -23,7 +24,8 @@ const About = () => {
       {/* Our Story */}
       <section className="section-padding bg-white/70">
         <div className="container-custom">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-4xl mx-auto editorial-card">
+            <p className="text-xs uppercase tracking-[0.18em] text-accent-700 font-bold mb-3 text-center">Our Beginning</p>
             <h2 className="section-title text-center">Our Story</h2>
             <p className="text-gray-700 text-lg leading-relaxed mb-6">
               Household Of Covenant And Faith Apostolic Ministry was founded with a divine vision to be a beacon of hope and light in our community. Located at 140, Obafemi Awolowo Road, Radio Bus stop, Ikorodu, Lagos Nigeria, our church has been a spiritual home for countless families seeking to grow in their faith and relationship with God.
@@ -42,7 +44,7 @@ const About = () => {
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              className="card p-8"
+              className="card p-8 border border-primary-100/80"
             >
               <h3 className="text-3xl font-bold mb-6 text-primary-600">Our Mission</h3>
               <p className="text-gray-700 text-lg leading-relaxed">
@@ -52,7 +54,7 @@ const About = () => {
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              className="card p-8"
+              className="card p-8 border border-primary-100/80"
             >
               <h3 className="text-3xl font-bold mb-6 text-primary-600">Our Vision</h3>
               <p className="text-gray-700 text-lg leading-relaxed">
@@ -99,7 +101,7 @@ const About = () => {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="card p-6 text-center"
+                className="editorial-card p-6 text-center"
               >
                 <h3 className="text-xl font-bold mb-3 text-primary-600">{value.title}</h3>
                 <p className="text-gray-600">{value.description}</p>
@@ -113,7 +115,7 @@ const About = () => {
       <section className="section-padding bg-gradient-to-b from-white/60 to-primary-50/70">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
-            <div className="card p-8 md:p-12">
+            <div className="card p-8 md:p-12 border border-primary-100/80">
               <FaQuoteLeft className="text-5xl text-primary-600 mb-6" />
               <h2 className="text-3xl font-bold mb-6">Pastor's Message</h2>
               <p className="text-gray-700 text-lg leading-relaxed mb-6">
@@ -154,7 +156,7 @@ const About = () => {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="card text-center"
+                className="card text-center border border-primary-100/80"
               >
                 <img
                   src={`https://images.unsplash.com/photo-1${500000000 + index}?w=300&h=300&fit=crop`}

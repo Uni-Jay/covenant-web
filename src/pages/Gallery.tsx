@@ -45,6 +45,7 @@ const Gallery = () => {
       {/* Hero Section */}
       <section className="page-hero">
         <div className="container-custom text-center">
+          <p className="text-xs uppercase tracking-[0.2em] font-bold text-gold-200 mb-3">Faith In Frames</p>
           <h1 className="page-hero-title">Gallery</h1>
           <p className="text-xl">Moments that capture our journey of faith</p>
         </div>
@@ -102,6 +103,7 @@ const Gallery = () => {
                   </div>
                   <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-end">
                     <div className="p-4 text-white">
+                      <p className="text-[11px] uppercase tracking-[0.15em] text-gold-200 mb-1">{item.category}</p>
                       <h3 className="font-bold text-lg">{item.title}</h3>
                       <p className="text-sm text-gray-300">{item.description}</p>
                     </div>

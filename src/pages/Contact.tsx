@@ -42,6 +42,7 @@ const Contact = () => {
       {/* Hero Section */}
       <section className="page-hero">
         <div className="container-custom text-center">
+          <p className="text-xs uppercase tracking-[0.2em] font-bold text-gold-200 mb-3">We Are Listening</p>
           <h1 className="page-hero-title">Contact Us</h1>
           <p className="text-xl">We'd love to hear from you!</p>
         </div>
@@ -75,7 +76,7 @@ const Contact = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="card p-6 text-center border border-primary-100/80"
+                className="editorial-card p-6 text-center border border-primary-100/80"
               >
                 <item.icon className="text-4xl text-primary-600 mx-auto mb-4" />
                 <h3 className="text-lg font-bold mb-2">{item.title}</h3>
@@ -95,7 +96,7 @@ const Contact = () => {
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
-              className="card p-8 border border-primary-100/80"
+              className="editorial-card p-8 border border-primary-100/80"
             >
               <h2 className="text-3xl font-bold mb-6">Send us a Message</h2>
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -180,7 +181,7 @@ const Contact = () => {
                 ></iframe>
               </div>
 
-              <div className="card p-8 border border-primary-100/80">
+              <div className="editorial-card p-8 border border-primary-100/80">
                 <h3 className="text-2xl font-bold mb-4">Connect With Us</h3>
                 <p className="text-gray-600 mb-6">
                   Follow us on social media for updates, inspirational content, and community highlights.
@@ -205,7 +206,7 @@ const Contact = () => {
                 </div>
               </div>
 
-              <div className="card p-8 bg-primary-50/80 border border-primary-100/80">
+              <div className="editorial-card p-8 bg-primary-50/80 border border-primary-100/80">
                 <h3 className="text-xl font-bold mb-4">Service Times</h3>
                 <div className="space-y-2 text-gray-700">
                   <p className="flex justify-between">

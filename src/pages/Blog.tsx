@@ -29,6 +29,7 @@ const Blog = () => {
       {/* Hero Section */}
       <section className="page-hero">
         <div className="container-custom text-center">
+          <p className="text-xs uppercase tracking-[0.2em] font-bold text-gold-200 mb-3">Stories & Testimonies</p>
           <h1 className="page-hero-title">Blog & News</h1>
           <p className="text-xl">Stay updated with the latest from our church</p>
         </div>
@@ -53,7 +54,7 @@ const Blog = () => {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="card group border border-primary-100/80"
+                  className="editorial-card group border border-primary-100/80"
                 >
                   <div className="overflow-hidden">
                     <img
@@ -82,7 +83,7 @@ const Blog = () => {
                         <span>{new Date(post.date).toLocaleDateString()}</span>
                       </div>
                     </div>
-                    <button className="text-primary-600 font-semibold flex items-center space-x-2 hover:underline">
+                    <button className="text-primary-700 font-semibold flex items-center space-x-2 hover:underline">
                       <span>Read More</span>
                       <FaArrowRight />
                     </button>

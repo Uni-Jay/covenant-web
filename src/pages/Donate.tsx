@@ -19,6 +19,7 @@ const Donate = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
           >
+            <p className="text-xs uppercase tracking-[0.2em] font-bold text-gold-200 mb-3">Stewardship</p>
             <FaHeart className="text-6xl mx-auto mb-6" />
             <h1 className="page-hero-title">Give to God's Work</h1>
             <p className="text-xl max-w-2xl mx-auto">
@@ -34,7 +35,7 @@ const Donate = () => {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            className="card p-8 md:p-12 border border-primary-100/80"
+            className="editorial-card p-8 md:p-12 border border-primary-100/80"
           >
             <h2 className="text-3xl font-bold mb-8 text-center">Bank Account Details</h2>
             <p className="text-center text-gray-600 mb-8">Support God's work through your generous giving. You can make donations via bank transfer to the account below:</p>
@@ -69,6 +70,7 @@ const Donate = () => {
             </div>
             
             <div className="bg-white rounded-2xl border border-primary-100 p-6 mb-8">
+              <p className="text-xs uppercase tracking-[0.2em] text-accent-700 font-bold mb-3 text-center">Ways To Give</p>
               <h3 className="text-xl font-bold mb-4 text-center">Giving Options</h3>
               <div className="grid md:grid-cols-3 gap-6 text-center">
                 <div>

@@ -63,6 +63,7 @@ const Ministries = () => {
       {/* Hero Section */}
       <section className="page-hero">
         <div className="container-custom text-center">
+          <p className="text-xs uppercase tracking-[0.2em] font-bold text-gold-200 mb-3">Serve With Purpose</p>
           <h1 className="page-hero-title">Our Ministries</h1>
           <p className="text-xl">Find your place to serve and grow</p>
         </div>
@@ -85,7 +86,7 @@ const Ministries = () => {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="card group border border-primary-100/80"
+                  className="editorial-card group border border-primary-100/80"
                 >
                   <div className="overflow-hidden">
                     <img
@@ -126,6 +127,7 @@ const Ministries = () => {
       {/* Call to Action */}
       <section className="section-padding bg-gradient-to-b from-primary-50/80 to-white/80">
         <div className="container-custom text-center">
+          <p className="text-xs uppercase tracking-[0.2em] text-accent-700 font-bold mb-3">Belong And Build</p>
           <FaUsers className="text-6xl text-primary-600 mx-auto mb-6" />
           <h2 className="text-4xl font-bold mb-4 text-primary-900">Find Your Ministry</h2>
           <p className="text-xl text-primary-800 mb-8 max-w-2xl mx-auto">

@@ -33,7 +33,7 @@ const Header = () => {
   return (
     <header
       className={`fixed w-full top-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white/95 backdrop-blur-md border-b border-primary-100 shadow-xl py-2' : 'bg-white/90 backdrop-blur-sm border-b border-white/50 py-4 shadow-md'
+        isScrolled ? 'bg-white/95 backdrop-blur-md border-b border-primary-100 shadow-xl py-2' : 'bg-white/85 backdrop-blur-sm border-b border-white/60 py-3 shadow-md'
       }`}
     >
       <div className="container-custom">
@@ -43,23 +43,23 @@ const Header = () => {
             <img 
               src="/image/New_Logo.png" 
               alt="Household Of Covenant And Faith Apostolic Ministry Logo" 
-              className="w-16 h-16 md:w-20 md:h-20 object-contain transition-transform group-hover:scale-110"
+              className="w-14 h-14 md:w-16 md:h-16 object-contain transition-transform group-hover:scale-105"
             />
             <div className="max-w-md">
-              <h1 className="text-base md:text-lg font-heading font-bold text-primary-900 leading-tight">
+              <h1 className="text-sm md:text-base font-heading font-extrabold text-primary-900 leading-tight tracking-tight">
                 Household Of Covenant And Faith Apostolic Ministry
               </h1>
-              <p className="text-xs text-accent-700 font-semibold tracking-wide">Household of the Living God (1 Tim 3:15)</p>
+              <p className="text-[11px] text-accent-700 font-semibold tracking-[0.14em] uppercase">Household of the Living God</p>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8">
+          <nav className="hidden lg:flex items-center space-x-6">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
-                className={`font-semibold transition-all duration-300 relative ${
+                className={`font-semibold text-sm transition-all duration-300 relative px-1 py-2 ${
                   isActive(link.path)
                     ? 'text-primary-700'
                     : 'text-gray-700 hover:text-accent-600'
@@ -77,7 +77,7 @@ const Header = () => {
             <div className="flex items-center space-x-4">
               <Link
                 to="/admin"
-                className="px-4 py-2 bg-gradient-to-r from-primary-600 to-accent-600 text-white rounded-xl font-semibold hover:from-primary-700 hover:to-accent-700 transition-all shadow-md hover:shadow-lg"
+                className="px-4 py-2 bg-gradient-to-r from-primary-700 to-accent-700 text-white rounded-xl text-sm font-semibold hover:from-primary-800 hover:to-accent-800 transition-all shadow-md hover:shadow-lg"
               >
                 Admin Dashboard
               </Link>

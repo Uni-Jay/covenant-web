@@ -12,7 +12,8 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-br from-primary-900 via-primary-800 to-accent-900 text-gray-200">
+    <footer className="relative overflow-hidden bg-gradient-to-br from-primary-950 via-primary-900 to-accent-900 text-gray-200">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold-400/80 to-transparent"></div>
       {/* Main Footer */}
       <div className="container-custom py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -25,10 +26,10 @@ const Footer = () => {
                 className="w-20 h-20 md:w-24 md:h-24 object-contain"
               />
               <div>
-                <h3 className="text-white text-lg font-heading font-bold bg-gradient-to-r from-secondary-300 to-secondary-500 bg-clip-text text-transparent">
+                <h3 className="text-white text-lg font-heading font-bold leading-tight">
                   Household Of Covenant And Faith Apostolic Ministry
                 </h3>
-                <p className="text-xs text-secondary-200 font-semibold">
+                <p className="text-[11px] uppercase tracking-[0.15em] text-secondary-200 font-semibold mt-1">
                   "Household of the living God" - 1 Timothy 3:15
                 </p>
               </div>
@@ -79,41 +80,41 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-white text-lg font-heading font-bold mb-4 border-b-2 border-secondary-500 pb-2 inline-block">Quick Links</h3>
+            <h3 className="text-white text-lg font-heading font-bold mb-4 border-b border-secondary-500/60 pb-2 inline-block">Quick Links</h3>
             <ul className="space-y-2">
               <li>
                 <Link to="/about" className="hover:text-primary-400 transition-colors hover:pl-2 block">
-                  → About Us
+                  About Us
                 </Link>
               </li>
               <li>
                 <Link to="/sermons" className="hover:text-primary-400 transition-colors hover:pl-2 block">
-                  → Sermons
+                  Sermons
                 </Link>
               </li>
               <li>
                 <Link to="/events" className="hover:text-primary-400 transition-colors hover:pl-2 block">
-                  → Events
+                  Events
                 </Link>
               </li>
               <li>
                 <Link to="/ministries" className="hover:text-secondary-300 transition-colors hover:pl-2 block">
-                  → Ministries
+                  Ministries
                 </Link>
               </li>
               <li>
                 <Link to="/bible-study" className="hover:text-primary-400 transition-colors hover:pl-2 block">
-                  → Bible Study
+                  Bible Study
                 </Link>
               </li>
               <li>
                 <Link to="/prayer-request" className="hover:text-primary-400 transition-colors hover:pl-2 block">
-                  → Prayer Request
+                  Prayer Request
                 </Link>
               </li>
               <li>
                 <Link to="/live" className="hover:text-primary-400 transition-colors hover:pl-2 block">
-                  → Live Stream
+                  Live Stream
                 </Link>
               </li>
             </ul>
@@ -121,7 +122,7 @@ const Footer = () => {
 
           {/* Service Times */}
           <div>
-            <h3 className="text-white text-lg font-heading font-bold mb-4 border-b-2 border-accent-500 pb-2 inline-block">Service Times</h3>
+            <h3 className="text-white text-lg font-heading font-bold mb-4 border-b border-accent-500/60 pb-2 inline-block">Service Times</h3>
             <ul className="space-y-2 text-sm">
               <li className="flex justify-between hover:bg-primary-900/30 p-1 rounded">
                 <span>Sunday School:</span>
@@ -150,15 +151,15 @@ const Footer = () => {
             </ul>
             <Link
               to="/live"
-              className="mt-4 inline-block bg-gradient-to-r from-accent-600 to-accent-700 text-white px-6 py-3 rounded-xl hover:from-accent-700 hover:to-accent-800 transition-all shadow-lg hover:shadow-xl transform hover:scale-105 text-sm font-semibold"
+              className="mt-4 inline-block bg-gradient-to-r from-accent-700 to-accent-800 text-white px-6 py-3 rounded-xl hover:from-accent-800 hover:to-accent-900 transition-all shadow-lg hover:shadow-xl text-sm font-semibold"
             >
-              🔴 Watch Live
+              Watch Live
             </Link>
           </div>
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-white text-lg font-heading font-bold mb-4 border-b-2 border-secondary-500 pb-2 inline-block">Contact Us</h3>
+            <h3 className="text-white text-lg font-heading font-bold mb-4 border-b border-secondary-500/60 pb-2 inline-block">Contact Us</h3>
             <ul className="space-y-3 text-sm">
               <li className="flex items-start space-x-3 hover:bg-primary-900/30 p-2 rounded transition-colors">
                 <FaMapMarkerAlt className="text-secondary-400 mt-1 flex-shrink-0" />
@@ -193,7 +194,7 @@ const Footer = () => {
             </ul>
             <Link
               to="/donate"
-              className="mt-4 inline-flex items-center space-x-2 bg-gradient-to-r from-secondary-500 to-secondary-600 text-white px-6 py-3 rounded-xl hover:from-secondary-600 hover:to-secondary-700 transition-all shadow-lg hover:shadow-xl transform hover:scale-105 text-sm font-semibold"
+              className="mt-4 inline-flex items-center space-x-2 bg-gradient-to-r from-secondary-500 to-secondary-600 text-white px-6 py-3 rounded-xl hover:from-secondary-600 hover:to-secondary-700 transition-all shadow-lg hover:shadow-xl text-sm font-semibold"
             >
               <FaHeart />
               <span>Give Online</span>
@@ -211,7 +212,7 @@ const Footer = () => {
               rights reserved.
             </p>
             <p className="mt-2 md:mt-0 flex items-center">
-              Made with <FaHeart className="inline text-red-500 mx-1 animate-pulse" /> for God's
+              Made with <FaHeart className="inline text-red-500 mx-1" /> for God's
               Glory
             </p>
           </div>
