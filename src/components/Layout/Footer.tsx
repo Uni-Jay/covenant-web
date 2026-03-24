@@ -14,188 +14,92 @@ const Footer = () => {
   return (
     <footer className="relative overflow-hidden bg-gradient-to-br from-primary-950 via-primary-900 to-accent-900 text-gray-200">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold-400/80 to-transparent"></div>
-      {/* Main Footer */}
-      <div className="container-custom py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* About Section */}
-          <div>
-            <div className="flex items-center space-x-3 mb-4">
-              <img 
-                src="/image/New_Logo.png" 
-                alt="Household Of Covenant And Faith Apostolic Ministry Logo" 
-                className="w-20 h-20 md:w-24 md:h-24 object-contain"
+      <div className="pointer-events-none absolute -top-24 -left-20 h-72 w-72 rounded-full bg-secondary-500/10 blur-3xl"></div>
+      <div className="pointer-events-none absolute -bottom-20 -right-16 h-80 w-80 rounded-full bg-accent-500/10 blur-3xl"></div>
+
+      <div className="container-custom relative py-10">
+        <div className="mb-10 rounded-2xl border border-white/15 bg-white/[0.04] px-6 py-6 backdrop-blur-sm md:px-8">
+          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="text-[11px] uppercase tracking-[0.2em] text-gold-300 font-bold mb-2">Covenant Invitation</p>
+              <h3 className="text-2xl md:text-3xl font-heading font-extrabold text-white leading-tight">Worship With Us This Week</h3>
+              <p className="mt-2 text-sm md:text-base text-gray-300 max-w-2xl">Come and encounter God through heartfelt worship, sound teaching, and a family of believers committed to faith and love.</p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Link to="/live" className="rounded-xl bg-gradient-to-r from-accent-600 to-accent-700 px-5 py-3 text-center text-sm font-semibold text-white hover:from-accent-700 hover:to-accent-800 transition-all">
+                Watch Live Service
+              </Link>
+              <Link to="/contact" className="rounded-xl border border-white/30 bg-white/5 px-5 py-3 text-center text-sm font-semibold text-white hover:bg-white/10 transition-all">
+                Plan A Visit
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <div className="flex items-start gap-4">
+              <img
+                src="/image/New_Logo.png"
+                alt="Household Of Covenant And Faith Apostolic Ministry Logo"
+                className="h-20 w-20 object-contain md:h-24 md:w-24"
               />
               <div>
-                <h3 className="text-white text-lg font-heading font-bold leading-tight">
-                  Household Of Covenant And Faith Apostolic Ministry
-                </h3>
-                <p className="text-[11px] uppercase tracking-[0.15em] text-secondary-200 font-semibold mt-1">
-                  "Household of the living God" - 1 Timothy 3:15
-                </p>
+                <h3 className="text-xl font-heading font-extrabold text-white leading-tight">Household Of Covenant And Faith Apostolic Ministry</h3>
+                <p className="mt-1 text-[11px] uppercase tracking-[0.16em] text-secondary-200 font-semibold">Household of the living God • 1 Timothy 3:15</p>
               </div>
             </div>
-            <p className="text-sm mb-4">
-              A place where faith comes alive, families are strengthened, and
-              lives are transformed by God's love.
-            </p>
-            <div className="flex space-x-4">
-              <a
-                href="https://www.facebook.com/share/1J3U5WtaQH/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-300 hover:text-secondary-300 transition-colors transform hover:scale-110"
-                aria-label="Facebook"
-              >
-                <FaFacebook size={24} />
+
+            <p className="mt-5 max-w-xl text-sm leading-relaxed text-gray-300">A Christ-centered family where lives are transformed, generations are discipled, and the gospel is carried with conviction and compassion.</p>
+
+            <div className="mt-6 flex items-center gap-4">
+              <a href="https://www.facebook.com/share/1J3U5WtaQH/" target="_blank" rel="noopener noreferrer" className="rounded-lg border border-white/20 p-2 text-gray-300 hover:border-secondary-300 hover:text-secondary-200 transition-all" aria-label="Facebook">
+                <FaFacebook size={20} />
               </a>
-              <a
-                href="https://x.com/HMinistry85962"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-300 hover:text-secondary-300 transition-colors transform hover:scale-110"
-                aria-label="Twitter"
-              >
-                <FaTwitter size={24} />
+              <a href="https://x.com/HMinistry85962" target="_blank" rel="noopener noreferrer" className="rounded-lg border border-white/20 p-2 text-gray-300 hover:border-secondary-300 hover:text-secondary-200 transition-all" aria-label="Twitter">
+                <FaTwitter size={20} />
               </a>
-              <a
-                href="https://www.instagram.com/hocfam.ng"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-300 hover:text-accent-300 transition-colors transform hover:scale-110"
-                aria-label="Instagram"
-              >
-                <FaInstagram size={24} />
+              <a href="https://www.instagram.com/hocfam.ng" target="_blank" rel="noopener noreferrer" className="rounded-lg border border-white/20 p-2 text-gray-300 hover:border-accent-300 hover:text-accent-200 transition-all" aria-label="Instagram">
+                <FaInstagram size={20} />
               </a>
-              <a
-                href="https://www.youtube.com/channel/UC4NQoNY0b7CcLAogvSZo2Lg"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-300 hover:text-accent-300 transition-colors transform hover:scale-110"
-                aria-label="YouTube"
-              >
-                <FaYoutube size={24} />
+              <a href="https://www.youtube.com/channel/UC4NQoNY0b7CcLAogvSZo2Lg" target="_blank" rel="noopener noreferrer" className="rounded-lg border border-white/20 p-2 text-gray-300 hover:border-accent-300 hover:text-accent-200 transition-all" aria-label="YouTube">
+                <FaYoutube size={20} />
               </a>
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-white text-lg font-heading font-bold mb-4 border-b border-secondary-500/60 pb-2 inline-block">Quick Links</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link to="/about" className="hover:text-primary-400 transition-colors hover:pl-2 block">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link to="/sermons" className="hover:text-primary-400 transition-colors hover:pl-2 block">
-                  Sermons
-                </Link>
-              </li>
-              <li>
-                <Link to="/events" className="hover:text-primary-400 transition-colors hover:pl-2 block">
-                  Events
-                </Link>
-              </li>
-              <li>
-                <Link to="/ministries" className="hover:text-secondary-300 transition-colors hover:pl-2 block">
-                  Ministries
-                </Link>
-              </li>
-              <li>
-                <Link to="/bible-study" className="hover:text-primary-400 transition-colors hover:pl-2 block">
-                  Bible Study
-                </Link>
-              </li>
-              <li>
-                <Link to="/prayer-request" className="hover:text-primary-400 transition-colors hover:pl-2 block">
-                  Prayer Request
-                </Link>
-              </li>
-              <li>
-                <Link to="/live" className="hover:text-primary-400 transition-colors hover:pl-2 block">
-                  Live Stream
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Service Times */}
-          <div>
-            <h3 className="text-white text-lg font-heading font-bold mb-4 border-b border-accent-500/60 pb-2 inline-block">Service Times</h3>
+          <div className="lg:col-span-2">
+            <h4 className="text-sm uppercase tracking-[0.18em] text-gold-300 font-bold mb-4">Explore</h4>
             <ul className="space-y-2 text-sm">
-              <li className="flex justify-between hover:bg-primary-900/30 p-1 rounded">
-                <span>Sunday School:</span>
-                <span className="text-secondary-300 font-semibold">8:00 AM - 9:00 AM</span>
-              </li>
-              <li className="flex justify-between hover:bg-primary-900/30 p-1 rounded">
-                <span>Sunday Service:</span>
-                <span className="text-secondary-300 font-semibold">9:00 AM - 11:00 AM</span>
-              </li>
-              <li className="flex justify-between hover:bg-primary-900/30 p-1 rounded">
-                <span>Prayer Hour:</span>
-                <span className="text-secondary-300 font-semibold">Tuesday 6:00 PM - 7:00 PM</span>
-              </li>
-              <li className="flex justify-between hover:bg-primary-900/30 p-1 rounded">
-                <span>Bible Study:</span>
-                <span className="text-secondary-300 font-semibold">Thursday 6:00 PM - 7:00 PM</span>
-              </li>
-              <li className="flex justify-between hover:bg-primary-900/30 p-1 rounded">
-                <span>Monthly Vigil:</span>
-                <span className="text-secondary-300 font-semibold">Last Friday 11:00 PM - 4:00 AM</span>
-              </li>
-              <li className="flex justify-between hover:bg-primary-900/30 p-1 rounded">
-                <span>Youth Service:</span>
-                <span className="text-secondary-300 font-semibold">Saturday 4:00 PM</span>
-              </li>
+              <li><Link to="/about" className="text-gray-300 hover:text-white transition-colors">About Us</Link></li>
+              <li><Link to="/sermons" className="text-gray-300 hover:text-white transition-colors">Sermons</Link></li>
+              <li><Link to="/events" className="text-gray-300 hover:text-white transition-colors">Events</Link></li>
+              <li><Link to="/ministries" className="text-gray-300 hover:text-white transition-colors">Ministries</Link></li>
+              <li><Link to="/bible-study" className="text-gray-300 hover:text-white transition-colors">Bible Study</Link></li>
+              <li><Link to="/prayer-request" className="text-gray-300 hover:text-white transition-colors">Prayer Request</Link></li>
+              <li><Link to="/live" className="text-gray-300 hover:text-white transition-colors">Live Stream</Link></li>
             </ul>
-            <Link
-              to="/live"
-              className="mt-4 inline-block bg-gradient-to-r from-accent-700 to-accent-800 text-white px-6 py-3 rounded-xl hover:from-accent-800 hover:to-accent-900 transition-all shadow-lg hover:shadow-xl text-sm font-semibold"
-            >
-              Watch Live
-            </Link>
           </div>
 
-          {/* Contact Info */}
-          <div>
-            <h3 className="text-white text-lg font-heading font-bold mb-4 border-b border-secondary-500/60 pb-2 inline-block">Contact Us</h3>
+          <div className="lg:col-span-3">
+            <h4 className="text-sm uppercase tracking-[0.18em] text-gold-300 font-bold mb-4">Worship Times</h4>
             <ul className="space-y-3 text-sm">
-              <li className="flex items-start space-x-3 hover:bg-primary-900/30 p-2 rounded transition-colors">
-                <FaMapMarkerAlt className="text-secondary-400 mt-1 flex-shrink-0" />
-                <span>
-                  140, Obafemi Awolowo Road, Radio Bus stop, Ikorodu, Lagos
-                  Nigeria
-                </span>
-              </li>
-              <li className="flex items-start space-x-3 hover:bg-primary-900/30 p-2 rounded transition-colors">
-                <FaPhone className="text-secondary-400 flex-shrink-0 mt-1" />
-                <div className="space-y-1">
-                  <a href="tel:+2348137531119" className="block hover:text-secondary-300">
-                    0813-753-1119
-                  </a>
-                  <a href="tel:+2348053766702" className="block hover:text-secondary-300">
-                    0805-376-6702
-                  </a>
-                  <a href="tel:+2349076052317" className="block hover:text-secondary-300">
-                    0907-605-2317
-                  </a>
-                </div>
-              </li>
-              <li className="flex items-center space-x-3 hover:bg-primary-900/30 p-2 rounded transition-colors">
-                <FaEnvelope className="text-secondary-400 flex-shrink-0" />
-                <a
-                  href="mailto:info@hocfam.org"
-                  className="hover:text-secondary-300"
-                >
-                  info@hocfam.org
-                </a>
-              </li>
+              <li className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2"><span className="block text-gray-200 font-semibold">Sunday School</span><span className="text-secondary-200">8:00 AM - 9:00 AM</span></li>
+              <li className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2"><span className="block text-gray-200 font-semibold">Sunday Service</span><span className="text-secondary-200">9:00 AM - 11:00 AM</span></li>
+              <li className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2"><span className="block text-gray-200 font-semibold">Prayer Hour</span><span className="text-secondary-200">Tuesday 6:00 PM - 7:00 PM</span></li>
+              <li className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2"><span className="block text-gray-200 font-semibold">Bible Study</span><span className="text-secondary-200">Thursday 6:00 PM - 7:00 PM</span></li>
             </ul>
-            <Link
-              to="/donate"
-              className="mt-4 inline-flex items-center space-x-2 bg-gradient-to-r from-secondary-500 to-secondary-600 text-white px-6 py-3 rounded-xl hover:from-secondary-600 hover:to-secondary-700 transition-all shadow-lg hover:shadow-xl text-sm font-semibold"
-            >
+          </div>
+
+          <div className="lg:col-span-2">
+            <h4 className="text-sm uppercase tracking-[0.18em] text-gold-300 font-bold mb-4">Contact</h4>
+            <ul className="space-y-3 text-sm text-gray-300">
+              <li className="flex items-start gap-2"><FaMapMarkerAlt className="mt-1 text-secondary-300" /><span>140, Obafemi Awolowo Road, Radio Bus stop, Ikorodu, Lagos Nigeria</span></li>
+              <li className="flex items-start gap-2"><FaPhone className="mt-1 text-secondary-300" /><span>0813-753-1119<br/>0805-376-6702<br/>0907-605-2317</span></li>
+              <li className="flex items-center gap-2"><FaEnvelope className="text-secondary-300" /><a href="mailto:info@hocfam.org" className="hover:text-white transition-colors">info@hocfam.org</a></li>
+            </ul>
+
+            <Link to="/donate" className="mt-5 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-secondary-500 to-secondary-600 px-4 py-3 text-sm font-semibold text-white hover:from-secondary-600 hover:to-secondary-700 transition-all">
               <FaHeart />
               <span>Give Online</span>
             </Link>
@@ -203,18 +107,11 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Bottom Footer */}
-      <div className="border-t border-white/10 bg-gradient-to-r from-primary-900 to-accent-900">
-        <div className="container-custom py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center text-sm">
-            <p>
-              &copy; {new Date().getFullYear()} Household Of Covenant And Faith Apostolic Ministry. All
-              rights reserved.
-            </p>
-            <p className="mt-2 md:mt-0 flex items-center">
-              Made with <FaHeart className="inline text-red-500 mx-1" /> for God's
-              Glory
-            </p>
+      <div className="border-t border-white/10 bg-black/20">
+        <div className="container-custom py-5">
+          <div className="flex flex-col gap-2 text-sm text-gray-300 md:flex-row md:items-center md:justify-between">
+            <p>&copy; {new Date().getFullYear()} Household Of Covenant And Faith Apostolic Ministry. All rights reserved.</p>
+            <p className="flex items-center">Made with <FaHeart className="mx-1 text-red-500" /> for God's glory</p>
           </div>
         </div>
       </div>
