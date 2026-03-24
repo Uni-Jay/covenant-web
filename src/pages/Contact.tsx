@@ -38,7 +38,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="page-shell">
       {/* Hero Section */}
       <section className="page-hero">
         <div className="container-custom text-center">
@@ -75,7 +75,7 @@ const Contact = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="card p-6 text-center"
+                className="card p-6 text-center border border-primary-100/80"
               >
                 <item.icon className="text-4xl text-primary-600 mx-auto mb-4" />
                 <h3 className="text-lg font-bold mb-2">{item.title}</h3>
@@ -95,7 +95,7 @@ const Contact = () => {
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
-              className="card p-8"
+              className="card p-8 border border-primary-100/80"
             >
               <h2 className="text-3xl font-bold mb-6">Send us a Message</h2>
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -169,7 +169,7 @@ const Contact = () => {
               animate={{ opacity: 1, x: 0 }}
               className="space-y-8"
             >
-              <div className="card overflow-hidden h-80">
+              <div className="card overflow-hidden h-80 border border-primary-100/80">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.952912260219!2d3.375295315134229!3d6.515398895328511!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b8b2ae68280c1%3A0xdc9e87a367c3d65b!2sLagos%2C%20Nigeria!5e0!3m2!1sen!2sus!4v1234567890123"
                   width="100%"
@@ -180,7 +180,7 @@ const Contact = () => {
                 ></iframe>
               </div>
 
-              <div className="card p-8">
+              <div className="card p-8 border border-primary-100/80">
                 <h3 className="text-2xl font-bold mb-4">Connect With Us</h3>
                 <p className="text-gray-600 mb-6">
                   Follow us on social media for updates, inspirational content, and community highlights.
@@ -205,7 +205,7 @@ const Contact = () => {
                 </div>
               </div>
 
-              <div className="card p-8 bg-primary-50">
+              <div className="card p-8 bg-primary-50/80 border border-primary-100/80">
                 <h3 className="text-xl font-bold mb-4">Service Times</h3>
                 <div className="space-y-2 text-gray-700">
                   <p className="flex justify-between">

@@ -69,7 +69,7 @@ const Events = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="page-shell">
       {/* Hero Section */}
       <section className="page-hero">
         <div className="container-custom text-center">
@@ -79,17 +79,17 @@ const Events = () => {
       </section>
 
       {/* Filter Tabs */}
-      <section className="py-8 bg-white shadow-md">
+      <section className="py-8 surface-panel">
         <div className="container-custom">
           <div className="flex justify-center space-x-4">
             {(['all', 'upcoming', 'past'] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setFilter(tab)}
-                className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
+                className={`chip-filter ${
                   filter === tab
-                    ? 'bg-primary-600 text-white'
-                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                    ? 'chip-filter-active'
+                    : ''
                 }`}
               >
                 {tab.charAt(0).toUpperCase() + tab.slice(1)} Events
@@ -120,7 +120,7 @@ const Events = () => {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="card overflow-hidden"
+                  className="card overflow-hidden border border-primary-100/80"
                 >
                   <img
                     src={imageUrl}
@@ -170,7 +170,7 @@ const Events = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-white rounded-xl max-w-md w-full p-8 my-8 max-h-[90vh] overflow-y-auto"
+            className="bg-white rounded-2xl max-w-md w-full p-8 my-8 max-h-[90vh] overflow-y-auto border border-primary-100 shadow-2xl"
           >
             <h2 className="text-2xl font-bold mb-4">Register for Event</h2>
             <h3 className="text-lg text-primary-600 mb-6">{selectedEvent.title}</h3>

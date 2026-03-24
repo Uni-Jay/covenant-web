@@ -41,7 +41,7 @@ const Gallery = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="page-shell">
       {/* Hero Section */}
       <section className="page-hero">
         <div className="container-custom text-center">
@@ -51,17 +51,17 @@ const Gallery = () => {
       </section>
 
       {/* Category Filter */}
-      <section className="py-6 md:py-8 bg-white shadow-md sticky top-16 md:top-20 z-40">
+      <section className="py-6 md:py-8 surface-panel sticky top-16 md:top-20 z-40">
         <div className="container-custom">
           <div className="flex flex-wrap gap-3 justify-center">
             {categories.map((category) => (
               <button
                 key={category.value}
                 onClick={() => setSelectedCategory(category.value)}
-                className={`px-6 py-2 rounded-lg font-medium transition-colors ${
+                className={`chip-filter ${
                   selectedCategory === category.value
-                    ? 'bg-primary-600 text-white'
-                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                    ? 'chip-filter-active'
+                    : ''
                 }`}
               >
                 {category.label}
@@ -93,7 +93,7 @@ const Gallery = () => {
                   className="relative group cursor-pointer"
                   onClick={() => setSelectedImage(item)}
                 >
-                  <div className="aspect-square overflow-hidden rounded-lg shadow-lg">
+                  <div className="aspect-square overflow-hidden rounded-xl shadow-lg border border-primary-100/80">
                     <img
                       src={item.imageUrl}
                       alt={item.title}
@@ -131,7 +131,7 @@ const Gallery = () => {
               alt={selectedImage.title}
               className="w-full h-auto max-h-[80vh] object-contain rounded-lg"
             />
-            <div className="bg-white p-6 mt-4 rounded-lg">
+            <div className="bg-white p-6 mt-4 rounded-xl border border-primary-100">
               <h2 className="text-2xl font-bold mb-2">{selectedImage.title}</h2>
               <p className="text-gray-600">{selectedImage.description}</p>
               <p className="text-sm text-gray-500 mt-2">

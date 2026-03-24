@@ -77,7 +77,7 @@ const LiveStream = () => {
   return (
     <div className="min-h-screen bg-gray-900">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-12">
+      <section className="bg-gradient-to-r from-primary-800 via-secondary-700 to-accent-700 text-white py-12">
         <div className="container-custom">
           <div className="flex items-center justify-between">
             <div>
@@ -151,7 +151,7 @@ const LiveStream = () => {
 
               {/* Service Times & Info */}
               <div className="grid md:grid-cols-3 gap-6 mt-8">
-                <div className="card p-6 md:col-span-2">
+                <div className="card p-6 md:col-span-2 border border-primary-100/80">
                   <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
                     <FaClock className="text-primary-600" />
                     Service Times
@@ -167,7 +167,7 @@ const LiveStream = () => {
                   </div>
                 </div>
 
-                <div className="card p-6 bg-primary-50">
+                <div className="card p-6 bg-primary-50/90 border border-primary-100/80">
                   <h3 className="text-xl font-bold mb-4">Join Live Stream</h3>
                   <p className="text-gray-600 mb-4">
                     Join us for inspiring worship, powerful messages, and meaningful fellowship.
@@ -185,7 +185,7 @@ const LiveStream = () => {
       </section>
 
       {/* Previous Services */}
-      <section className="py-12 bg-gray-800">
+      <section className="py-12 bg-gradient-to-b from-gray-900 to-primary-950">
         <div className="container-custom">
           <h2 className="text-3xl font-bold text-white mb-8">Sermon Archive</h2>
           {streamData?.previousServices && streamData.previousServices.length > 0 ? (
@@ -195,7 +195,7 @@ const LiveStream = () => {
                   key={item.id}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  className="card overflow-hidden hover:shadow-xl transition-shadow"
+                  className="card overflow-hidden hover:shadow-xl transition-shadow border border-gray-700/40"
                 >
                   <div className="relative">
                     <img

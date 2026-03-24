@@ -82,7 +82,7 @@ const BibleStudy = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="page-shell">
       {/* Hero Section */}
       <section className="page-hero">
         <div className="container-custom text-center">
@@ -102,7 +102,7 @@ const BibleStudy = () => {
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="card p-8 mb-12 bg-primary-50"
+                className="card p-8 mb-12 bg-primary-50/80 border border-primary-100/80"
               >
                 <div className="grid md:grid-cols-2 gap-8 items-center">
                   <div>
@@ -119,7 +119,7 @@ const BibleStudy = () => {
                       <p className="text-gray-600 ml-8">Also available via Zoom</p>
                     </div>
                   </div>
-                  <div className="bg-white p-6 rounded-xl shadow-md">
+                  <div className="bg-white p-6 rounded-2xl border border-primary-100 shadow-md">
                     <h3 className="text-xl font-bold mb-3">This Week's Topic</h3>
                     <p className="text-2xl font-bold text-primary-600 mb-2">
                       "{weeklyStudy?.title || 'Coming soon'}"
@@ -145,7 +145,7 @@ const BibleStudy = () => {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    className="card p-6"
+                    className="card p-6 border border-primary-100/80"
                   >
                     <h3 className="text-xl font-bold mb-3">{study.title}</h3>
                     <p className="text-gray-600 mb-4">{study.description}</p>
@@ -184,7 +184,7 @@ const BibleStudy = () => {
               </div>
 
               {/* Resources */}
-              <div className="card p-8">
+              <div className="card p-8 border border-primary-100/80">
                 <h2 className="text-3xl font-bold mb-6 text-center">Study Resources</h2>
                 <div className="grid md:grid-cols-2 gap-6">
                   {resources.map((resource, index) => (

@@ -33,7 +33,7 @@ const Header = () => {
   return (
     <header
       className={`fixed w-full top-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white shadow-xl py-2' : 'bg-white/98 py-4 shadow-md'
+        isScrolled ? 'bg-white/95 backdrop-blur-md border-b border-primary-100 shadow-xl py-2' : 'bg-white/90 backdrop-blur-sm border-b border-white/50 py-4 shadow-md'
       }`}
     >
       <div className="container-custom">
@@ -43,13 +43,13 @@ const Header = () => {
             <img 
               src="/image/New_Logo.png" 
               alt="Household Of Covenant And Faith Apostolic Ministry Logo" 
-              className="w-20 h-20 md:w-26 md:h-26 object-contain transition-transform group-hover:scale-110"
+              className="w-16 h-16 md:w-20 md:h-20 object-contain transition-transform group-hover:scale-110"
             />
-            <div>
-              <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-primary-700 to-accent-700 bg-clip-text text-transparent w-full">
+            <div className="max-w-md">
+              <h1 className="text-base md:text-lg font-heading font-bold text-primary-900 leading-tight">
                 Household Of Covenant And Faith Apostolic Ministry
               </h1>
-              <p className="text-xs text-gray-600 italic">Household of the Living God (1 Tim 3:15)</p>
+              <p className="text-xs text-accent-700 font-semibold tracking-wide">Household of the Living God (1 Tim 3:15)</p>
             </div>
           </Link>
 
@@ -62,11 +62,11 @@ const Header = () => {
                 className={`font-semibold transition-all duration-300 relative ${
                   isActive(link.path)
                     ? 'text-primary-700'
-                    : 'text-gray-700 hover:text-primary-600'
+                    : 'text-gray-700 hover:text-accent-600'
                 } after:absolute after:bottom-0 after:left-0 after:h-0.5 after:transition-all ${
                   isActive(link.path) 
                     ? 'after:w-full after:bg-primary-700' 
-                    : 'after:w-0 hover:after:w-full hover:after:bg-primary-600'
+                    : 'after:w-0 hover:after:w-full hover:after:bg-accent-600'
                 }`}
               >
                 {link.name}
@@ -77,7 +77,7 @@ const Header = () => {
             <div className="flex items-center space-x-4">
               <Link
                 to="/admin"
-                className="px-4 py-2 bg-gradient-to-r from-primary-600 to-secondary-600 text-white rounded-lg font-semibold hover:from-primary-700 hover:to-secondary-700 transition-all shadow-md hover:shadow-lg"
+                className="px-4 py-2 bg-gradient-to-r from-primary-600 to-accent-600 text-white rounded-xl font-semibold hover:from-primary-700 hover:to-accent-700 transition-all shadow-md hover:shadow-lg"
               >
                 Admin Dashboard
               </Link>
@@ -112,7 +112,7 @@ const Header = () => {
                 className={`block py-3 font-semibold rounded-lg px-3 my-1 transition-all ${
                   isActive(link.path)
                     ? 'bg-primary-600 text-white'
-                    : 'text-gray-700 hover:bg-primary-100 hover:text-primary-700'
+                    : 'text-gray-700 hover:bg-primary-100 hover:text-accent-700'
                 }`}
               >
                 {link.name}
@@ -124,7 +124,7 @@ const Header = () => {
                   <Link
                     to="/admin"
                     onClick={() => setIsOpen(false)}
-                    className="block py-3 my-2 font-semibold bg-gradient-to-r from-primary-600 to-secondary-600 text-white rounded-lg text-center"
+                    className="block py-3 my-2 font-semibold bg-gradient-to-r from-primary-600 to-accent-600 text-white rounded-lg text-center"
                   >
                     Admin Dashboard
                   </Link>

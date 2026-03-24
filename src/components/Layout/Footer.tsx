@@ -12,7 +12,7 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 text-gray-300">
+    <footer className="bg-gradient-to-br from-primary-900 via-primary-800 to-accent-900 text-gray-200">
       {/* Main Footer */}
       <div className="container-custom py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -22,13 +22,13 @@ const Footer = () => {
               <img 
                 src="/image/New_Logo.png" 
                 alt="Household Of Covenant And Faith Apostolic Ministry Logo" 
-                className="w-28 h-28 md:w-42 md:h-42 object-contain"
+                className="w-20 h-20 md:w-24 md:h-24 object-contain"
               />
               <div>
-                <h3 className="text-white text-lg font-bold bg-gradient-to-r from-primary-400 to-secondary-400 bg-clip-text text-transparent">
+                <h3 className="text-white text-lg font-heading font-bold bg-gradient-to-r from-secondary-300 to-secondary-500 bg-clip-text text-transparent">
                   Household Of Covenant And Faith Apostolic Ministry
                 </h3>
-                <p className="text-xs italic text-secondary-300">
+                <p className="text-xs text-secondary-200 font-semibold">
                   "Household of the living God" - 1 Timothy 3:15
                 </p>
               </div>
@@ -42,7 +42,7 @@ const Footer = () => {
                 href="https://www.facebook.com/share/1J3U5WtaQH/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-primary-400 transition-colors transform hover:scale-110"
+                className="text-gray-300 hover:text-secondary-300 transition-colors transform hover:scale-110"
                 aria-label="Facebook"
               >
                 <FaFacebook size={24} />
@@ -51,7 +51,7 @@ const Footer = () => {
                 href="https://x.com/HMinistry85962"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-primary-300 transition-colors transform hover:scale-110"
+                className="text-gray-300 hover:text-secondary-300 transition-colors transform hover:scale-110"
                 aria-label="Twitter"
               >
                 <FaTwitter size={24} />
@@ -60,7 +60,7 @@ const Footer = () => {
                 href="https://www.instagram.com/hocfam.ng"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-accent-400 transition-colors transform hover:scale-110"
+                className="text-gray-300 hover:text-accent-300 transition-colors transform hover:scale-110"
                 aria-label="Instagram"
               >
                 <FaInstagram size={24} />
@@ -69,7 +69,7 @@ const Footer = () => {
                 href="https://www.youtube.com/channel/UC4NQoNY0b7CcLAogvSZo2Lg"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-accent-500 transition-colors transform hover:scale-110"
+                className="text-gray-300 hover:text-accent-300 transition-colors transform hover:scale-110"
                 aria-label="YouTube"
               >
                 <FaYoutube size={24} />
@@ -79,7 +79,7 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-white text-lg font-bold mb-4 border-b-2 border-primary-600 pb-2 inline-block">Quick Links</h3>
+            <h3 className="text-white text-lg font-heading font-bold mb-4 border-b-2 border-secondary-500 pb-2 inline-block">Quick Links</h3>
             <ul className="space-y-2">
               <li>
                 <Link to="/about" className="hover:text-primary-400 transition-colors hover:pl-2 block">
@@ -97,7 +97,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/ministries" className="hover:text-blue-400 transition-colors hover:pl-2 block">
+                <Link to="/ministries" className="hover:text-secondary-300 transition-colors hover:pl-2 block">
                   → Ministries
                 </Link>
               </li>
@@ -121,7 +121,7 @@ const Footer = () => {
 
           {/* Service Times */}
           <div>
-            <h3 className="text-white text-lg font-bold mb-4 border-b-2 border-accent-600 pb-2 inline-block">Service Times</h3>
+            <h3 className="text-white text-lg font-heading font-bold mb-4 border-b-2 border-accent-500 pb-2 inline-block">Service Times</h3>
             <ul className="space-y-2 text-sm">
               <li className="flex justify-between hover:bg-primary-900/30 p-1 rounded">
                 <span>Sunday School:</span>
@@ -150,7 +150,7 @@ const Footer = () => {
             </ul>
             <Link
               to="/live"
-              className="mt-4 inline-block bg-gradient-to-r from-accent-600 to-accent-700 text-white px-6 py-3 rounded-lg hover:from-accent-700 hover:to-accent-800 transition-all shadow-lg hover:shadow-xl transform hover:scale-105 text-sm font-semibold"
+              className="mt-4 inline-block bg-gradient-to-r from-accent-600 to-accent-700 text-white px-6 py-3 rounded-xl hover:from-accent-700 hover:to-accent-800 transition-all shadow-lg hover:shadow-xl transform hover:scale-105 text-sm font-semibold"
             >
               🔴 Watch Live
             </Link>
@@ -158,17 +158,17 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-white text-lg font-bold mb-4 border-b-2 border-primary-600 pb-2 inline-block">Contact Us</h3>
+            <h3 className="text-white text-lg font-heading font-bold mb-4 border-b-2 border-secondary-500 pb-2 inline-block">Contact Us</h3>
             <ul className="space-y-3 text-sm">
               <li className="flex items-start space-x-3 hover:bg-primary-900/30 p-2 rounded transition-colors">
-                <FaMapMarkerAlt className="text-accent-500 mt-1 flex-shrink-0" />
+                <FaMapMarkerAlt className="text-secondary-400 mt-1 flex-shrink-0" />
                 <span>
                   140, Obafemi Awolowo Road, Radio Bus stop, Ikorodu, Lagos
                   Nigeria
                 </span>
               </li>
               <li className="flex items-start space-x-3 hover:bg-primary-900/30 p-2 rounded transition-colors">
-                <FaPhone className="text-secondary-500 flex-shrink-0 mt-1" />
+                <FaPhone className="text-secondary-400 flex-shrink-0 mt-1" />
                 <div className="space-y-1">
                   <a href="tel:+2348137531119" className="block hover:text-secondary-300">
                     0813-753-1119
@@ -182,7 +182,7 @@ const Footer = () => {
                 </div>
               </li>
               <li className="flex items-center space-x-3 hover:bg-primary-900/30 p-2 rounded transition-colors">
-                <FaEnvelope className="text-secondary-500 flex-shrink-0" />
+                <FaEnvelope className="text-secondary-400 flex-shrink-0" />
                 <a
                   href="mailto:info@hocfam.org"
                   className="hover:text-secondary-300"
@@ -193,7 +193,7 @@ const Footer = () => {
             </ul>
             <Link
               to="/donate"
-              className="mt-4 inline-flex items-center space-x-2 bg-gradient-to-r from-secondary-600 to-secondary-700 text-white px-6 py-3 rounded-lg hover:from-secondary-700 hover:to-secondary-800 transition-all shadow-lg hover:shadow-xl transform hover:scale-105 text-sm font-semibold"
+              className="mt-4 inline-flex items-center space-x-2 bg-gradient-to-r from-secondary-500 to-secondary-600 text-white px-6 py-3 rounded-xl hover:from-secondary-600 hover:to-secondary-700 transition-all shadow-lg hover:shadow-xl transform hover:scale-105 text-sm font-semibold"
             >
               <FaHeart />
               <span>Give Online</span>
@@ -203,7 +203,7 @@ const Footer = () => {
       </div>
 
       {/* Bottom Footer */}
-      <div className="border-t border-primary-800/50 bg-gradient-to-r from-primary-950 to-gray-950">
+      <div className="border-t border-white/10 bg-gradient-to-r from-primary-900 to-accent-900">
         <div className="container-custom py-6">
           <div className="flex flex-col md:flex-row justify-between items-center text-sm">
             <p>

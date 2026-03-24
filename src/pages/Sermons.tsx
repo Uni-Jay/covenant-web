@@ -41,7 +41,7 @@ const Sermons = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="page-shell">
       {/* Hero Section */}
       <section className="page-hero">
         <div className="container-custom text-center">
@@ -53,18 +53,18 @@ const Sermons = () => {
       </section>
 
       {/* Filters */}
-      <section className="py-6 md:py-8 bg-white shadow-md sticky top-16 md:top-20 z-40">
+      <section className="py-6 md:py-8 surface-panel sticky top-16 md:top-20 z-40">
         <div className="container-custom">
           <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
             {/* Search */}
             <div className="relative w-full md:w-96">
-              <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-primary-400" />
               <input
                 type="text"
                 placeholder="Search sermons..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="w-full pl-12 pr-4 py-3 border border-primary-200 rounded-full bg-white/95 focus:outline-none focus:ring-2 focus:ring-primary-500"
               />
             </div>
 
@@ -78,15 +78,15 @@ const Sermons = () => {
                 <span>🔄</span>
                 <span className="hidden sm:inline">Refresh</span>
               </button>
-              <div className="flex gap-2 overflow-x-auto">
+              <div className="flex gap-2 overflow-x-auto pb-1">
                 {categories.map((category) => (
                   <button
                     key={category}
                     onClick={() => setSelectedCategory(category)}
-                    className={`px-4 py-2 rounded-lg font-medium whitespace-nowrap transition-colors ${
+                    className={`chip-filter ${
                       selectedCategory === category
-                        ? 'bg-primary-600 text-white'
-                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                        ? 'chip-filter-active'
+                        : ''
                     }`}
                   >
                     {category.charAt(0).toUpperCase() + category.slice(1)}
@@ -97,7 +97,7 @@ const Sermons = () => {
           </div>
           
           {/* Sermon count */}
-          <div className="mt-4 text-sm text-gray-600">
+          <div className="mt-4 text-sm text-primary-800 font-medium">
             Showing {filteredSermons.length} of {sermons.length} sermon{sermons.length !== 1 ? 's' : ''}
           </div>
         </div>
@@ -122,7 +122,7 @@ const Sermons = () => {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="card cursor-pointer"
+                  className="card cursor-pointer border border-primary-100/80"
                   onClick={() => setSelectedSermon(sermon)}
                 >
                   <div className="relative">

@@ -1,10 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   body {
-    @apply font-body text-gray-900 bg-white;
+    @apply font-body text-gray-900 bg-primary-50;
+    background-image: radial-gradient(circle at 10% 10%, rgba(200, 139, 34, 0.08), transparent 40%),
+      radial-gradient(circle at 90% 20%, rgba(143, 51, 77, 0.08), transparent 45%);
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -13,28 +17,32 @@
 }
 
 @layer components {
+  .page-shell {
+    @apply min-h-screen bg-[radial-gradient(circle_at_10%_0%,rgba(200,139,34,0.12),transparent_35%),radial-gradient(circle_at_90%_10%,rgba(143,51,77,0.1),transparent_35%),linear-gradient(to_bottom,#f5f8fc,#eef3fa)];
+  }
+
   .btn-primary {
-    @apply bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg;
+    @apply bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-md hover:shadow-xl;
   }
   
   .btn-secondary {
-    @apply bg-secondary-600 hover:bg-secondary-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg;
+    @apply bg-gradient-to-r from-secondary-500 to-secondary-600 hover:from-secondary-600 hover:to-secondary-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-md hover:shadow-xl;
   }
   
   .btn-outline {
-    @apply border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300;
+    @apply border-2 border-primary-600 text-primary-700 hover:bg-primary-700 hover:text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300;
   }
   
   .section-title {
-    @apply text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-3 md:mb-4;
+    @apply text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-primary-900 mb-3 md:mb-4;
   }
   
   .section-subtitle {
-    @apply text-base sm:text-lg md:text-xl text-gray-600 mb-6 md:mb-8;
+    @apply text-base sm:text-lg md:text-xl text-primary-700 mb-6 md:mb-8;
   }
   
   .card {
-    @apply bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl;
+    @apply bg-white/95 backdrop-blur-sm rounded-2xl border border-primary-100 shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl;
   }
   
   .input-field {
@@ -46,7 +54,7 @@
   }
 
   .page-hero {
-    @apply bg-gradient-to-r from-primary-600 to-primary-800 text-white py-14 md:py-20;
+    @apply bg-gradient-to-br from-primary-800 via-primary-700 to-accent-700 text-white py-14 md:py-20;
   }
 
   .page-hero-title {
@@ -55,6 +63,26 @@
 
   .section-padding {
     @apply py-14 md:py-20;
+  }
+
+  .surface-glass {
+    @apply bg-white/80 backdrop-blur-md border border-white/40 shadow-xl rounded-2xl;
+  }
+
+  .surface-panel {
+    @apply bg-white/85 backdrop-blur-md border-y border-primary-100 shadow-lg;
+  }
+
+  .chip-filter {
+    @apply px-4 py-2 rounded-full font-semibold text-sm md:text-base whitespace-nowrap transition-all duration-300 border border-primary-200 bg-white text-primary-700 hover:bg-primary-50 hover:border-primary-300;
+  }
+
+  .chip-filter-active {
+    @apply bg-gradient-to-r from-primary-600 to-primary-700 text-white border-transparent shadow-md;
+  }
+
+  .stat-pill {
+    @apply inline-flex items-center gap-2 rounded-full bg-primary-50 text-primary-700 border border-primary-100 px-4 py-2 text-sm font-semibold;
   }
 }
 
@@ -77,12 +105,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2563eb;
+  background: #2f568a;
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #1e40af;
+  background: #224165;
 }
 
 /* Animations */
@@ -104,7 +132,7 @@
 /* Loading spinner */
 .spinner {
   border: 3px solid #f3f3f3;
-  border-top: 3px solid #2563eb;
+  border-top: 3px solid #2f568a;
   border-radius: 50%;
   width: 40px;
   height: 40px;

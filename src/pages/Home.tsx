@@ -26,18 +26,20 @@ const Home = () => {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative min-h-[88vh] md:min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-700 via-primary-800 to-primary-900 text-white py-12">
+      <section className="relative min-h-[88vh] md:min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-900 via-primary-800 to-accent-800 text-white py-12">
         <div className="absolute inset-0 bg-black/40"></div>
+        <div className="absolute top-20 left-1/4 w-64 h-64 bg-secondary-400/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-1/4 w-64 h-64 bg-accent-400/20 rounded-full blur-3xl"></div>
         <div className="container-custom relative z-10 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-3xl sm:text-4xl md:text-7xl font-bold mb-4 md:mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-7xl font-heading font-bold mb-4 md:mb-6 leading-tight">
               Welcome to Household Of Covenant And Faith Apostolic Ministry
             </h1>
-            <p className="text-lg sm:text-2xl md:text-3xl mb-3 md:mb-4 italic text-gold-300">
+            <p className="text-lg sm:text-2xl md:text-3xl mb-3 md:mb-4 text-secondary-200 font-semibold">
               "Household of the living God"
             </p>
             <p className="text-base sm:text-xl mb-6 md:mb-8">- 1 Timothy 3:15</p>
@@ -58,7 +60,7 @@ const Home = () => {
       </section>
 
       {/* Mobile App Download Section */}
-      <section className="py-14 md:py-20 bg-gradient-to-r from-primary-600 to-primary-800 text-white">
+      <section className="py-14 md:py-20 bg-gradient-to-r from-primary-700 via-primary-600 to-accent-600 text-white">
         <div className="container-custom">
           <div className="text-center mb-12">
             <motion.div
@@ -66,7 +68,7 @@ const Home = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-3 md:mb-4">Get Our Mobile App</h2>
+              <h2 className="text-3xl md:text-4xl font-heading font-bold mb-3 md:mb-4">Get Our Mobile App</h2>
               <p className="text-lg md:text-xl text-gray-100">
                 Stay connected with church updates, attend services, and give offerings on the go
               </p>
@@ -81,7 +83,7 @@ const Home = () => {
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center justify-center gap-3 px-6 py-4 md:py-5 bg-white text-primary-700 font-bold rounded-xl hover:bg-gray-100 transition shadow-lg"
+              className="inline-flex items-center justify-center gap-3 px-6 py-4 md:py-5 bg-white text-primary-800 font-bold rounded-2xl hover:bg-gray-100 transition shadow-lg"
             >
               <FaAndroid className="text-2xl md:text-3xl" />
               <div className="text-left">
@@ -98,7 +100,7 @@ const Home = () => {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="inline-flex items-center justify-center gap-3 px-6 py-4 md:py-5 bg-white text-primary-700 font-bold rounded-xl hover:bg-gray-100 transition shadow-lg"
+              className="inline-flex items-center justify-center gap-3 px-6 py-4 md:py-5 bg-white text-primary-800 font-bold rounded-2xl hover:bg-gray-100 transition shadow-lg"
             >
               <FaApple className="text-2xl md:text-3xl" />
               <div className="text-left">
@@ -155,7 +157,7 @@ const Home = () => {
       </section>
 
       {/* Service Times */}
-      <section className="py-14 md:py-20 bg-gray-50">
+      <section className="py-14 md:py-20 bg-gradient-to-b from-primary-50 to-white">
         <div className="container-custom text-center">
           <h2 className="section-title">Join Us For Worship</h2>
           <p className="section-subtitle">We can't wait to meet you!</p>
@@ -184,7 +186,7 @@ const Home = () => {
       </section>
 
       {/* Quick Actions */}
-      <section className="py-14 md:py-20 bg-white">
+      <section className="py-14 md:py-20 bg-gradient-to-b from-white to-primary-50/40">
         <div className="container-custom">
           <div className="grid md:grid-cols-3 gap-5 md:gap-8">
             <motion.div
@@ -238,7 +240,7 @@ const Home = () => {
       </section>
 
       {/* Latest Sermons */}
-      <section className="py-14 md:py-20 bg-gray-50">
+      <section className="py-14 md:py-20 bg-gradient-to-b from-primary-50/80 to-white">
         <div className="container-custom">
           <div className="text-center mb-12">
             <h2 className="section-title">Latest Sermons</h2>

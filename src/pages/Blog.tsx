@@ -25,7 +25,7 @@ const Blog = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="page-shell">
       {/* Hero Section */}
       <section className="page-hero">
         <div className="container-custom text-center">
@@ -53,7 +53,7 @@ const Blog = () => {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="card group"
+                  className="card group border border-primary-100/80"
                 >
                   <div className="overflow-hidden">
                     <img

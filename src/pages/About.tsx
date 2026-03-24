@@ -3,7 +3,7 @@ import { FaQuoteLeft } from 'react-icons/fa';
 
 const About = () => {
   return (
-    <div>
+    <div className="page-shell">
       {/* Hero Section */}
       <section className="page-hero">
         <div className="container-custom text-center">
@@ -21,7 +21,7 @@ const About = () => {
       </section>
 
       {/* Our Story */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-white/70">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
             <h2 className="section-title text-center">Our Story</h2>
@@ -36,7 +36,7 @@ const About = () => {
       </section>
 
       {/* Mission & Vision */}
-      <section className="section-padding bg-gray-50">
+      <section className="section-padding bg-gradient-to-b from-primary-50/70 to-white/80">
         <div className="container-custom">
           <div className="grid md:grid-cols-2 gap-12">
             <motion.div
@@ -64,7 +64,7 @@ const About = () => {
       </section>
 
       {/* Core Values */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-white/70">
         <div className="container-custom">
           <h2 className="section-title text-center mb-12">Our Core Values</h2>
           <div className="grid md:grid-cols-3 gap-8">
@@ -110,7 +110,7 @@ const About = () => {
       </section>
 
       {/* Pastor's Message */}
-      <section className="section-padding bg-gray-50">
+      <section className="section-padding bg-gradient-to-b from-white/60 to-primary-50/70">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
             <div className="card p-8 md:p-12">
@@ -139,7 +139,7 @@ const About = () => {
       </section>
 
       {/* Leadership Team */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-white/70">
         <div className="container-custom">
           <h2 className="section-title text-center mb-12">Our Leadership</h2>
           <div className="grid md:grid-cols-4 gap-8">

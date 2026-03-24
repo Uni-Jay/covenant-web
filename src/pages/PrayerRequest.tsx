@@ -55,7 +55,7 @@ const PrayerRequest = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="page-shell">
       {/* Hero Section */}
       <section className="page-hero">
         <div className="container-custom text-center">
@@ -80,7 +80,7 @@ const PrayerRequest = () => {
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
-              className="card p-8"
+              className="card p-8 border border-primary-100/80"
             >
               <h2 className="text-3xl font-bold mb-6">Submit Your Prayer Request</h2>
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -187,7 +187,7 @@ const PrayerRequest = () => {
               animate={{ opacity: 1, x: 0 }}
               className="space-y-8"
             >
-              <div className="card p-8 bg-primary-50">
+              <div className="card p-8 bg-primary-50/85 border border-primary-100/80">
                 <FaHeart className="text-4xl text-primary-600 mb-4" />
                 <h3 className="text-2xl font-bold mb-4">We're Here for You</h3>
                 <p className="text-gray-700 leading-relaxed mb-4">
@@ -198,7 +198,7 @@ const PrayerRequest = () => {
                 </p>
               </div>
 
-              <div className="card p-8">
+              <div className="card p-8 border border-primary-100/80">
                 <h3 className="text-xl font-bold mb-4">Prayer Meeting Times</h3>
                 <div className="space-y-3 text-gray-700">
                   <div className="flex justify-between">
@@ -219,7 +219,7 @@ const PrayerRequest = () => {
                 </p>
               </div>
 
-              <div className="card p-8 bg-gold-50">
+              <div className="card p-8 bg-gold-50/85 border border-gold-200/60">
                 <h3 className="text-xl font-bold mb-4">Emergency Prayer Line</h3>
                 <p className="text-gray-700 mb-4">
                   Need urgent prayer? Call our 24/7 prayer hotline:
@@ -237,7 +237,7 @@ const PrayerRequest = () => {
                 </div>
               </div>
 
-              <div className="card p-8">
+              <div className="card p-8 border border-primary-100/80">
                 <h3 className="text-xl font-bold mb-4">Testimonies</h3>
                 <p className="text-gray-700 italic">
                   "I submitted a prayer request for healing, and God answered! Within weeks, the doctors confirmed I was completely healed. Thank you for your prayers!"

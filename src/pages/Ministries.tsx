@@ -59,7 +59,7 @@ const Ministries = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="page-shell">
       {/* Hero Section */}
       <section className="page-hero">
         <div className="container-custom text-center">
@@ -85,7 +85,7 @@ const Ministries = () => {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="card group"
+                  className="card group border border-primary-100/80"
                 >
                   <div className="overflow-hidden">
                     <img
@@ -124,11 +124,11 @@ const Ministries = () => {
       </section>
 
       {/* Call to Action */}
-      <section className="section-padding bg-primary-50">
+      <section className="section-padding bg-gradient-to-b from-primary-50/80 to-white/80">
         <div className="container-custom text-center">
           <FaUsers className="text-6xl text-primary-600 mx-auto mb-6" />
-          <h2 className="text-4xl font-bold mb-4">Find Your Ministry</h2>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+          <h2 className="text-4xl font-bold mb-4 text-primary-900">Find Your Ministry</h2>
+          <p className="text-xl text-primary-800 mb-8 max-w-2xl mx-auto">
             God has equipped you with unique gifts and talents. Use them to serve in one of our ministries and make an eternal impact!
           </p>
           <a href="mailto:info@hocfam.org" className="btn-primary">
