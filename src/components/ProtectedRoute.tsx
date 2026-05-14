@@ -12,7 +12,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     );
   }
 
-  if (!user || (user.role !== 'admin' && user.role !== 'super_admin')) {
+  if (!user || (user.role !== 'admin' && user.role !== 'media')) {
     return <Navigate to="/admin/login" replace />;
   }
 

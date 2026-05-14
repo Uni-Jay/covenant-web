@@ -73,7 +73,7 @@ const Header = () => {
               </Link>
             ))}
             
-            {user && (user.role === 'admin' || user.role === 'super_admin') && (
+            {user && (user.role === 'admin' || user.role === 'media') && (
             <div className="flex items-center space-x-4">
               <Link
                 to="/admin"
@@ -120,7 +120,7 @@ const Header = () => {
             ))}
             {user ? (
               <>
-                {(user.role === 'admin' || user.role === 'super_admin') && (
+                {(user.role === 'admin' || user.role === 'media') && (
                   <Link
                     to="/admin"
                     onClick={() => setIsOpen(false)}
