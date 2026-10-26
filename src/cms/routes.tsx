@@ -26,6 +26,7 @@ const ActivityPage = lazy(() => import('./pages/Admin').then((m) => ({ default: 
 const MyPortal = lazy(() => import('./Portal').then((m) => ({ default: m.MyPortal })));
 const MyRegister = lazy(() => import('./Portal').then((m) => ({ default: m.MyRegister })));
 const MyCheckin = lazy(() => import('./Portal').then((m) => ({ default: m.MyCheckin })));
+const Birthday = lazy(() => import('./Birthday'));
 const Welcome = lazy(() => import('./Portal').then((m) => ({ default: m.Welcome })));
 
 const S = ({ children }: { children: ReactNode }) => <Suspense fallback={<Loading />}>{children}</Suspense>;
@@ -58,4 +59,5 @@ export const cmsRoutes = [
   <Route key="my-register" path="/my/register" element={<S><MyRegister /></S>} />,
   <Route key="my-checkin" path="/my/checkin" element={<S><MyCheckin /></S>} />,
   <Route key="welcome" path="/welcome" element={<S><Welcome /></S>} />,
+  <Route key="birthday" path="/birthday" element={<S><Birthday /></S>} />,
 ];
