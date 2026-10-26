@@ -173,7 +173,7 @@ export function ServiceDetail() {
           <Card title="Members check themselves in">
             {s.checkin_open ? (
               <>
-                <div className="flex justify-center rounded-xl bg-white p-2"><QRCodeSVG value={url} size={200} level="M" /></div>
+                <div className="flex justify-center rounded-xl bg-white p-2"><QRCodeSVG value={url} size={200} level="L" marginSize={4} /></div>
                 <p className="mt-2 text-center text-sm text-gray-600">Scan with the phone camera, or open <b>hocfam.org/my</b> and type the code</p>
                 <p className="mt-1 text-center font-mono text-2xl font-bold tracking-[0.3em]">{s.checkin_code}</p>
                 <div className="mt-3 grid grid-cols-2 gap-2">
@@ -199,7 +199,7 @@ export function ServiceDetail() {
         <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-white p-6" onClick={() => setBig(false)}>
           <img src="/image/New_Logo.png" alt="" className="mb-3 h-16 w-16" />
           <p className="mb-6 text-center font-heading text-3xl font-extrabold text-primary-900 md:text-5xl">Check in: {serviceName(s)}</p>
-          <QRCodeSVG value={url} size={Math.min(window.innerWidth, window.innerHeight) * 0.55} level="M" />
+          <QRCodeSVG value={url} size={Math.min(window.innerWidth, window.innerHeight) * 0.55} level="L" marginSize={4} />
           <p className="mt-6 text-xl text-gray-700 md:text-2xl">Scan with your phone camera · code <b className="font-mono tracking-[0.25em]">{s.checkin_code}</b></p>
           <p className="mt-2 text-sm text-gray-400">Tap anywhere to close</p>
         </div>

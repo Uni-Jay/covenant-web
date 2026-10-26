@@ -61,7 +61,7 @@ export default function FirstTimers() {
       {open && <FirstTimerPanel id={open} onClose={() => setOpen(null)} onChanged={list.reload} />}
       <Modal open={qr} title="Welcome card for visitors" onClose={() => setQr(false)}>
         <div className="flex flex-col items-center text-center">
-          <QRCodeSVG value={formUrl} size={220} level="M" />
+          <QRCodeSVG value={formUrl} size={220} level="L" marginSize={4} />
           <p className="mt-3 text-[15px] text-gray-700">Visitors scan this with their phone camera and fill a short welcome card. It comes straight to this list.</p>
           <p className="mt-2 font-semibold">{formUrl.replace(/^https?:\/\//, '')}</p>
           <p className="mt-3 text-sm text-gray-500">Tip: put a screenshot of this on the church screen during the welcome of first timers, or print it for the ushers.</p>

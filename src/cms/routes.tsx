@@ -27,6 +27,7 @@ const MyPortal = lazy(() => import('./Portal').then((m) => ({ default: m.MyPorta
 const MyRegister = lazy(() => import('./Portal').then((m) => ({ default: m.MyRegister })));
 const MyCheckin = lazy(() => import('./Portal').then((m) => ({ default: m.MyCheckin })));
 const Birthday = lazy(() => import('./Birthday'));
+const Message = lazy(() => import('./Message'));
 const Welcome = lazy(() => import('./Portal').then((m) => ({ default: m.Welcome })));
 
 const S = ({ children }: { children: ReactNode }) => <Suspense fallback={<Loading />}>{children}</Suspense>;
@@ -60,4 +61,5 @@ export const cmsRoutes = [
   <Route key="my-checkin" path="/my/checkin" element={<S><MyCheckin /></S>} />,
   <Route key="welcome" path="/welcome" element={<S><Welcome /></S>} />,
   <Route key="birthday" path="/birthday" element={<S><Birthday /></S>} />,
+  <Route key="message" path="/message" element={<S><Message /></S>} />,
 ];

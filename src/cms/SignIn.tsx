@@ -35,6 +35,9 @@ export default function SignIn({ portal }: { portal?: boolean }) {
             <p className="text-sm text-gray-600">Household Of Covenant And Faith Apostolic Ministry</p>
           </div>
         </div>
+        {portal && String(loc.state?.back || '').startsWith('/my/checkin') && (
+          <p className="mb-4 rounded-xl bg-secondary-50 p-3 text-[15px] text-secondary-900">To check in, sign in to your member account. New here? Press <b>Create an account</b> below: it takes a minute, and next time the code checks you in straight away.</p>
+        )}
         <form onSubmit={submit} className="space-y-4">
           <Field label="Email"><input className={inp} type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} required /></Field>
           <Field label="Password"><input className={inp} type="password" autoComplete="current-password" value={pw} onChange={(e) => setPw(e.target.value)} required /></Field>
