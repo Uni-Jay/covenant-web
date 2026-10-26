@@ -68,7 +68,24 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
     x.fillStyle = g; x.beginPath(); x.ellipse(cx, cy, r, r * 1.2, 0, 0, Math.PI * 2); x.fill();
     x.beginPath(); x.moveTo(cx - 10, cy + r * 1.2); x.lineTo(cx + 10, cy + r * 1.2); x.lineTo(cx, cy + r * 1.2 - 14); x.fill(); x.restore();
   }
-  function logoBadge(x, logo, cx, cy, r) {   // big, bold church logo: white disc with a thick gold ring
+  function trimLogo(logo) {   // the logo without its empty see-through edges
+    if (logo.__trim) return logo.__trim;
+    var c = document.createElement('canvas'); c.width = logo.naturalWidth || logo.width; c.height = logo.naturalHeight || logo.height;
+    var t = c.getContext('2d'); t.drawImage(logo, 0, 0); var box = { x: 0, y: 0, w: c.width, h: c.height };
+    try {
+      var px = t.getImageData(0, 0, c.width, c.height).data, x0 = c.width, y0 = c.height, x1 = -1, y1 = -1;
+      for (var y = 0; y < c.height; y++) for (var x = 0; x < c.width; x++) if (px[(y * c.width + x) * 4 + 3] > 24) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+      if (x1 > x0 && y1 > y0) box = { x: x0, y: y0, w: x1 - x0 + 1, h: y1 - y0 + 1 };
+    } catch (e) {}
+    return (logo.__trim = box);
+  }
+  function bigLogo(x, logo, left, top, w) {   // the church logo itself, big enough to read (no circle behind it)
+    if (!logo) return; var b = trimLogo(logo), h = w * b.h / b.w;
+    if (h > w * 1.25) { h = w * 1.25; w = h * b.w / b.h; }
+    x.save(); x.shadowColor = 'rgba(0,0,0,.45)'; x.shadowBlur = 22; x.shadowOffsetY = 6;
+    x.drawImage(logo, b.x, b.y, b.w, b.h, left, top, w, h); x.restore();
+  }
+    function logoBadge(x, logo, cx, cy, r) {   // big, bold church logo: white disc with a thick gold ring
     if (!logo) return; r = Math.round(r * 1.7); var ring = Math.max(7, r * .1);
     cx = Math.min(Math.max(cx, r + ring + 14), CARD_W - r - ring - 14); cy = Math.max(cy, r + ring + 14);
     x.save(); x.beginPath(); x.arc(cx, cy, r + ring, 0, Math.PI * 2); var g = x.createLinearGradient(0, cy - r, 0, cy + r); g.addColorStop(0, '#fff1b8'); g.addColorStop(.5, '#d4a02c'); g.addColorStop(1, '#f3d27a'); x.fillStyle = g; x.shadowColor = 'rgba(0,0,0,.4)'; x.shadowBlur = 24; x.shadowOffsetY = 6; x.fill(); x.restore();
@@ -94,8 +111,8 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
     function goldRing(x, d) {   // deep colour, glowing ring photo, confetti
       var p = d.pal, g = x.createRadialGradient(540, 470, 60, 540, 600, 900); g.addColorStop(0, p[0]); g.addColorStop(1, '#09060f'); x.fillStyle = g; x.fillRect(0, 0, CARD_W, CARD_H);
       confettiDots(x, d.R, 26, [p[1], '#ffffff', p[2]], [0, 280, 280, 560]); confettiDots(x, d.R, 26, [p[1], '#ffffff', p[2]], [800, 280, 280, 560]);
-      logoBadge(x, d.logo, 120, 120, 54);
-      x.font = '400 104px ' + SCRIPT; x.fillStyle = p[1]; x.textAlign = 'center'; x.fillText(d.kind === 'anniv' ? 'Happy Anniversary' : 'Happy Birthday', 540, 250);
+      bigLogo(x, d.logo, 24, 24, 200);
+      x.textAlign = 'center'; fitText(x, d.kind === 'anniv' ? 'Happy Anniversary' : 'Happy Birthday', 560, 96, 400, SCRIPT, 60); x.fillStyle = p[1]; x.fillText(d.kind === 'anniv' ? 'Happy Anniversary' : 'Happy Birthday', 560, 262);
       photoCircle(x, d.img, 540, 560, 230, p[1], 14);
       var s = fitText(x, d.name, 960, 66, 800, SANS); x.fillStyle = '#fff'; x.fillText(d.name, 540, 885);
       x.font = '700 30px ' + SANS; x.fillStyle = p[1]; x.fillText(d.date.toUpperCase(), 540, 935);
@@ -108,7 +125,7 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
       x.save(); x.beginPath(); x.moveTo(0, 0); x.lineTo(CARD_W, 0); x.lineTo(CARD_W, 640); x.lineTo(0, 760); x.closePath(); x.clip(); coverImg(x, d.img, 0, 0, CARD_W, 760);
       var gg = x.createLinearGradient(0, 520, 0, 760); gg.addColorStop(0, 'rgba(0,0,0,0)'); gg.addColorStop(1, 'rgba(0,0,0,.45)'); x.fillStyle = gg; x.fillRect(0, 0, CARD_W, 760); x.restore();
       x.fillStyle = p[1]; x.beginPath(); x.moveTo(0, 760); x.lineTo(CARD_W, 640); x.lineTo(CARD_W, 668); x.lineTo(0, 788); x.closePath(); x.fill();
-      logoBadge(x, d.logo, 980, 100, 52);
+      bigLogo(x, d.logo, 856, 24, 200);
       x.textAlign = 'left'; x.font = '800 30px ' + SANS; x.fillStyle = p[1]; x.fillText('HAPPY', 70, 860);
       x.font = '400 92px ' + SCRIPT; x.fillStyle = '#fff'; x.fillText(d.kind === 'anniv' ? 'Anniversary' : 'Birthday', 64, 950);
       var s = fitText(x, d.name, 600, 52, 800, SANS, 32); x.textAlign = 'right'; x.fillStyle = '#fff'; x.fillText(d.name, 1010, 860);
@@ -121,7 +138,7 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
       var p = d.pal, g = x.createLinearGradient(0, 0, 0, CARD_H); g.addColorStop(0, p[2]); g.addColorStop(1, '#ffffff'); x.fillStyle = g; x.fillRect(0, 0, CARD_W, CARD_H);
       var cols = [p[0], p[1], '#ff6b6b', '#4dabf7', '#51cf66'];
       for (var i = 0; i < 7; i++) balloon(x, i < 4 ? 60 + i * 70 + d.R() * 30 : 820 + (i - 4) * 80 + d.R() * 20, 140 + d.R() * 160, 46 + d.R() * 16, cols[i % cols.length]);
-      logoBadge(x, d.logo, 540, 90, 52);
+      bigLogo(x, d.logo, 450, 4, 180);
       x.save(); roundRectPath(x, 290, 200, 500, 560, 250); x.fillStyle = p[0]; x.shadowColor = 'rgba(0,0,0,.25)'; x.shadowBlur = 30; x.fill(); x.restore();
       x.save(); roundRectPath(x, 305, 215, 470, 530, 235); x.clip(); coverImg(x, d.img, 305, 215, 470, 530); x.restore();
       x.font = '900 72px ' + SANS; x.fillStyle = p[0]; x.textAlign = 'center'; x.fillText(d.kind === 'anniv' ? 'HAPPY ANNIVERSARY' : 'HAPPY BIRTHDAY', 540, 850);
@@ -133,7 +150,7 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
     function polaroid(x, d) {   // cream paper, tilted polaroid with tape, serif headline
       var p = d.pal; x.fillStyle = '#f6efe3'; x.fillRect(0, 0, CARD_W, CARD_H);
       x.fillStyle = p[0]; x.globalAlpha = .08; for (var i = 0; i < 14; i++) { x.beginPath(); x.arc(d.R() * CARD_W, d.R() * CARD_H, 30 + d.R() * 90, 0, Math.PI * 2); x.fill(); } x.globalAlpha = 1;
-      logoBadge(x, d.logo, 110, 110, 56);
+      bigLogo(x, d.logo, 24, 24, 210);
       x.save(); x.translate(540, 470); x.rotate(-0.05 + d.R() * 0.03); x.shadowColor = 'rgba(0,0,0,.3)'; x.shadowBlur = 30; x.shadowOffsetY = 12; x.fillStyle = '#fff'; x.fillRect(-270, -300, 540, 620); x.shadowColor = 'transparent';
       coverImg(x, d.img, -240, -270, 480, 480); x.font = '400 46px ' + SCRIPT; x.fillStyle = '#333'; x.textAlign = 'center'; x.fillText(firstName(d.name) + ' ♥', 0, 290);
       x.fillStyle = hexA(p[1], .75); x.fillRect(-70, -322, 140, 44); x.restore();
@@ -146,7 +163,7 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
       var p = d.pal; x.fillStyle = '#0a0710'; x.fillRect(0, 0, CARD_W, CARD_H);
       if (d.img) { x.save(); x.filter = 'blur(38px) brightness(.45) saturate(1.3)'; coverImg(x, d.img, -80, -80, CARD_W + 160, CARD_H + 160); x.restore(); }
       for (var i = 0; i < 26; i++) { var r = 20 + d.R() * 70, bx = d.R() * CARD_W, by = d.R() * CARD_H, gg = x.createRadialGradient(bx, by, 0, bx, by, r); gg.addColorStop(0, hexA(i % 2 ? p[1] : p[2], .55)); gg.addColorStop(1, hexA(p[1], 0)); x.fillStyle = gg; x.beginPath(); x.arc(bx, by, r, 0, Math.PI * 2); x.fill(); }
-      logoBadge(x, d.logo, 120, 120, 52);
+      bigLogo(x, d.logo, 24, 24, 200);
       photoCircle(x, d.img, 540, 420, 210, '#ffffff', 10);
       x.font = '400 96px ' + SCRIPT; x.fillStyle = '#fff'; x.textAlign = 'center'; x.fillText(d.kind === 'anniv' ? 'Happy Anniversary' : 'Happy Birthday', 540, 760);
       var s = fitText(x, d.name, 960, 60, 800, SANS); x.fillStyle = p[1]; x.fillText(d.name.toUpperCase(), 540, 845);
@@ -160,11 +177,11 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
       x.fillStyle = p[0]; x.beginPath(); x.moveTo(0, 0); x.lineTo(CARD_W, 0); x.lineTo(CARD_W, 520); x.lineTo(0, 760); x.closePath(); x.fill();
       x.fillStyle = p[1]; x.beginPath(); x.moveTo(0, 760); x.lineTo(CARD_W, 520); x.lineTo(CARD_W, 560); x.lineTo(0, 800); x.closePath(); x.fill();
       x.fillStyle = hexA(p[1], .18); for (var i = 0; i < 6; i++) { x.beginPath(); x.arc(80 + d.R() * 920, 60 + d.R() * 380, 10 + d.R() * 26, 0, Math.PI * 2); x.fill(); }
-      logoBadge(x, d.logo, 90, 90, 50);
+      bigLogo(x, d.logo, 876, 16, 180);
       x.textAlign = 'left'; x.font = '900 86px ' + SANS; x.fillStyle = '#fff'; x.fillText('HAPPY', 70, 270); x.fillStyle = p[1]; x.fillText(d.kind === 'anniv' ? 'ANNIVERSARY' : 'BIRTHDAY', 70, 360);
       x.font = '700 30px ' + SANS; x.fillStyle = 'rgba(255,255,255,.9)'; x.fillText(d.date.toUpperCase(), 70, 420);
-      x.save(); x.translate(800, 470); x.rotate(0.06); roundRectPath(x, -210, -240, 420, 480, 40); x.fillStyle = p[1]; x.shadowColor = 'rgba(0,0,0,.3)'; x.shadowBlur = 30; x.fill(); x.restore();
-      x.save(); x.translate(800, 470); x.rotate(0.06); roundRectPath(x, -195, -225, 390, 450, 32); x.clip(); coverImg(x, d.img, -195, -225, 390, 450); x.restore();
+      x.save(); x.translate(800, 490); x.rotate(0.06); roundRectPath(x, -210, -240, 420, 480, 40); x.fillStyle = p[1]; x.shadowColor = 'rgba(0,0,0,.3)'; x.shadowBlur = 30; x.fill(); x.restore();
+      x.save(); x.translate(800, 490); x.rotate(0.06); roundRectPath(x, -195, -225, 390, 450, 32); x.clip(); coverImg(x, d.img, -195, -225, 390, 450); x.restore();
       var s = fitText(x, d.name, 940, 60, 900, SANS); x.textAlign = 'left'; x.fillStyle = p[0]; x.fillText(d.name, 70, 900);
       var y = drawText(x, d.wish, 70, 965, 900, 31, 400, SANS, '#2b2340', 1.42, 'left');
       if (d.yo) drawText(x, d.yo, 70, y + 10, 900, 27, 700, SANS, p[0], 1.35, 'left');
@@ -178,7 +195,7 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
       photoCircle(x, d.img, 540, 520, 220, goldFill(x, 290, 750), 14);
       x.save(); x.translate(540, 262); x.fillStyle = goldFill(x, -70, 20); x.beginPath(); x.moveTo(-110, 20); x.lineTo(-130, -60); x.lineTo(-62, -18); x.lineTo(0, -82); x.lineTo(62, -18); x.lineTo(130, -60); x.lineTo(110, 20); x.closePath(); x.fill();
       x.fillStyle = '#fff'; [-130, 0, 130].forEach(function (cx, i) { x.beginPath(); x.arc(cx, i === 1 ? -88 : -66, 11, 0, Math.PI * 2); x.fill(); }); x.restore();
-      logoBadge(x, d.logo, 120, 120, 44);
+      bigLogo(x, d.logo, 64, 64, 180);
       x.font = '400 100px ' + SCRIPT; x.fillStyle = goldFill(x, 800, 900); x.textAlign = 'center'; x.fillText(cardTitle(d), 540, 870);
       fitText(x, d.name, 900, 56, 800, SANS); x.fillStyle = '#fff'; x.fillText(d.name, 540, 950);
       x.font = '700 28px ' + SANS; x.fillStyle = '#f2cf73'; x.fillText('✦  ' + d.date.toUpperCase() + '  ✦', 540, 998);
@@ -192,7 +209,7 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
       var greens = ['#5b8c5a', '#7aa874', '#3f6e47'], flowers = ['#e98a9a', '#f4c26b', '#f6a5c0', '#ffffff'];
       for (var i = 0; i < 46; i++) { var a = Math.PI * 2 * i / 46 + d.R() * .08, r = 262 + d.R() * 18; leaf(x, 540 + Math.cos(a) * r, 500 + Math.sin(a) * r, 52 + d.R() * 26, a + Math.PI / 2 + (i % 2 ? .5 : -.5), greens[i % 3]); }
       for (var j = 0; j < 14; j++) { var b = Math.PI * 2 * j / 14 + d.R() * .2; flower(x, 540 + Math.cos(b) * 268, 500 + Math.sin(b) * 268, 26 + d.R() * 12, flowers[j % flowers.length], '#f7d26a'); }
-      logoBadge(x, d.logo, 110, 110, 52);
+      bigLogo(x, d.logo, 30, 30, 200);
       x.font = 'italic 700 78px ' + SERIF; x.fillStyle = p[0]; x.textAlign = 'center'; x.fillText(cardTitle(d), 540, 900);
       fitText(x, d.name, 920, 52, 700, SANS); x.fillStyle = '#2d2433'; x.fillText(d.name, 540, 965);
       x.font = '600 27px ' + SANS; x.fillStyle = '#8a6d3b'; x.fillText(d.date, 540, 1008);
@@ -205,7 +222,7 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
       var rg = x.createRadialGradient(540, 470, 100, 540, 470, 700); rg.addColorStop(0, 'rgba(255,255,255,.5)'); rg.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = rg; x.fillRect(0, 0, CARD_W, CARD_H);
       confettiDots(x, d.R, 40, [p[0], '#ffffff', '#ff6b6b'], [0, 0, CARD_W, 760]);
       photoCircle(x, d.img, 540, 470, 235, '#ffffff', 16);
-      logoBadge(x, d.logo, 120, 120, 50);
+      bigLogo(x, d.logo, 24, 24, 200);
       x.fillStyle = p[0]; x.fillRect(0, 790, CARD_W, CARD_H - 790);
       x.font = '900 76px ' + SANS; x.fillStyle = '#fff'; x.textAlign = 'center'; x.fillText(cardTitle(d).toUpperCase(), 540, 880);
       fitText(x, d.name, 940, 54, 800, SANS); x.fillStyle = p[1]; x.fillText(d.name, 540, 950);
@@ -220,7 +237,7 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
       x.save(); roundRectPath(x, 300, 150, 480, 600, 240); x.strokeStyle = goldFill(x, 150, 750); x.lineWidth = 12; x.stroke(); x.restore();
       clipDraw(x, function () { roundRectPath(x, 312, 162, 456, 576, 228); }, d.img, 312, 162, 456, 576);
       for (var i = 0; i < 10; i++) sparkle(x, 120 + d.R() * 840, 120 + d.R() * 640, 5 + d.R() * 10, 'rgba(246,215,122,.85)');
-      logoBadge(x, d.logo, 120, 120, 44);
+      bigLogo(x, d.logo, 60, 60, 200);
       x.font = '400 104px ' + SCRIPT; x.fillStyle = goldFill(x, 800, 880); x.textAlign = 'center'; x.fillText(cardTitle(d), 540, 860);
       fitText(x, d.name.toUpperCase(), 900, 46, 300, SANS); x.fillStyle = '#ffffff'; x.fillText(d.name.toUpperCase(), 540, 935);
       x.fillStyle = goldFill(x, 960, 964); x.fillRect(440, 962, 200, 3);
@@ -236,7 +253,7 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
           x.fillStyle = '#fff'; x.beginPath(); x.arc(cx, y0 + h / 2, 9, 0, Math.PI * 2); x.fill(); x.fillStyle = '#e4572e'; x.fillRect(cx + 36, y0 + 8, 8, h - 16); }
       }
       band(0, 120); band(CARD_H - 120, 120);
-      logoBadge(x, d.logo, 540, 120, 48);
+      bigLogo(x, d.logo, 30, 132, 190);
       photoCircle(x, d.img, 540, 470, 230, p[1], 12);
       x.save(); x.strokeStyle = p[0]; x.lineWidth = 4; x.setLineDash([14, 10]); x.beginPath(); x.arc(540, 470, 262, 0, Math.PI * 2); x.stroke(); x.restore();
       x.font = '900 70px ' + SANS; x.fillStyle = p[0]; x.textAlign = 'center'; x.fillText(cardTitle(d).toUpperCase(), 540, 820);
@@ -252,7 +269,7 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
       for (var k = 0; k < 7; k++) { x.save(); x.fillStyle = hexA(p[1], .85); star(x, 80 + d.R() * 920, 60 + d.R() * 640, 10 + d.R() * 14, 5); x.fill(); x.restore(); }
       x.save(); hexPath(x, 540, 460, 270); x.fillStyle = p[1]; x.shadowColor = hexA(p[1], .7); x.shadowBlur = 50; x.fill(); x.restore();
       clipDraw(x, function () { hexPath(x, 540, 460, 252); }, d.img, 540 - 252, 460 - 252, 504, 504);
-      logoBadge(x, d.logo, 120, 120, 48);
+      bigLogo(x, d.logo, 24, 24, 200);
       x.font = '400 96px ' + SCRIPT; x.fillStyle = '#ffffff'; x.textAlign = 'center'; x.fillText(cardTitle(d), 540, 850);
       fitText(x, d.name, 920, 56, 800, SANS); x.fillStyle = p[1]; x.fillText(d.name, 540, 925);
       x.font = '600 28px ' + SANS; x.fillStyle = 'rgba(255,255,255,.8)'; x.fillText('★  ' + d.date + '  ★', 540, 972);
@@ -266,7 +283,7 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
       x.font = '900 560px ' + SANS; x.textAlign = 'right'; x.fillStyle = hexA(p[0], .16); x.fillText(day, 1070, 780);
       x.save(); roundRectPath(x, 170, 170, 580, 580, 290); x.fillStyle = p[0]; x.shadowColor = 'rgba(0,0,0,.25)'; x.shadowBlur = 40; x.fill(); x.restore();
       photoCircle(x, d.img, 460, 460, 270, '#ffffff', 8);
-      logoBadge(x, d.logo, 950, 110, 48);
+      bigLogo(x, d.logo, 856, 24, 200);
       x.textAlign = 'left'; x.font = '800 30px ' + SANS; x.fillStyle = p[0]; x.fillText(d.date.toUpperCase(), 80, 120);
       x.textAlign = 'center'; x.font = '900 82px ' + SANS; x.fillStyle = p[0]; x.fillText(cardTitle(d), 540, 860);
       fitText(x, d.name, 920, 50, 700, SANS); x.fillStyle = '#1e1b2e'; x.fillText(d.name, 540, 925);
@@ -278,7 +295,7 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
       var g = x.createLinearGradient(0, 0, 0, CARD_H); g.addColorStop(0, 'rgba(0,0,0,.55)'); g.addColorStop(.3, 'rgba(0,0,0,0)'); g.addColorStop(.55, 'rgba(0,0,0,.1)'); g.addColorStop(1, 'rgba(0,0,0,.88)'); x.fillStyle = g; x.fillRect(0, 0, CARD_W, CARD_H);
       x.textAlign = 'center'; x.font = '900 128px ' + SERIF; x.fillStyle = '#fff'; x.fillText(d.kind === 'anniv' ? 'TOGETHER' : 'CELEBRATE', 540, 170);
       x.font = '700 26px ' + SANS; x.fillStyle = p[1]; x.fillText((d.kind === 'anniv' ? 'ANNIVERSARY EDITION' : 'BIRTHDAY EDITION') + '  ·  ' + d.date.toUpperCase(), 540, 222);
-      logoBadge(x, d.logo, 980, 300, 46);
+      bigLogo(x, d.logo, 850, 250, 200);
       x.textAlign = 'left'; x.font = '400 84px ' + SCRIPT; x.fillStyle = p[1]; x.fillText(cardTitle(d), 64, 960);
       fitText(x, d.name, 950, 64, 900, SANS); x.fillStyle = '#fff'; x.fillText(d.name, 64, 1040);
       x.fillStyle = p[1]; x.fillRect(64, 1066, 120, 6);
@@ -296,7 +313,7 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
       } else {
         photoCircle(x, d.img, 540, 480, 230, '#ffffff', 14);
       }
-      logoBadge(x, d.logo, 120, 120, 48);
+      bigLogo(x, d.logo, 24, 24, 200);
       x.font = '400 98px ' + SCRIPT; x.fillStyle = '#d6336c'; x.textAlign = 'center'; x.fillText(cardTitle(d), 540, 860);
       fitText(x, d.name, 920, 52, 800, SANS); x.fillStyle = '#3b2340'; x.fillText(d.name, 540, 930);
       x.font = '700 27px ' + SANS; x.fillStyle = '#d6336c'; x.fillText('♥  ' + d.date + '  ♥', 540, 975);
@@ -308,7 +325,7 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
       for (var i = 0; i < 9; i++) { var bx = d.R() * CARD_W, by = d.R() * 760, br = 120 + d.R() * 220, gg = x.createRadialGradient(bx, by, 0, bx, by, br); gg.addColorStop(0, hexA(i % 2 ? p[1] : p[0], .28)); gg.addColorStop(1, hexA(p[0], 0)); x.fillStyle = gg; x.beginPath(); x.arc(bx, by, br, 0, Math.PI * 2); x.fill(); }
       x.save(); x.translate(540, 450); x.rotate(-0.04); roundRectPath(x, -250, -290, 500, 580, 36); x.fillStyle = '#fff'; x.shadowColor = 'rgba(0,0,0,.22)'; x.shadowBlur = 36; x.fill(); x.restore();
       x.save(); x.translate(540, 450); x.rotate(-0.04); clipDraw(x, function () { roundRectPath(x, -232, -272, 464, 544, 26); }, d.img, -232, -272, 464, 544); x.restore();
-      logoBadge(x, d.logo, 110, 110, 50);
+      bigLogo(x, d.logo, 24, 24, 200);
       x.save(); x.fillStyle = hexA(p[0], .92); x.beginPath(); x.moveTo(110, 905); x.bezierCurveTo(300, 870, 780, 880, 975, 895); x.lineTo(965, 960); x.bezierCurveTo(760, 975, 320, 968, 118, 975); x.closePath(); x.fill(); x.restore();
       x.font = '400 92px ' + SCRIPT; x.fillStyle = p[0]; x.textAlign = 'center'; x.fillText(cardTitle(d), 540, 850);
       fitText(x, d.name, 840, 52, 900, SANS); x.fillStyle = '#ffffff'; x.fillText(d.name, 540, 950);
