@@ -29,6 +29,7 @@ import AdminPrayerRequests from './pages/Admin/PrayerRequests'
 import AdminDonations from './pages/Admin/Donations'
 import AdminLeadership from './pages/Admin/Leadership'
 import ProtectedRoute from './components/ProtectedRoute'
+import { cmsRoutes } from './cms/routes'
 
 function App() {
   return (
@@ -50,6 +51,9 @@ function App() {
         <Route path="bible-study" element={<BibleStudy />} />
         <Route path="live" element={<LiveStream />} />
       </Route>
+
+      {/* Church management system (staff), member portal and visitor card */}
+      {cmsRoutes}
 
       {/* Admin Login Route */}
       <Route path="/admin/login" element={<Login />} />
