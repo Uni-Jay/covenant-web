@@ -68,7 +68,17 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
     x.fillStyle = g; x.beginPath(); x.ellipse(cx, cy, r, r * 1.2, 0, 0, Math.PI * 2); x.fill();
     x.beginPath(); x.moveTo(cx - 10, cy + r * 1.2); x.lineTo(cx + 10, cy + r * 1.2); x.lineTo(cx, cy + r * 1.2 - 14); x.fill(); x.restore();
   }
-  function logoBadge(x, logo, cx, cy, r) { if (!logo) return; x.save(); x.beginPath(); x.arc(cx, cy, r, 0, Math.PI * 2); x.fillStyle = '#fff'; x.shadowColor = 'rgba(0,0,0,.25)'; x.shadowBlur = 16; x.fill(); x.restore(); var s = Math.min(r * 1.6 / logo.width, r * 1.6 / logo.height); x.drawImage(logo, cx - logo.width * s / 2, cy - logo.height * s / 2, logo.width * s, logo.height * s); }
+  function logoBadge(x, logo, cx, cy, r) {   // big, bold church logo: white disc with a thick gold ring
+    if (!logo) return; r = Math.round(r * 1.7); var ring = Math.max(7, r * .1);
+    cx = Math.min(Math.max(cx, r + ring + 14), CARD_W - r - ring - 14); cy = Math.max(cy, r + ring + 14);
+    x.save(); x.beginPath(); x.arc(cx, cy, r + ring, 0, Math.PI * 2); var g = x.createLinearGradient(0, cy - r, 0, cy + r); g.addColorStop(0, '#fff1b8'); g.addColorStop(.5, '#d4a02c'); g.addColorStop(1, '#f3d27a'); x.fillStyle = g; x.shadowColor = 'rgba(0,0,0,.4)'; x.shadowBlur = 24; x.shadowOffsetY = 6; x.fill(); x.restore();
+    x.save(); x.beginPath(); x.arc(cx, cy, r, 0, Math.PI * 2); x.fillStyle = '#fff'; x.fill(); x.restore();
+    var s = Math.min(r * 1.72 / logo.width, r * 1.72 / logo.height); x.drawImage(logo, cx - logo.width * s / 2, cy - logo.height * s / 2, logo.width * s, logo.height * s);
+  }
+  function familyLine(x, text, cx, y, color, align) {   // "with love from the HOCFAM family", big and bold
+    x.textAlign = align || 'center'; var maxW = align === 'left' ? CARD_W - cx - 50 : CARD_W - 120;
+    fitText(x, text, maxW, 42, 800, SANS, 26); x.fillStyle = color; x.fillText(text, cx, y);
+  }
   // card designs: each takes (x, d) where d = { img, logo, name, date, wish, verse, yo, family, church, pal, R, kind }
 
   function cardTitle(d) { return d.kind === 'anniv' ? 'Happy Anniversary' : 'Happy Birthday'; }
@@ -84,14 +94,14 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
     function goldRing(x, d) {   // deep colour, glowing ring photo, confetti
       var p = d.pal, g = x.createRadialGradient(540, 470, 60, 540, 600, 900); g.addColorStop(0, p[0]); g.addColorStop(1, '#09060f'); x.fillStyle = g; x.fillRect(0, 0, CARD_W, CARD_H);
       confettiDots(x, d.R, 26, [p[1], '#ffffff', p[2]], [0, 280, 280, 560]); confettiDots(x, d.R, 26, [p[1], '#ffffff', p[2]], [800, 280, 280, 560]);
-      logoBadge(x, d.logo, 540, 92, 54);
+      logoBadge(x, d.logo, 120, 120, 54);
       x.font = '400 104px ' + SCRIPT; x.fillStyle = p[1]; x.textAlign = 'center'; x.fillText(d.kind === 'anniv' ? 'Happy Anniversary' : 'Happy Birthday', 540, 250);
       photoCircle(x, d.img, 540, 560, 230, p[1], 14);
       var s = fitText(x, d.name, 960, 66, 800, SANS); x.fillStyle = '#fff'; x.fillText(d.name, 540, 885);
       x.font = '700 30px ' + SANS; x.fillStyle = p[1]; x.fillText(d.date.toUpperCase(), 540, 935);
       var y = drawText(x, d.wish, 540, 1000, 900, 31, 400, SANS, 'rgba(255,255,255,.92)', 1.4);
       if (d.yo) drawText(x, d.yo, 540, y + 12, 900, 27, 600, SANS, p[2], 1.35);
-      x.font = '600 26px ' + SANS; x.fillStyle = p[1]; x.fillText('With love from ' + d.family, 540, 1300);
+      familyLine(x, 'With love from ' + d.family, 540, 1300, p[1]);
     },
     function splitPanel(x, d) {   // big photo across the top, colour panel below with a slanted edge
       var p = d.pal; x.fillStyle = p[0]; x.fillRect(0, 0, CARD_W, CARD_H);
@@ -105,7 +115,7 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
       x.font = '700 28px ' + SANS; x.fillStyle = p[1]; x.fillText(d.date, 1010, 905);
       var y = drawText(x, d.wish, 70, 1020, 940, 30, 400, SANS, 'rgba(255,255,255,.92)', 1.42, 'left');
       if (d.verse) { y = drawText(x, '“' + d.verse[0] + '” — ' + d.verse[1], 70, y + 18, 940, 24, 400, SERIF, p[2], 1.4, 'left'); }
-      x.font = '600 25px ' + SANS; x.fillStyle = p[1]; x.textAlign = 'left'; x.fillText('From ' + d.family + ' 🎉', 70, 1300);
+      familyLine(x, 'From ' + d.family + ' 🎉', 70, 1300, p[1], 'left');
     },
     function balloons(x, d) {   // bright, playful, balloons and an arch photo
       var p = d.pal, g = x.createLinearGradient(0, 0, 0, CARD_H); g.addColorStop(0, p[2]); g.addColorStop(1, '#ffffff'); x.fillStyle = g; x.fillRect(0, 0, CARD_W, CARD_H);
@@ -118,7 +128,7 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
       var s = fitText(x, d.name, 960, 58, 800, SANS); x.fillStyle = '#1d1530'; x.fillText(d.name, 540, 925);
       x.font = '700 28px ' + SANS; x.fillStyle = p[0]; x.fillText('🎂  ' + d.date + '  🎂', 540, 975);
       var y = drawText(x, d.wish, 540, 1035, 900, 30, 400, SANS, '#3b3350', 1.4);
-      x.fillStyle = p[0]; x.fillRect(0, CARD_H - 70, CARD_W, 70); x.font = '700 26px ' + SANS; x.fillStyle = '#fff'; x.fillText('Love from ' + d.family, 540, CARD_H - 26);
+      x.fillStyle = p[0]; x.fillRect(0, CARD_H - 96, CARD_W, 96); familyLine(x, 'Love from ' + d.family, 540, CARD_H - 33, '#fff');
     },
     function polaroid(x, d) {   // cream paper, tilted polaroid with tape, serif headline
       var p = d.pal; x.fillStyle = '#f6efe3'; x.fillRect(0, 0, CARD_W, CARD_H);
@@ -130,20 +140,20 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
       x.font = 'italic 700 74px ' + SERIF; x.fillStyle = p[0]; x.textAlign = 'center'; x.fillText(d.kind === 'anniv' ? 'Happy Anniversary' : 'Happy Birthday', 540, 900);
       var s = fitText(x, d.name, 960, 48, 700, SANS); x.fillStyle = '#1d1530'; x.fillText(d.name + '  ·  ' + d.date, 540, 960);
       var y = drawText(x, d.wish, 540, 1025, 880, 30, 400, SERIF, '#3b3350', 1.42);
-      x.font = '700 25px ' + SANS; x.fillStyle = p[0]; x.fillText('— ' + d.family, 540, 1305);
+      familyLine(x, '— ' + d.family, 540, 1305, p[0]);
     },
     function bokehNight(x, d) {   // photo blurred behind, glowing lights, sharp circle photo
       var p = d.pal; x.fillStyle = '#0a0710'; x.fillRect(0, 0, CARD_W, CARD_H);
       if (d.img) { x.save(); x.filter = 'blur(38px) brightness(.45) saturate(1.3)'; coverImg(x, d.img, -80, -80, CARD_W + 160, CARD_H + 160); x.restore(); }
       for (var i = 0; i < 26; i++) { var r = 20 + d.R() * 70, bx = d.R() * CARD_W, by = d.R() * CARD_H, gg = x.createRadialGradient(bx, by, 0, bx, by, r); gg.addColorStop(0, hexA(i % 2 ? p[1] : p[2], .55)); gg.addColorStop(1, hexA(p[1], 0)); x.fillStyle = gg; x.beginPath(); x.arc(bx, by, r, 0, Math.PI * 2); x.fill(); }
-      logoBadge(x, d.logo, 540, 96, 52);
+      logoBadge(x, d.logo, 120, 120, 52);
       photoCircle(x, d.img, 540, 420, 210, '#ffffff', 10);
       x.font = '400 96px ' + SCRIPT; x.fillStyle = '#fff'; x.textAlign = 'center'; x.fillText(d.kind === 'anniv' ? 'Happy Anniversary' : 'Happy Birthday', 540, 760);
       var s = fitText(x, d.name, 960, 60, 800, SANS); x.fillStyle = p[1]; x.fillText(d.name.toUpperCase(), 540, 845);
       x.font = '600 28px ' + SANS; x.fillStyle = 'rgba(255,255,255,.85)'; x.fillText(d.date, 540, 893);
       var y = drawText(x, d.wish, 540, 960, 900, 31, 400, SANS, '#fff', 1.42);
       if (d.verse) { y = drawText(x, '“' + d.verse[0] + '” — ' + d.verse[1], 540, y + 16, 860, 24, 400, SERIF, p[2], 1.4); }
-      x.font = '600 25px ' + SANS; x.fillStyle = p[1]; x.fillText('Celebrating you · ' + d.family, 540, 1305);
+      familyLine(x, 'Celebrating you · ' + d.family, 540, 1305, p[1]);
     },
     function geometric(x, d) {   // bold diagonal blocks, rounded square photo
       var p = d.pal; x.fillStyle = '#ffffff'; x.fillRect(0, 0, CARD_W, CARD_H);
@@ -158,7 +168,7 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
       var s = fitText(x, d.name, 940, 60, 900, SANS); x.textAlign = 'left'; x.fillStyle = p[0]; x.fillText(d.name, 70, 900);
       var y = drawText(x, d.wish, 70, 965, 900, 31, 400, SANS, '#2b2340', 1.42, 'left');
       if (d.yo) drawText(x, d.yo, 70, y + 10, 900, 27, 700, SANS, p[0], 1.35, 'left');
-      x.fillStyle = p[0]; x.fillRect(70, 1265, 80, 6); x.font = '700 26px ' + SANS; x.fillStyle = '#2b2340'; x.fillText('With love, ' + d.family, 170, 1278);
+      x.fillStyle = p[0]; x.fillRect(70, 1268, 80, 6); familyLine(x, 'With love, ' + d.family, 170, 1282, '#2b2340', 'left');
     },
 
     function royalCrown(x, d) {   // deep royal colour, gold frame, crown over the photo
@@ -168,12 +178,12 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
       photoCircle(x, d.img, 540, 520, 220, goldFill(x, 290, 750), 14);
       x.save(); x.translate(540, 262); x.fillStyle = goldFill(x, -70, 20); x.beginPath(); x.moveTo(-110, 20); x.lineTo(-130, -60); x.lineTo(-62, -18); x.lineTo(0, -82); x.lineTo(62, -18); x.lineTo(130, -60); x.lineTo(110, 20); x.closePath(); x.fill();
       x.fillStyle = '#fff'; [-130, 0, 130].forEach(function (cx, i) { x.beginPath(); x.arc(cx, i === 1 ? -88 : -66, 11, 0, Math.PI * 2); x.fill(); }); x.restore();
-      logoBadge(x, d.logo, 540, 118, 44);
+      logoBadge(x, d.logo, 120, 120, 44);
       x.font = '400 100px ' + SCRIPT; x.fillStyle = goldFill(x, 800, 900); x.textAlign = 'center'; x.fillText(cardTitle(d), 540, 870);
       fitText(x, d.name, 900, 56, 800, SANS); x.fillStyle = '#fff'; x.fillText(d.name, 540, 950);
       x.font = '700 28px ' + SANS; x.fillStyle = '#f2cf73'; x.fillText('✦  ' + d.date.toUpperCase() + '  ✦', 540, 998);
       var y = drawText(x, d.wish, 540, 1058, 860, 29, 400, SANS, 'rgba(255,255,255,.9)', 1.42);
-      x.font = '600 25px ' + SANS; x.fillStyle = '#f2cf73'; x.fillText('With love from ' + d.family, 540, 1275);
+      familyLine(x, 'With love from ' + d.family, 540, 1275, '#f2cf73');
     },
     function floralWreath(x, d) {   // soft cream, a wreath of leaves and flowers around the photo
       var p = d.pal; x.fillStyle = '#fbf6ee'; x.fillRect(0, 0, CARD_W, CARD_H);
@@ -187,7 +197,7 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
       fitText(x, d.name, 920, 52, 700, SANS); x.fillStyle = '#2d2433'; x.fillText(d.name, 540, 965);
       x.font = '600 27px ' + SANS; x.fillStyle = '#8a6d3b'; x.fillText(d.date, 540, 1008);
       var y = drawText(x, d.wish, 540, 1068, 860, 29, 400, SERIF, '#4a3f52', 1.45);
-      x.font = '600 24px ' + SANS; x.fillStyle = p[0]; x.fillText('❀  ' + d.family + '  ❀', 540, 1290);
+      familyLine(x, '❀  ' + d.family + '  ❀', 540, 1290, p[0]);
     },
     function sunburst(x, d) {   // bright rays from behind the photo
       var p = d.pal; x.fillStyle = p[1]; x.fillRect(0, 0, CARD_W, CARD_H);
@@ -195,13 +205,13 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
       var rg = x.createRadialGradient(540, 470, 100, 540, 470, 700); rg.addColorStop(0, 'rgba(255,255,255,.5)'); rg.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = rg; x.fillRect(0, 0, CARD_W, CARD_H);
       confettiDots(x, d.R, 40, [p[0], '#ffffff', '#ff6b6b'], [0, 0, CARD_W, 760]);
       photoCircle(x, d.img, 540, 470, 235, '#ffffff', 16);
-      logoBadge(x, d.logo, 540, 92, 50);
+      logoBadge(x, d.logo, 120, 120, 50);
       x.fillStyle = p[0]; x.fillRect(0, 790, CARD_W, CARD_H - 790);
       x.font = '900 76px ' + SANS; x.fillStyle = '#fff'; x.textAlign = 'center'; x.fillText(cardTitle(d).toUpperCase(), 540, 880);
       fitText(x, d.name, 940, 54, 800, SANS); x.fillStyle = p[1]; x.fillText(d.name, 540, 950);
       x.font = '700 28px ' + SANS; x.fillStyle = 'rgba(255,255,255,.85)'; x.fillText(d.date, 540, 995);
       var y = drawText(x, d.wish, 540, 1055, 880, 29, 400, SANS, '#ffffff', 1.42);
-      x.font = '700 24px ' + SANS; x.fillStyle = p[1]; x.fillText('From ' + d.family, 540, 1300);
+      familyLine(x, 'From ' + d.family, 540, 1300, p[1]);
     },
     function blackGold(x, d) {   // elegant black and gold, arched photo
       x.fillStyle = '#0c0b0a'; x.fillRect(0, 0, CARD_W, CARD_H);
@@ -210,13 +220,13 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
       x.save(); roundRectPath(x, 300, 150, 480, 600, 240); x.strokeStyle = goldFill(x, 150, 750); x.lineWidth = 12; x.stroke(); x.restore();
       clipDraw(x, function () { roundRectPath(x, 312, 162, 456, 576, 228); }, d.img, 312, 162, 456, 576);
       for (var i = 0; i < 10; i++) sparkle(x, 120 + d.R() * 840, 120 + d.R() * 640, 5 + d.R() * 10, 'rgba(246,215,122,.85)');
-      logoBadge(x, d.logo, 540, 100, 44);
+      logoBadge(x, d.logo, 120, 120, 44);
       x.font = '400 104px ' + SCRIPT; x.fillStyle = goldFill(x, 800, 880); x.textAlign = 'center'; x.fillText(cardTitle(d), 540, 860);
       fitText(x, d.name.toUpperCase(), 900, 46, 300, SANS); x.fillStyle = '#ffffff'; x.fillText(d.name.toUpperCase(), 540, 935);
       x.fillStyle = goldFill(x, 960, 964); x.fillRect(440, 962, 200, 3);
       x.font = '600 26px ' + SANS; x.fillStyle = '#e9c46a'; x.fillText(d.date.toUpperCase(), 540, 1005);
       var y = drawText(x, d.wish, 540, 1060, 840, 28, 400, SERIF, 'rgba(255,255,255,.88)', 1.45);
-      x.font = 'italic 400 26px ' + SERIF; x.fillStyle = '#e9c46a'; x.fillText('— ' + d.family + ' —', 540, 1270);
+      familyLine(x, '— ' + d.family + ' —', 540, 1270, '#e9c46a');
     },
     function ankara(x, d) {   // African print bands at the top and bottom
       var p = d.pal; x.fillStyle = '#fffaf2'; x.fillRect(0, 0, CARD_W, CARD_H);
@@ -234,7 +244,7 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
       x.font = '700 28px ' + SANS; x.fillStyle = '#e4572e'; x.fillText(d.date, 540, 935);
       var y = drawText(x, d.wish, 540, 995, 880, 29, 400, SANS, '#3d2f22', 1.42);
       if (d.yo) drawText(x, d.yo, 540, y + 10, 880, 26, 700, SANS, p[0], 1.35);
-      x.font = '700 24px ' + SANS; x.fillStyle = p[0]; x.fillText('With love, ' + d.family, 540, CARD_H - 150);
+      familyLine(x, 'With love, ' + d.family, 540, CARD_H - 150, p[0]);
     },
     function starryHex(x, d) {   // night sky with stars, hexagon photo
       var p = d.pal, g = x.createLinearGradient(0, 0, 0, CARD_H); g.addColorStop(0, '#0b1533'); g.addColorStop(1, p[0]); x.fillStyle = g; x.fillRect(0, 0, CARD_W, CARD_H);
@@ -248,7 +258,7 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
       x.font = '600 28px ' + SANS; x.fillStyle = 'rgba(255,255,255,.8)'; x.fillText('★  ' + d.date + '  ★', 540, 972);
       var y = drawText(x, d.wish, 540, 1032, 880, 29, 400, SANS, '#ffffff', 1.42);
       if (d.verse) drawText(x, '“' + d.verse[0] + '” — ' + d.verse[1], 540, y + 14, 860, 23, 400, SERIF, p[2], 1.4);
-      x.font = '600 24px ' + SANS; x.fillStyle = p[1]; x.fillText('You shine! · ' + d.family, 540, 1305);
+      familyLine(x, 'You shine! · ' + d.family, 540, 1305, p[1]);
     },
     function bigDate(x, d) {   // huge day number behind, modern and clean
       var p = d.pal; x.fillStyle = p[2]; x.fillRect(0, 0, CARD_W, CARD_H);
@@ -261,7 +271,7 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
       x.textAlign = 'center'; x.font = '900 82px ' + SANS; x.fillStyle = p[0]; x.fillText(cardTitle(d), 540, 860);
       fitText(x, d.name, 920, 50, 700, SANS); x.fillStyle = '#1e1b2e'; x.fillText(d.name, 540, 925);
       var y = drawText(x, d.wish, 540, 990, 860, 29, 400, SANS, '#2f2b40', 1.42);
-      x.fillStyle = p[0]; x.fillRect(0, CARD_H - 80, CARD_W, 80); x.font = '700 25px ' + SANS; x.fillStyle = '#fff'; x.fillText('Celebrating you · ' + d.family, 540, CARD_H - 32);
+      x.fillStyle = p[0]; x.fillRect(0, CARD_H - 96, CARD_W, 96); familyLine(x, 'Celebrating you · ' + d.family, 540, CARD_H - 33, '#fff');
     },
     function magazine(x, d) {   // full photo like a magazine cover
       var p = d.pal; coverImg(x, d.img, 0, 0, CARD_W, CARD_H);
@@ -273,7 +283,7 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
       fitText(x, d.name, 950, 64, 900, SANS); x.fillStyle = '#fff'; x.fillText(d.name, 64, 1040);
       x.fillStyle = p[1]; x.fillRect(64, 1066, 120, 6);
       var y = drawText(x, d.wish, 64, 1120, 900, 28, 400, SANS, 'rgba(255,255,255,.92)', 1.4, 'left');
-      x.font = '700 24px ' + SANS; x.fillStyle = p[1]; x.fillText(d.family.toUpperCase(), 64, 1300);
+      familyLine(x, d.family.toUpperCase(), 64, 1300, p[1], 'left');
     },
     function heartsRibbons(x, d) {   // pastel, streamers, a heart frame for anniversaries
       var p = d.pal, g = x.createLinearGradient(0, 0, CARD_W, CARD_H); g.addColorStop(0, '#ffe3ec'); g.addColorStop(1, p[2]); x.fillStyle = g; x.fillRect(0, 0, CARD_W, CARD_H);
@@ -286,12 +296,12 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
       } else {
         photoCircle(x, d.img, 540, 480, 230, '#ffffff', 14);
       }
-      logoBadge(x, d.logo, 540, 92, 48);
+      logoBadge(x, d.logo, 120, 120, 48);
       x.font = '400 98px ' + SCRIPT; x.fillStyle = '#d6336c'; x.textAlign = 'center'; x.fillText(cardTitle(d), 540, 860);
       fitText(x, d.name, 920, 52, 800, SANS); x.fillStyle = '#3b2340'; x.fillText(d.name, 540, 930);
       x.font = '700 27px ' + SANS; x.fillStyle = '#d6336c'; x.fillText('♥  ' + d.date + '  ♥', 540, 975);
       var y = drawText(x, d.wish, 540, 1035, 880, 29, 400, SANS, '#4b3550', 1.42);
-      x.font = '700 24px ' + SANS; x.fillStyle = '#d6336c'; x.fillText('With love from ' + d.family, 540, 1300);
+      familyLine(x, 'With love from ' + d.family, 540, 1300, '#d6336c');
     },
     function brushStroke(x, d) {   // soft paint blobs and a brush stroke behind the name
       var p = d.pal; x.fillStyle = '#ffffff'; x.fillRect(0, 0, CARD_W, CARD_H);
@@ -304,7 +314,7 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
       fitText(x, d.name, 840, 52, 900, SANS); x.fillStyle = '#ffffff'; x.fillText(d.name, 540, 950);
       x.font = '700 27px ' + SANS; x.fillStyle = p[0]; x.fillText('✿  ' + d.date + '  ✿', 540, 1020);
       var y = drawText(x, d.wish, 540, 1078, 880, 29, 400, SANS, '#2e2a3a', 1.42);
-      x.font = '700 24px ' + SANS; x.fillStyle = p[0]; x.fillText('— ' + d.family, 540, 1300);
+      familyLine(x, '— ' + d.family, 540, 1300, p[0]);
     }
   ];
   var DESIGN_NAMES = ['Gold ring', 'Split photo', 'Balloons', 'Polaroid', 'Night lights', 'Bold shapes', 'Royal crown', 'Floral wreath', 'Sunburst', 'Black & gold', 'Ankara', 'Starry night', 'Big date', 'Magazine cover', 'Hearts & ribbons', 'Brush stroke'];
@@ -345,7 +355,7 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
     var verse = VERSES[(seed >>> 9) % VERSES.length], yo = opts.yoruba !== false && kind !== 'anniv' ? YO_WISHES[(seed >>> 11) % YO_WISHES.length] : '';
     return Promise.all([loadImg(person.photo ? getAssetUrl(person.photo) : ''), loadImg('/image/New_Logo.png'), loadFonts()]).then(function (im) {
       var cv = document.createElement('canvas'); cv.width = CARD_W; cv.height = CARD_H; var x = cv.getContext('2d');
-      DESIGNS[di](x, { img: im[0], logo: im[1], name: name, date: date, wish: wish, verse: verse, yo: yo, family: opts.family || 'the Hocfam family', church: 'Household Of Covenant And Faith Apostolic Ministry', pal: pal, R: R, kind: kind });
+      DESIGNS[di](x, { img: im[0], logo: im[1], name: name, date: date, wish: wish, verse: verse, yo: yo, family: opts.family || 'the HOCFAM family', church: 'Household Of Covenant And Faith Apostolic Ministry', pal: pal, R: R, kind: kind });
       return { canvas: cv, design: DESIGN_NAMES[di], name: name, first: firstName(person.name), kind: kind, date: date, wish: wish };
     });
   }
