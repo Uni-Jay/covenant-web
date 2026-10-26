@@ -57,7 +57,6 @@ const AdminMembers = () => {
 
   const getRoleColor = (role: string) => {
     const colors: { [key: string]: string } = {
-      media: 'bg-purple-100 text-purple-800',
       admin: 'bg-red-100 text-red-800',
       media_head: 'bg-blue-100 text-blue-800',
       media: 'bg-cyan-100 text-cyan-800',

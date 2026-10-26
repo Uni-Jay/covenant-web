@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { blogAPI, getAssetUrl } from '../utils/api';
 import { BlogPost } from '../types';
+import BrandImage from '../components/BrandImage';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
 import { FaUser, FaCalendar, FaArrowRight } from 'react-icons/fa';
@@ -57,8 +58,8 @@ const Blog = () => {
                   className="editorial-card group border border-primary-100/80"
                 >
                   <div className="overflow-hidden">
-                    <img
-                      src={post.imageUrl ? getAssetUrl(post.imageUrl) : 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400'}
+                    <BrandImage
+                      src={getAssetUrl(post.imageUrl)}
                       alt={post.title}
                       className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
                     />

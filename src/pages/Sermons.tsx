@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getAssetUrl, sermonsAPI } from '../utils/api';
 import { Sermon } from '../types';
+import BrandImage from '../components/BrandImage';
 import { FaPlay, FaHeadphones, FaFilePdf, FaEye, FaSearch } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import ReactPlayer from 'react-player';
@@ -127,9 +128,10 @@ const Sermons = () => {
                   onClick={() => setSelectedSermon(sermon)}
                 >
                   <div className="relative">
-                    <img
-                      src={sermon.thumbnailUrl ? getAssetUrl(sermon.thumbnailUrl) : 'https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=400'}
+                    <BrandImage
+                      src={getAssetUrl(sermon.thumbnailUrl)}
                       alt={sermon.title}
+                      label={sermon.preacher}
                       className="w-full h-48 object-cover"
                     />
                     <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">

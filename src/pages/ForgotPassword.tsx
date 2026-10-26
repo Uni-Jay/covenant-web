@@ -195,7 +195,7 @@ const ForgotPassword = () => {
             <p className="text-white/80 text-lg">No worries, we'll send you reset instructions</p>
             <div className="flex items-center justify-center gap-2 mt-2">
               <FaChurch className="text-secondary-400" />
-              <span className="text-white/60 text-sm">Word of Covenant</span>
+              <span className="text-white/60 text-sm">Hocfam</span>
             </div>
           </div>
 

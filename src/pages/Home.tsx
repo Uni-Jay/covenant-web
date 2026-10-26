@@ -1,11 +1,19 @@
 import { Link } from 'react-router-dom';
-import { FaPlay, FaCalendar, FaPray, FaHeart, FaBook, FaApple, FaAndroid } from 'react-icons/fa';
+import { FaPlay, FaCalendar, FaPray, FaHeart, FaBook, FaHeadphones } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { contentAPI } from '../utils/api';
+import { contentAPI, galleryAPI, getAssetUrl, sermonsAPI } from '../utils/api';
+import { Sermon } from '../types';
+import BrandImage from '../components/BrandImage';
+
+import { MAP_EMBED, DIRECTIONS } from '../utils/church';
 
 const Home = () => {
   const [bibleStudyTime, setBibleStudyTime] = useState('Thursday 6:00 PM - 7:00 PM');
+  const [isLive, setIsLive] = useState(false);
+  const [liveTitle, setLiveTitle] = useState('');
+  const [sermons, setSermons] = useState<Sermon[]>([]);
+  const [churchPhoto, setChurchPhoto] = useState('');
 
   useEffect(() => {
     const fetchBibleStudyTime = async () => {
@@ -21,6 +29,23 @@ const Home = () => {
     };
 
     fetchBibleStudyTime();
+
+    contentAPI.getLiveStream()
+      .then((r) => { setIsLive(!!r.data?.isLive); setLiveTitle(r.data?.currentService?.title || ''); })
+      .catch(() => {});
+    sermonsAPI.getAll()
+      .then((r) => {
+        const list: Sermon[] = Array.isArray(r.data) ? r.data : [];
+        setSermons([...list].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, 3));
+      })
+      .catch(() => {});
+    galleryAPI.getAll()
+      .then((r) => {
+        const list: any[] = Array.isArray(r.data) ? r.data : [];
+        const pick = list.find((g) => g.category === 'building') || list.find((g) => g.category === 'worship');
+        if (pick?.imageUrl) setChurchPhoto(getAssetUrl(pick.imageUrl));
+      })
+      .catch(() => {});
   }, []);
 
   return (
@@ -80,63 +105,23 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Mobile App Download Section */}
-      <section className="py-14 md:py-20 bg-gradient-to-r from-primary-700 via-primary-600 to-accent-600 text-white">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <h2 className="text-3xl md:text-4xl font-heading font-bold mb-3 md:mb-4">Get Our Mobile App</h2>
-              <p className="text-lg md:text-xl text-gray-100">
-                Stay connected with church updates, attend services, and give offerings on the go
-              </p>
-            </motion.div>
-          </div>
-          <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-            {/* Android Download */}
-            <motion.a
-              href="https://github.com/Uni-Jay/covenant-mobile/releases/latest"
-              target="_blank"
-              rel="noopener noreferrer"
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center justify-center gap-3 px-6 py-4 md:py-5 bg-white text-primary-800 font-bold rounded-2xl hover:bg-gray-100 transition shadow-lg"
-            >
-              <FaAndroid className="text-2xl md:text-3xl" />
-              <div className="text-left">
-                <p className="text-xs md:text-sm">Download APK</p>
-                <p className="text-lg md:text-xl">Android App</p>
-              </div>
-            </motion.a>
-
-            {/* iOS Download */}
-            <motion.a
-              href="https://github.com/Uni-Jay/covenant-mobile/releases/latest"
-              target="_blank"
-              rel="noopener noreferrer"
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="inline-flex items-center justify-center gap-3 px-6 py-4 md:py-5 bg-white text-primary-800 font-bold rounded-2xl hover:bg-gray-100 transition shadow-lg"
-            >
-              <FaApple className="text-2xl md:text-3xl" />
-              <div className="text-left">
-                <p className="text-xs md:text-sm">Download for</p>
-                <p className="text-lg md:text-xl">iOS App</p>
-              </div>
-            </motion.a>
-          </div>
-          <div className="text-center mt-8">
-            <p className="text-sm md:text-base text-gray-100">
-              Direct downloads available. Contact us for iOS TestFlight access.
+      {/* Live now banner: Church Studio switches this on when the service starts */}
+      {isLive && (
+        <section className="bg-red-600 text-white">
+          <div className="container-custom py-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <p className="flex items-center gap-3 font-bold text-lg">
+              <span className="relative flex h-3 w-3">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75"></span>
+                <span className="relative inline-flex h-3 w-3 rounded-full bg-white"></span>
+              </span>
+              We're live now{liveTitle ? `: ${liveTitle}` : ''}
             </p>
+            <Link to="/live" className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2 font-bold text-red-600 hover:bg-red-50">
+              <FaPlay /> Watch now
+            </Link>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Welcome Section */}
       <section className="py-16 md:py-24 bg-white/85">
@@ -166,10 +151,10 @@ const Home = () => {
               transition={{ duration: 0.6 }}
                 className="relative"
             >
-              <img
-                src="https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=800"
-                alt="Church Building"
-                  className="rounded-2xl shadow-2xl border border-primary-100"
+              <BrandImage
+                src={churchPhoto}
+                alt="Household Of Covenant And Faith Apostolic Ministry"
+                className="w-full aspect-[4/3] object-cover rounded-2xl shadow-2xl border border-primary-100"
               />
                 <div className="absolute -bottom-5 left-6 bg-white px-5 py-3 rounded-xl border border-primary-100 shadow-lg">
                   <p className="text-xs uppercase tracking-[0.18em] text-accent-700 font-bold">Lagos • Ikorodu</p>
@@ -273,24 +258,39 @@ const Home = () => {
               Visit our full sermon library for all messages and media
             </p>
           </div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45 }}
-            className="editorial-card p-6 md:p-10 text-center max-w-3xl mx-auto"
-          >
-            <p className="text-gray-700 mb-5 md:mb-6">
-              Watch recent sermons, listen to audio messages, and download teaching materials from our sermons page.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link to="/sermons" className="btn-primary w-full sm:w-auto text-center">
-                Open Sermons Page
-              </Link>
-              <Link to="/live" className="btn-secondary w-full sm:w-auto text-center">
+          {sermons.length > 0 ? (
+            <div className="grid md:grid-cols-3 gap-6">
+              {sermons.map((sermon) => (
+                <Link key={sermon.id} to="/sermons" className="editorial-card overflow-hidden group block p-0">
+                  <BrandImage
+                    src={getAssetUrl(sermon.thumbnailUrl)}
+                    alt={sermon.title}
+                    label={sermon.preacher}
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="p-5">
+                    <p className="text-xs uppercase tracking-[0.18em] text-accent-700 font-bold mb-2">
+                      {new Date(sermon.date).toLocaleDateString('en-NG', { day: 'numeric', month: 'long', year: 'numeric' })}
+                    </p>
+                    <h3 className="text-lg font-bold leading-snug group-hover:text-primary-600 transition-colors">{sermon.title}</h3>
+                    {sermon.preacher && <p className="text-gray-600 text-sm mt-1">{sermon.preacher}</p>}
+                    <p className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-primary-600">
+                      {sermon.audioUrl ? <><FaHeadphones /> Listen</> : <><FaPlay /> Watch</>}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="editorial-card p-6 md:p-10 text-center max-w-3xl mx-auto">
+              <p className="text-gray-700 mb-5 md:mb-6">
+                Messages from our services will appear here. Meanwhile, join us live on Sunday.
+              </p>
+              <Link to="/live" className="btn-secondary inline-block">
                 Watch Live Service
               </Link>
             </div>
-          </motion.div>
+          )}
           <div className="text-center mt-12">
             <Link to="/sermons" className="btn-primary">
               View All Sermons
@@ -324,13 +324,14 @@ const Home = () => {
                   <span>info@hocfam.org</span>
                 </p>
               </div>
-              <Link to="/contact" className="btn-primary mt-6 inline-block">
+              <a href={DIRECTIONS} target="_blank" rel="noopener noreferrer" className="btn-primary mt-6 inline-block">
                 Get Directions
-              </Link>
+              </a>
             </div>
             <div className="h-72 md:h-96 bg-gray-200 rounded-2xl overflow-hidden">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.952912260219!2d3.375295315134229!3d6.515398895328511!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b8b2ae68280c1%3A0xdc9e87a367c3d65b!2sLagos%2C%20Nigeria!5e0!3m2!1sen!2sus!4v1234567890123"
+                src={MAP_EMBED}
+                title="Map to the church"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

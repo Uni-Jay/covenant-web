@@ -42,6 +42,7 @@ export interface Event {
   title: string;
   description: string;
   date: string;
+  endDate?: string | null;
   time: string;
   location: string;
   imageUrl: string;

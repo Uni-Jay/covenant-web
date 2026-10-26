@@ -1,7 +1,27 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaQuoteLeft } from 'react-icons/fa';
+import { contentAPI, getAssetUrl } from '../utils/api';
+import BrandImage from '../components/BrandImage';
+
+export type AboutInfo = {
+  pastorName: string;
+  pastorRole: string;
+  pastorPhoto: string;
+  pastorMessage: string;
+  leaders: { name: string; role: string; photo?: string }[];
+};
 
 const About = () => {
+  const [about, setAbout] = useState<AboutInfo | null>(null);
+
+  useEffect(() => {
+    contentAPI.getAbout().then((r) => setAbout(r.data)).catch(() => {});
+  }, []);
+
+  const customMessage = about?.pastorMessage?.trim();
+  const leaders = about?.leaders || [];
+
   return (
     <div className="page-shell">
       {/* Hero Section */}
@@ -118,60 +138,68 @@ const About = () => {
             <div className="card p-8 md:p-12 border border-primary-100/80">
               <FaQuoteLeft className="text-5xl text-primary-600 mb-6" />
               <h2 className="text-3xl font-bold mb-6">Pastor's Message</h2>
+              {customMessage ? (
+                customMessage.split(/\n\s*\n/).map((para, i) => (
+                  <p key={i} className="text-gray-700 text-lg leading-relaxed mb-6 whitespace-pre-line">{para}</p>
+                ))
+              ) : (
+                <>
               <p className="text-gray-700 text-lg leading-relaxed mb-6">
                 Welcome to Household Of Covenant And Faith Apostolic Ministry! It is my joy and privilege to shepherd this wonderful congregation. Our church is more than just a building - it's a family where you belong, a place where you can grow in your faith, and a community where you can make a difference.
               </p>
               <p className="text-gray-700 text-lg leading-relaxed mb-6">
                 As we walk together in faith, I invite you to experience God's transforming love and discover the purpose He has for your life. Whether you're seeking answers, looking for hope, or wanting to deepen your relationship with Christ, you'll find a home here.
               </p>
-              <div className="flex items-center space-x-4 mt-8">
-                <img
-                  src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&h=100&fit=crop"
-                  alt="Pastor"
-                  className="w-20 h-20 rounded-full object-cover"
-                />
-                <div>
-                  <p className="font-bold text-lg">Pastor John Doe</p>
-                  <p className="text-gray-600">Senior Pastor</p>
+                </>
+              )}
+              {about?.pastorName && (
+                <div className="flex items-center space-x-4 mt-8">
+                  <BrandImage
+                    src={getAssetUrl(about.pastorPhoto)}
+                    alt={about.pastorName}
+                    className="w-20 h-20 rounded-full object-cover shrink-0"
+                  />
+                  <div>
+                    <p className="font-bold text-lg">{about.pastorName}</p>
+                    {about.pastorRole && <p className="text-gray-600">{about.pastorRole}</p>}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Leadership Team */}
-      <section className="section-padding bg-white/70">
-        <div className="container-custom">
-          <h2 className="section-title text-center mb-12">Our Leadership</h2>
-          <div className="grid md:grid-cols-4 gap-8">
-            {[
-              { name: 'Pastor John Doe', role: 'Senior Pastor' },
-              { name: 'Pastor Jane Smith', role: 'Associate Pastor' },
-              { name: 'Elder Michael Brown', role: 'Church Elder' },
-              { name: 'Sis. Sarah Johnson', role: 'Women\'s Ministry Leader' },
-            ].map((leader, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="card text-center border border-primary-100/80"
-              >
-                <img
-                  src={`https://images.unsplash.com/photo-1${500000000 + index}?w=300&h=300&fit=crop`}
-                  alt={leader.name}
-                  className="w-full h-64 object-cover"
-                />
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2">{leader.name}</h3>
-                  <p className="text-gray-600">{leader.role}</p>
-                </div>
-              </motion.div>
-            ))}
+      {/* Leadership Team: filled in from Admin → Leadership */}
+      {leaders.length > 0 && (
+        <section className="section-padding bg-white/70">
+          <div className="container-custom">
+            <h2 className="section-title text-center mb-12">Our Leadership</h2>
+            <div className="flex flex-wrap justify-center gap-8">
+              {leaders.map((leader, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="card text-center border border-primary-100/80 overflow-hidden w-full sm:w-64"
+                >
+                  <BrandImage
+                    src={getAssetUrl(leader.photo)}
+                    alt={leader.name}
+                    className="w-full aspect-square object-cover object-top"
+                  />
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-2">{leader.name}</h3>
+                    {leader.role && <p className="text-gray-600">{leader.role}</p>}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </div>
   );
 };

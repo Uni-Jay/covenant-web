@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { eventsAPI, getAssetUrl } from '../utils/api';
 import { Event } from '../types';
+import BrandImage from '../components/BrandImage';
 import { FaCalendar, FaClock, FaMapMarkerAlt } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
@@ -34,17 +35,32 @@ const Events = () => {
     }
   };
 
-  const filteredEvents = events.filter((event) => {
-    const eventDate = new Date(event.date);
-    const now = new Date();
-    
-    if (filter === 'upcoming') {
-      return eventDate >= now;
-    } else if (filter === 'past') {
-      return eventDate < now;
-    }
-    return true;
-  });
+  // An event counts as upcoming until the end of its last day (multi-day programmes use endDate)
+  const lastDay = (event: Event) => {
+    const d = new Date(event.endDate || event.date);
+    d.setHours(23, 59, 59, 999);
+    return d;
+  };
+  const filteredEvents = events
+    .filter((event) => {
+      const now = new Date();
+      if (filter === 'upcoming') return lastDay(event) >= now;
+      if (filter === 'past') return lastDay(event) < now;
+      return true;
+    })
+    .sort((a, b) => {
+      const diff = new Date(a.date).getTime() - new Date(b.date).getTime();
+      return filter === 'upcoming' ? diff : -diff;
+    });
+
+  const dateLabel = (event: Event) => {
+    const start = parseISO(event.date);
+    if (!event.endDate) return format(start, 'EEEE, MMMM d, yyyy');
+    const end = parseISO(event.endDate);
+    if (format(start, 'yyyy-MM-dd') === format(end, 'yyyy-MM-dd')) return format(start, 'EEEE, MMMM d, yyyy');
+    if (format(start, 'yyyy-MM') === format(end, 'yyyy-MM')) return `${format(start, 'MMMM d')} – ${format(end, 'd, yyyy')}`;
+    return `${format(start, 'MMM d')} – ${format(end, 'MMM d, yyyy')}`;
+  };
 
   const handleRegisterClick = (event: Event) => {
     setSelectedEvent(event);
@@ -109,12 +125,13 @@ const Events = () => {
             </div>
           ) : filteredEvents.length === 0 ? (
             <div className="text-center py-14 md:py-20">
-              <p className="text-gray-600 text-xl">No events found</p>
+              <p className="text-gray-600 text-xl">
+                {filter === 'upcoming' ? 'No upcoming programmes yet. Please check back soon.' : 'No events found'}
+              </p>
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredEvents.map((event, index) => {
-                const imageUrl = event.imageUrl ? getAssetUrl(event.imageUrl) : 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=400';
                 return (
                 <motion.div
                   key={event.id}
@@ -123,10 +140,11 @@ const Events = () => {
                   transition={{ delay: index * 0.1 }}
                   className="editorial-card overflow-hidden border border-primary-100/80"
                 >
-                  <img
-                    src={imageUrl}
+                  <BrandImage
+                    src={getAssetUrl(event.imageUrl)}
                     alt={event.title}
-                    className="w-full h-48 object-cover"
+                    label={event.title}
+                    className={`w-full ${event.imageUrl ? 'aspect-[4/5] object-contain bg-gray-100' : 'h-48 object-cover'}`}
                   />
                   <div className="p-6">
                     <span className="text-xs bg-primary-100 text-primary-600 px-3 py-1 rounded-full">
@@ -139,16 +157,20 @@ const Events = () => {
                     <div className="space-y-2 text-sm text-gray-600">
                       <div className="flex items-center space-x-2">
                         <FaCalendar className="text-primary-600" />
-                        <span>{format(parseISO(event.date), 'MMMM dd, yyyy')}</span>
+                        <span>{dateLabel(event)}</span>
                       </div>
-                      <div className="flex items-center space-x-2">
-                        <FaClock className="text-primary-600" />
-                        <span>{event.time}</span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <FaMapMarkerAlt className="text-primary-600" />
-                        <span>{event.location}</span>
-                      </div>
+                      {event.time && (
+                        <div className="flex items-center space-x-2">
+                          <FaClock className="text-primary-600" />
+                          <span>{event.time}</span>
+                        </div>
+                      )}
+                      {event.location && (
+                        <div className="flex items-center space-x-2">
+                          <FaMapMarkerAlt className="text-primary-600" />
+                          <span>{event.location}</span>
+                        </div>
+                      )}
                     </div>
                     <button 
                       onClick={() => handleRegisterClick(event)}

@@ -1,3 +1,4 @@
+import { isStaff } from '../../utils/church';
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FaBars, FaTimes, FaSignOutAlt } from 'react-icons/fa';
@@ -73,7 +74,7 @@ const Header = () => {
               </Link>
             ))}
             
-            {user && (user.role === 'admin' || user.role === 'media') && (
+            {user && isStaff(user.role) && (
             <div className="flex items-center space-x-4">
               <Link
                 to="/admin"
@@ -120,7 +121,7 @@ const Header = () => {
             ))}
             {user ? (
               <>
-                {(user.role === 'admin' || user.role === 'media') && (
+                {isStaff(user.role) && (
                   <Link
                     to="/admin"
                     onClick={() => setIsOpen(false)}

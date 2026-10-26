@@ -12,6 +12,7 @@ import {
   FaBars,
   FaTimes,
   FaSignOutAlt,
+  FaUserTie,
 } from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext';
 
@@ -30,6 +31,7 @@ const AdminLayout = () => {
     { path: '/admin/members', icon: FaUsers, label: 'Members' },
     { path: '/admin/prayer-requests', icon: FaPray, label: 'Prayer Requests' },
     { path: '/admin/donations', icon: FaHeart, label: 'Donations' },
+    { path: '/admin/leadership', icon: FaUserTie, label: 'Leadership' },
   ];
 
   const isActive = (path: string, exact = false) => {
@@ -53,15 +55,15 @@ const AdminLayout = () => {
             <div className="flex items-center space-x-2">
               <img 
                 src="/image/New_Logo.png" 
-                alt="Word of Covenant Logo" 
+                alt="Hocfam logo" 
                 className="w-10 h-10 object-contain"
               />
-              <span className="font-bold text-lg">WCC Admin</span>
+              <span className="font-bold text-lg">Hocfam Admin</span>
             </div>
           ) : (
             <img 
               src="/image/New_Logo.png" 
-              alt="Word of Covenant Logo" 
+              alt="Hocfam logo" 
               className="w-10 h-10 object-contain mx-auto"
             />
           )}

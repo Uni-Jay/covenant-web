@@ -1,5 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { isStaff } from '../utils/church';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { user, isLoading } = useAuth();
@@ -12,7 +13,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     );
   }
 
-  if (!user || (user.role !== 'admin' && user.role !== 'media')) {
+  if (!user || !isStaff(user.role)) {
     return <Navigate to="/admin/login" replace />;
   }
 

@@ -1,3 +1,4 @@
+import { MAP_EMBED } from '../utils/church';
 import { useState } from 'react';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaFacebook, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa';
 import { motion } from 'framer-motion';
@@ -172,7 +173,8 @@ const Contact = () => {
             >
               <div className="card overflow-hidden h-80 border border-primary-100/80">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.952912260219!2d3.375295315134229!3d6.515398895328511!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b8b2ae68280c1%3A0xdc9e87a367c3d65b!2sLagos%2C%20Nigeria!5e0!3m2!1sen!2sus!4v1234567890123"
+                  src={MAP_EMBED}
+                  title="Map to the church"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}

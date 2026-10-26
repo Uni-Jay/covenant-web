@@ -27,6 +27,7 @@ import AdminBlog from './pages/Admin/Blog'
 import AdminMembers from './pages/Admin/Members'
 import AdminPrayerRequests from './pages/Admin/PrayerRequests'
 import AdminDonations from './pages/Admin/Donations'
+import AdminLeadership from './pages/Admin/Leadership'
 import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
@@ -74,6 +75,7 @@ function App() {
         <Route path="members" element={<AdminMembers />} />
         <Route path="prayer-requests" element={<AdminPrayerRequests />} />
         <Route path="donations" element={<AdminDonations />} />
+        <Route path="leadership" element={<AdminLeadership />} />
       </Route>
       </Routes>
     </>

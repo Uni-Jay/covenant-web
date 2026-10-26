@@ -136,6 +136,10 @@ export const contentAPI = {
   joinBibleStudyWeek: (data: any) => api.post('/content/bible-study/join-week', data),
   enrollBibleStudy: (data: any) => api.post('/content/bible-study/enroll', data),
   getLiveStream: () => api.get('/content/livestream'),
+  getAbout: () => api.get('/content/about'),
+  saveAbout: (data: FormData) => api.put('/content/about', data, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  }),
   getAdminBibleStudy: () => api.get('/content/admin/bible-study'),
   updateWeeklyBibleStudy: (data: any) => api.put('/content/admin/bible-study/weekly', data),
   createBibleStudySeries: (data: any) => api.post('/content/admin/bible-study/series', data),

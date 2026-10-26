@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getAssetUrl, ministriesAPI } from '../utils/api';
 import { Ministry } from '../types';
+import BrandImage from '../components/BrandImage';
 import { FaUsers, FaClock, FaUser, FaTimes } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
@@ -89,9 +90,10 @@ const Ministries = () => {
                   className="editorial-card group border border-primary-100/80"
                 >
                   <div className="overflow-hidden">
-                    <img
-                      src={ministry.imageUrl ? getAssetUrl(ministry.imageUrl) : 'https://images.unsplash.com/photo-1529070538774-1843cb3265df?w=400'}
+                    <BrandImage
+                      src={getAssetUrl(ministry.imageUrl)}
                       alt={ministry.name}
+                      label={ministry.name}
                       className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
                     />
                   </div>
