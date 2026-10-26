@@ -76,6 +76,7 @@ export function MyPortal() {
   useEffect(() => { if (!signedIn()) nav('/my/login', { replace: true }); }, []);
   const who = useLoad<Who>(() => cms.get('/whoami'), []);
   const me = useLoad<Me>(() => cms.get('/me'), []);
+  const [pw, setPw] = useState(new URLSearchParams(location.search).has('password'));
   const signOut = () => { localStorage.removeItem('token'); nav('/my/login'); };
   useEffect(() => { if ((who.error || me.error) && /sign in|token|401/i.test(who.error + me.error)) signOut(); }, [who.error, me.error]);
   if (!signedIn()) return null;
@@ -88,7 +89,32 @@ export function MyPortal() {
         <Link to="/cms" className="mb-4 flex items-center gap-3 rounded-2xl bg-primary-50 p-4 text-primary-900 hover:bg-primary-100"><FaChurch className="text-xl" /><span className="flex-1"><b>Open the church office</b><span className="block text-sm">Members, attendance{w.can.money ? ', giving' : ''} and more</span></span>→</Link>
       )}
       {!d.member ? <LinkMe name={w.user.name} onDone={me.reload} /> : <Mine d={d} reload={me.reload} />}
+      <div className="mt-6 text-center"><button className="text-sm font-semibold text-primary-700 hover:underline" onClick={() => setPw(true)}>Change my password</button></div>
+      {pw && <ChangePassword onClose={() => setPw(false)} />}
     </Shell>
+  );
+}
+
+function ChangePassword({ onClose }: { onClose: () => void }) {
+  const [cur, setCur] = useState('');
+  const [next, setNext] = useState('');
+  const [again, setAgain] = useState('');
+  const [busy, setBusy] = useState(false);
+  const save = async () => {
+    if (next.length < 8) { toast.error('The new password needs at least 8 characters.'); return; }
+    if (next !== again) { toast.error('The two new passwords are not the same.'); return; }
+    setBusy(true);
+    try { await cms.post('/me/password', { current: cur, next }); toast.success('Password changed. Use the new one next time you sign in.'); onClose(); }
+    catch (e) { toast.error(errText(e)); } finally { setBusy(false); }
+  };
+  return (
+    <Modal open title="Change my password" onClose={onClose} footer={<><Btn kind="ghost" onClick={onClose}>Cancel</Btn><Btn onClick={save} disabled={busy}>Change password</Btn></>}>
+      <div className="space-y-3">
+        <Field label="Current password"><input className={inp} type="password" autoComplete="current-password" value={cur} onChange={(e) => setCur(e.target.value)} /></Field>
+        <Field label="New password" hint="At least 8 characters. Something only you know."><input className={inp} type="password" autoComplete="new-password" value={next} onChange={(e) => setNext(e.target.value)} /></Field>
+        <Field label="New password again"><input className={inp} type="password" autoComplete="new-password" value={again} onChange={(e) => setAgain(e.target.value)} /></Field>
+      </div>
+    </Modal>
   );
 }
 

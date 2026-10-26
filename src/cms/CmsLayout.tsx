@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import {
   FaBars, FaBirthdayCake, FaChartBar, FaChurch, FaClipboardCheck, FaCog, FaEnvelope, FaHandHoldingHeart, FaHandshake, FaHistory,
-  FaHome, FaReceipt, FaSignOutAlt, FaTimes, FaUserFriends, FaUserPlus, FaUsers, FaLayerGroup,
+  FaHome, FaKey, FaReceipt, FaSignOutAlt, FaTimes, FaUserFriends, FaUserPlus, FaUsers, FaLayerGroup,
 } from 'react-icons/fa';
 import { cms, errText, Who } from './lib';
 import { Btn, Loading } from './ui';
@@ -95,6 +95,7 @@ export default function CmsLayout() {
         <p className="mb-3 truncate text-xs text-primary-200">{who.user.role.replace(/_/g, ' ')}</p>
         <div className="flex gap-2">
           <Link to="/my" className="flex-1 rounded-lg bg-white/10 px-3 py-2 text-center text-sm text-white hover:bg-white/20">My portal</Link>
+          <Link to="/my?password=1" className="rounded-lg bg-white/10 px-3 py-2 text-sm text-white hover:bg-white/20" title="Change my password"><FaKey /></Link>
           <button onClick={signOut} className="rounded-lg bg-white/10 px-3 py-2 text-sm text-white hover:bg-white/20" title="Sign out"><FaSignOutAlt /></button>
         </div>
       </div>
