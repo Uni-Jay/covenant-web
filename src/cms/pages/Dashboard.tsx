@@ -3,6 +3,7 @@ import { FaBirthdayCake, FaRing, FaUserPlus, FaClipboardCheck, FaHandHoldingHear
 import { cms, Member, naira, nameOf, niceDate, serviceName, Service, waLink } from '../lib';
 import { Avatar, Bars, Btn, Card, ErrorBox, Loading, PageHead, Stat, useLoad } from '../ui';
 import { useWho } from '../CmsLayout';
+import { useCard } from '../CardModal';
 
 type Dash = {
   counts: { total: number; members: number; workers: number; visitors: number; male: number; female: number; new30: number };
@@ -17,6 +18,7 @@ export default function Dashboard() {
   const who = useWho();
   const d = useLoad<Dash>(() => cms.get('/dashboard'), []);
   const cel = useLoad<{ items: Cel[] }>(() => cms.get('/celebrations', { days: 7 }), []);
+  const { openCard, cardNode } = useCard();
   if (!who.can.people) return <Navigate to="/cms/giving" replace />;
   if (d.loading && !d.data) return <Loading />;
   if (d.error) return <ErrorBox text={d.error} retry={d.reload} />;
@@ -74,7 +76,8 @@ export default function Dashboard() {
                         {c.inDays === 0 ? 'Today' : c.inDays === 1 ? 'Tomorrow' : c.inDays < 0 ? `${-c.inDays} days ago` : `In ${c.inDays} days`}{c.age ? ` · ${c.age} years` : ''}
                       </p>
                     </div>
-                    {wa && c.inDays <= 0 && <a href={wa} target="_blank" rel="noreferrer" className="rounded-lg bg-emerald-50 px-2.5 py-1.5 text-sm font-semibold text-emerald-700 hover:bg-emerald-100">WhatsApp</a>}
+                    {c.inDays <= 0 && <button onClick={() => openCard(c.member, c.kind === 'birthday' ? 'bday' : 'anniv')} className="rounded-lg bg-secondary-50 px-2.5 py-1.5 text-sm font-semibold text-secondary-700 hover:bg-secondary-100">Card</button>}
+                    {wa && c.inDays <= 0 && <a href={wa} target="_blank" rel="noreferrer" className="hidden rounded-lg bg-emerald-50 px-2.5 py-1.5 text-sm font-semibold text-emerald-700 hover:bg-emerald-100 sm:inline">WhatsApp</a>}
                   </li>
                 );
               })}
@@ -88,6 +91,7 @@ export default function Dashboard() {
         <Link to="/cms/services?absent=1" className="flex items-center gap-3 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm hover:shadow-md"><FaClipboardCheck className="text-2xl text-primary-600" /><span><b className="block">Who has been away?</b><span className="text-sm text-gray-600">Members not seen for 4 weeks</span></span></Link>
         <Link to="/cms/messages" className="flex items-center gap-3 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm hover:shadow-md"><FaEnvelope className="text-2xl text-accent-600" /><span><b className="block">Send a message</b><span className="text-sm text-gray-600">Email or WhatsApp a group</span></span></Link>
       </div>
+      {cardNode}
       {x.money && (
         <p className="mt-4 text-sm text-gray-600">Expenses this month: <b>{naira(x.money.expensesThisMonth)}</b>. <Link to="/cms/reports" className="font-semibold text-primary-700">Open the finance report</Link></p>
       )}

@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { FaArrowLeft, FaEdit, FaPhone, FaPrint, FaTrash, FaWhatsapp, FaEnvelope } from 'react-icons/fa';
+import { FaArrowLeft, FaEdit, FaPhone, FaPrint, FaTrash, FaWhatsapp, FaEnvelope, FaBirthdayCake, FaRing } from 'react-icons/fa';
 import { bday, cms, errText, forgetMembers, givingName, label, Member, MONTHS, naira, nameOf, niceDate, serviceName, waLink } from '../lib';
 import { Avatar, Badge, Btn, Card, Confirm, ErrorBox, Field, inp, Loading, Modal, useLoad } from '../ui';
 import { useWho } from '../CmsLayout';
 import MemberForm from './MemberForm';
+import { useCard } from '../CardModal';
 
 type Profile = {
   member: Member;
@@ -26,6 +27,7 @@ export default function MemberProfile() {
   const [del, setDel] = useState(false);
   const [acct, setAcct] = useState(false);
   const [email, setEmail] = useState('');
+  const { openCard, cardNode } = useCard();
 
   if (p.loading && !p.data) return <Loading />;
   if (p.error) return <ErrorBox text={p.error} retry={p.reload} />;
@@ -58,6 +60,8 @@ export default function MemberProfile() {
           {m.phone && <a href={`tel:${m.phone}`}><Btn kind="ghost" small><FaPhone /> Call</Btn></a>}
           {wa && <a href={wa} target="_blank" rel="noreferrer"><Btn kind="ghost" small><FaWhatsapp /> WhatsApp</Btn></a>}
           {m.email && <a href={`mailto:${m.email}`}><Btn kind="ghost" small><FaEnvelope /> Email</Btn></a>}
+          {m.birth_day && m.birth_month && <Btn kind="gold" small onClick={() => openCard(m, 'bday')}><FaBirthdayCake /> Birthday card</Btn>}
+          {m.ann_day && m.ann_month && <Btn kind="ghost" small onClick={() => openCard(m, 'anniv')}><FaRing /> Anniversary card</Btn>}
           <Btn small onClick={() => setEdit(true)}><FaEdit /> Edit</Btn>
         </div>
       </div>
@@ -109,6 +113,7 @@ export default function MemberProfile() {
         </div>
       </div>
 
+      {cardNode}
       <MemberForm open={edit} member={m} onClose={() => setEdit(false)} onSaved={() => { setEdit(false); p.reload(); }} />
       <Confirm open={del} title="Remove this person?" text={`${nameOf(m)} will be taken out of the register, groups and attendance. Their giving records stay (under their name). To keep their history, set the status to Inactive instead.`} ok="Remove" onOk={remove} onClose={() => setDel(false)} />
       <Modal open={acct} title="Link a website account" onClose={() => setAcct(false)} footer={<><Btn kind="ghost" onClick={() => setAcct(false)}>Cancel</Btn><Btn onClick={linkAccount}>{email ? 'Link' : 'Unlink'}</Btn></>}>

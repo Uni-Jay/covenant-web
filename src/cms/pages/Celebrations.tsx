@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaBirthdayCake, FaRing, FaWhatsapp } from 'react-icons/fa';
+import { FaBirthdayCake, FaRing, FaWhatsapp, FaImage } from 'react-icons/fa';
+import { useCard } from '../CardModal';
 import { cms, Member, MONTHS, nameOf, waLink } from '../lib';
 import { Avatar, Empty, ErrorBox, Loading, PageHead, Tabs, useLoad } from '../ui';
 
@@ -12,12 +13,13 @@ const greet = (c: Cel) => c.kind === 'birthday'
 export default function Celebrations() {
   const [days, setDays] = useState<'7' | '14' | '31'>('7');
   const d = useLoad<{ items: Cel[] }>(() => cms.get('/celebrations', { days, back: 3 }), [days]);
+  const { openCard, cardNode } = useCard();
   const when = (k: number) => k === 0 ? 'Today' : k === 1 ? 'Tomorrow' : k === -1 ? 'Yesterday' : k < 0 ? `${-k} days ago` : (() => { const t = new Date(Date.now() + k * 864e5); return t.toLocaleDateString('en-NG', { weekday: 'long', day: 'numeric', month: 'long' }); })();
   const groups: Record<string, Cel[]> = {};
   (d.data?.items || []).forEach((c) => { (groups[when(c.inDays)] = groups[when(c.inDays)] || []).push(c); });
   return (
     <>
-      <PageHead title="Birthdays & anniversaries" sub="Send a greeting with one tap. The message opens in WhatsApp, ready to send." />
+      <PageHead title="Birthdays & anniversaries" sub="Make a beautiful card with their photo and send it on WhatsApp, or send just the message." />
       <Tabs value={days} onChange={setDays} items={[['7', 'This week'], ['14', 'Next 2 weeks'], ['31', 'Next month']]} />
       {d.loading && !d.data ? <Loading /> : d.error ? <ErrorBox text={d.error} retry={d.reload} /> : !d.data!.items.length ? (
         <Empty title="No celebrations in this period" text={`Birthdays come from the register (and from Church Studio’s birthday register). ${MONTHS[new Date().getMonth()]} might just be quiet!`} />
@@ -34,14 +36,15 @@ export default function Celebrations() {
                     <p className="truncate font-semibold">{nameOf(c.member)}</p>
                     <p className="flex items-center gap-1.5 text-sm text-gray-600">{c.kind === 'birthday' ? <><FaBirthdayCake className="text-secondary-500" /> Birthday{c.age ? ` · turns ${c.age}` : ''}</> : <><FaRing className="text-accent-500" /> Wedding anniversary</>}</p>
                   </Link>
-                  {wa ? <a href={wa} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-600 px-3 py-2 text-sm font-semibold text-white hover:bg-emerald-700"><FaWhatsapp /> Greet</a>
-                    : <span className="text-xs text-gray-400">No phone</span>}
+                  <button onClick={() => openCard(c.member, c.kind === 'birthday' ? 'bday' : 'anniv')} className="inline-flex items-center gap-1.5 rounded-lg bg-secondary-500 px-3 py-2 text-sm font-semibold text-white hover:bg-secondary-600"><FaImage /> Card</button>
+                  {wa && <a href={wa} target="_blank" rel="noreferrer" title="Send the message only" className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-200 px-3 py-2 text-sm font-semibold text-emerald-700 hover:bg-emerald-50"><FaWhatsapp /><span className="hidden sm:inline">Message</span></a>}
                 </div>
               );
             })}
           </div>
         </div>
       ))}
+      {cardNode}
     </>
   );
 }
